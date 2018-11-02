@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reflection</RootNamespace>
-    <AssemblyName>Reflection</AssemblyName>
+    <ProjectGuid>{2D46246B-05D8-4A85-A059-B7C8193E2812}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleApp1</RootNamespace>
+    <AssemblyName>ConsoleApp1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,26 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="ModelTree\ModelNodeAssembly.cs" />
-    <Compile Include="ModelTree\ModelNodeNamespace.cs" />
-    <Compile Include="ModelTree\ModelNodeType.cs" />
-    <Compile Include="Model\AbstractMetaData.cs" />
-    <Compile Include="Model\AccessLevelMetaData.cs" />
-    <Compile Include="Model\AssemblyMetaData.cs" />
-    <Compile Include="Model\ExtensionMethods.cs" />
-    <Compile Include="Model\MethodMetaData.cs" />
-    <Compile Include="ModelTree\ModelNode.cs" />
-    <Compile Include="ModelTree\ModelTreeHandler.cs" />
-    <Compile Include="Model\NamespaceMetaData.cs" />
-    <Compile Include="Model\ParameterMetaData.cs" />
-    <Compile Include="Model\PropertyMetaData.cs" />
-    <Compile Include="Model\SealedMetaData.cs" />
-    <Compile Include="Model\StaticMetaData.cs" />
-    <Compile Include="Model\TypeMetaData.cs" />
-    <Compile Include="Model\VirtualMetaData.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reflection\Reflection.csproj">
+      <Project>{886e7752-a051-4ec8-b4a7-2ff11ae5c67e}</Project>
+      <Name>Reflection</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

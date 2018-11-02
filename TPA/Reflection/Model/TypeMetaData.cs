@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    internal class TypeMetaData
+    public class TypeMetaData
     {
+
+        public string Name { get => m_typeName; set => m_typeName = value; }
+        public IEnumerable<PropertyMetaData> Properties { get => m_Properties; set => m_Properties = value; }
+
         private string m_typeName;
         private string m_NamespaceName;
         private TypeMetaData m_BaseType;

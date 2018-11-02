@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    internal class NamespaceMetaData
+    public class NamespaceMetaData
     {
         private string m_NamespaceName;
         private IEnumerable<TypeMetaData> m_Types;
@@ -16,6 +16,7 @@ namespace Reflection.Model
             m_NamespaceName = name;
             m_Types = from type in types orderby type.Name select new TypeMetaData(type);
         }
-
+        public string Name { get => m_NamespaceName; set => m_NamespaceName = value; }
+        public IEnumerable<TypeMetaData> Types { get => m_Types; set => m_Types = value; }
     }
 }

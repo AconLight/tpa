@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    internal class PropertyMetaData
+    public class PropertyMetaData
     {
+
+        public string Name { get => m_Name; set => m_Name = value; }
+        public TypeMetaData Type { get => m_TypeMetaData; set => m_TypeMetaData = value; }
 
         internal static IEnumerable<PropertyMetaData> EmitProperties(IEnumerable<PropertyInfo> props)
         {

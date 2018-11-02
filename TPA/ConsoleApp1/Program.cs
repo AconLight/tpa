@@ -1,14 +1,14 @@
-﻿using Reflection.Model;
-using Reflection.ModelTree;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Reflection.Model;
+using Reflection.ModelTree;
 
-namespace Reflection
+namespace ConsoleApp1
 {
     class Program
     {
@@ -47,10 +47,10 @@ namespace Reflection
                         if (childId > 0) childId--;
                         break;
                     case ConsoleKey.UpArrow:
-                        if (childId < tree.currentNode.nodes.Count-1) childId++;
+                        if (childId < tree.currentNode.nodes.Count - 1) childId++;
                         break;
                     case ConsoleKey.Spacebar:
-                        tree.GoToChild(tree.currentNode.nodes[childId]);
+                        if (tree.currentNode.nodes.Count > childId) tree.GoToChild(tree.currentNode.nodes[childId]);
                         break;
                     case ConsoleKey.Escape:
                         //
