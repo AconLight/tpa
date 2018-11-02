@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    class VirtualMetaData
+    internal enum VirtuallMetaData
     {
+        Virtual, NotVirtual
     }
 }

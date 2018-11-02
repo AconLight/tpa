@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    class AccessLevelMetaData
+    internal enum AccessLevelMetaData
     {
+        IsPublic, IsProtected, IsProtectedInternal, IsPrivate
     }
 }

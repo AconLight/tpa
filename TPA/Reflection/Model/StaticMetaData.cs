@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    class StaticMetaData
+    internal enum StaticlMetaData
     {
+        Static, NotStatic
     }
 }
