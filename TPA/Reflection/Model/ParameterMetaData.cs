@@ -8,7 +8,7 @@ namespace Reflection.Model
 {
     class ParameterMetaData
     {
-        public ParameterMetadata(string name, TypeMetadata typeMetadata)
+        public ParameterMetaData(string name, TypeMetaData typeMetadata)
         {
             this.m_Name = name;
             this.m_TypeMetadata = typeMetadata;
@@ -16,6 +16,6 @@ namespace Reflection.Model
 
         //private vars
         private string m_Name;
-        private TypeMetadata m_TypeMetadata;
+        private TypeMetaData m_TypeMetadata;
     }
 }
