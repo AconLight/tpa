@@ -44,11 +44,12 @@
     <Compile Include="Model\AbstractMetaData.cs" />
     <Compile Include="Model\AccessLevelMetaData.cs" />
     <Compile Include="Model\AssemblyMetaData.cs" />
+    <Compile Include="Model\ExtensionMethods.cs" />
     <Compile Include="Model\MethodMetaData.cs" />
     <Compile Include="Model\NamespaceMetaData.cs" />
     <Compile Include="Model\ParameterMetaData.cs" />
     <Compile Include="Model\PropertyMetaData.cs" />
-    <Compile Include="Model\SealdMetaData.cs" />
+    <Compile Include="Model\SealedMetaData.cs" />
     <Compile Include="Model\StaticMetaData.cs" />
     <Compile Include="Model\TypeMetaData.cs" />
     <Compile Include="Model\VirtualMetaData.cs" />
