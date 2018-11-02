@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    internal enum AbstractENum
+    internal enum AbstractMetaData
     {
         NotAbstract, Abstract
     }
