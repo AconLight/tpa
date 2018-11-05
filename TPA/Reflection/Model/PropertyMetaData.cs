@@ -13,17 +13,18 @@ namespace Reflection.Model
         public string Name { get => m_Name; set => m_Name = value; }
         public TypeMetaData Type { get => m_TypeMetaData; set => m_TypeMetaData = value; }
 
-        internal static IEnumerable<PropertyMetaData> EmitProperties(IEnumerable<PropertyInfo> props)
+        internal static IEnumerable<PropertyMetaData> Load(IEnumerable<PropertyInfo> props)
         {
+            Console.WriteLine("props length: " + props.Count());
             return from prop in props
-                   where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
-                   select new PropertyMetaData(prop.Name, TypeMetaData.EmitReference(prop.PropertyType));
+                   //where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
+                   select new PropertyMetaData(prop.Name, new TypeMetaData(prop.PropertyType), prop.GetType().GetProperties());
         }
 
         #region private
         private string m_Name;
         private TypeMetaData m_TypeMetaData;
-        private PropertyMetaData(string propertyName, TypeMetaData propertyType)
+        private PropertyMetaData(string propertyName, TypeMetaData propertyType, IEnumerable<PropertyInfo> props)
         {
             m_Name = propertyName;
             m_TypeMetaData = propertyType;

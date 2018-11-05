@@ -51,6 +51,7 @@ namespace ConsoleApp1
                         break;
                     case ConsoleKey.Spacebar:
                         if (tree.currentNode.nodes.Count > childId) tree.GoToChild(tree.currentNode.nodes[childId]);
+                        childId = 0;
                         break;
                     case ConsoleKey.Escape:
                         //

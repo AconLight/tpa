@@ -14,6 +14,7 @@ namespace Reflection.ModelTree
         {
             Name = type.Name;
             this.type = type;
+            type.LoadProperties();
         }
 
         public override void load()

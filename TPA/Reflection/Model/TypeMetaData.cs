@@ -21,12 +21,14 @@ namespace Reflection.Model
         private IEnumerable<TypeMetaData> m_ImplementedInterfaces;
         private IEnumerable<TypeMetaData> m_NestedTypes;
         private IEnumerable<PropertyMetaData> m_Properties;
+        private Type m_Type;
         private TypeMetaData m_DeclaringType;
         private IEnumerable<MethodMetaData> m_Methods;
         private IEnumerable<MethodMetaData> m_Constructors;
 
         internal TypeMetaData(Type type)
         {
+            m_Type = type;
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);
             //m_Constructors = MethodMetaData.EmitMethods(type.GetConstructors());
@@ -35,9 +37,13 @@ namespace Reflection.Model
             m_ImplementedInterfaces = EmitImplements(type.GetInterfaces());
             m_Modifiers = EmitModifiers(type);
             m_BaseType = EmitExtends(type.BaseType);
-            //m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             m_TypeKind = GetTypeKind(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+        }
+
+        public void LoadProperties()
+        {
+            m_Properties = PropertyMetaData.Load(m_Type.GetProperties());
         }
 
         private TypeMetaData(string typeName, string namespaceName)
