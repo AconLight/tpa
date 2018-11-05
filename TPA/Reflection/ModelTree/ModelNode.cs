@@ -8,6 +8,7 @@ namespace Reflection.ModelTree
 {
     public class ModelNode
     {
+        public string TypeName;
         public string Name;
         public ModelNode parent;
         public List<ModelNode> nodes;

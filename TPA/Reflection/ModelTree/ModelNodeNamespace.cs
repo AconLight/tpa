@@ -13,6 +13,7 @@ namespace Reflection.ModelTree
         public ModelNodeNamespace(ModelNode parent, NamespaceMetaData m_namespace) : base(parent)
         {
             Name = m_namespace.Name;
+            TypeName = "Namespace";
             this.m_namespace = m_namespace;
         }
 

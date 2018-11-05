@@ -15,15 +15,14 @@ namespace Reflection.Model
 
         internal static IEnumerable<PropertyMetaData> Load(IEnumerable<PropertyInfo> props)
         {
-            Console.WriteLine("props length: " + props.Count());
             return from prop in props
                    where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
-                   select new PropertyMetaData(prop.Name, new TypeMetaData(prop.PropertyType), prop.GetType().GetProperties());
+                   select new PropertyMetaData(prop.Name, new TypeMetaData(prop.PropertyType));
         }
 
         private string m_Name;
         private TypeMetaData m_TypeMetaData;
-        private PropertyMetaData(string propertyName, TypeMetaData propertyType, IEnumerable<PropertyInfo> props)
+        private PropertyMetaData(string propertyName, TypeMetaData propertyType)
         {
             m_Name = propertyName;
             m_TypeMetaData = propertyType;

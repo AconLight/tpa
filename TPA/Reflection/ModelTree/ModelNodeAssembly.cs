@@ -13,12 +13,12 @@ namespace Reflection.ModelTree
         public ModelNodeAssembly(ModelNode parent, AssemblyMetaData assembly): base(parent)
         {
             Name = assembly.Name;
+            TypeName = "Assembly";
             this.assembly = assembly;
         }
 
         public override void Load()
         {
-            Console.WriteLine("opened");
             isOpen = true;
             foreach (NamespaceMetaData n in assembly.Namespaces)
             {

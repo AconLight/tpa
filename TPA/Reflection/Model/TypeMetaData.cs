@@ -11,6 +11,7 @@ namespace Reflection.Model
 
         public string Name { get => m_typeName; set => m_typeName = value; }
         public IEnumerable<PropertyMetaData> Properties { get => m_Properties; set => m_Properties = value; }
+        public IEnumerable<MethodMetaData> Methods { get => m_Methods; set => m_Methods = value; }
 
         private string m_typeName;
         private string m_NamespaceName;
@@ -41,9 +42,10 @@ namespace Reflection.Model
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
         }
 
-        public void LoadProperties()
+        public void Load()
         {
             m_Properties = PropertyMetaData.Load(m_Type.GetProperties());
+            m_Methods = MethodMetaData.Load(m_Type.GetMethods());
         }
 
         private TypeMetaData(string typeName, string namespaceName)

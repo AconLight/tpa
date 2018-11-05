@@ -13,17 +13,21 @@ namespace Reflection.ModelTree
         public ModelNodeType(ModelNode parent, TypeMetaData type) : base(parent)
         {
             Name = type.Name;
+            TypeName = "Class";
             this.type = type;
-            type.LoadProperties();
+            type.Load();
         }
 
         public override void Load()
         {
             isOpen = true;
-            if (type != null && type.Properties != null)
             foreach (PropertyMetaData p in type.Properties)
             {
-                if (p.Type != null) nodes.Add(new ModelNodeType(this, p.Type));
+                nodes.Add(new ModelNodeType(this, p.Type));
+            }
+            foreach (MethodMetaData m in type.Methods)
+            {
+                nodes.Add(new ModelNodeMethod(this, m));
             }
         }
     }
