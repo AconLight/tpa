@@ -27,12 +27,12 @@ namespace ConsoleApp1
             {
                 Console.WriteLine();
                 Console.WriteLine("current node:");
-                Console.WriteLine(tree.currentNode.Name);
+                Console.WriteLine("(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name);
                 Console.WriteLine("current node children:");
                 childIterator = 0;
                 foreach (ModelNode child in tree.currentNode.nodes)
                 {
-                    Console.WriteLine(childIterator + ") " + child.Name);
+                    Console.WriteLine(childIterator + ") " + "(" + child.TypeName + ") " + child.Name);
                     childIterator++;
                 }
                 Console.WriteLine("chosen node children id: " + childId);
@@ -85,7 +85,7 @@ namespace ConsoleApp1
             {
                 Console.Write("   ");
             }
-            Console.WriteLine(node.Name);
+            Console.WriteLine("(" + node.TypeName + ") " + node.Name);
             tabs++;
             foreach (ModelNode n in ModelTreeHandler.TreePrint(node))
             {

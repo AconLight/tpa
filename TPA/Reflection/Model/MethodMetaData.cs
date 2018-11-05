@@ -8,70 +8,39 @@ using System.Runtime.CompilerServices;
 
 namespace Reflection.Model
 {
-    class MethodMetaData
+    public class MethodMetaData
     {
-        internal static IEnumerable<MethodMetaData> EmitMethods(IEnumerable<MethodBase> methods)
+
+        public string Name { get => m_Name; set => m_Name = value; }
+        public IEnumerable<ParameterMetaData> Parameters { get => m_Parameters; set => m_Parameters = value; }
+        public TypeMetaData ReturnType { get => m_ReturnType; set => m_ReturnType = value; }
+        
+        public static IEnumerable<MethodMetaData> Load(IEnumerable<MethodBase> methods)
         {
-            return from MethodBase _currentMethod in methods
-                   where _currentMethod.GetVisible()
-                   select new MethodMetaData(_currentMethod);
+            return from method in methods
+                   select new MethodMetaData(method.Name, GetReturnType(method),
+                        from parameter in method.GetParameters()
+                        select new ParameterMetaData(parameter.Name, new TypeMetaData(parameter.GetType()))
+                        );
         }
 
-        #region private
-        //vars
         private string m_Name;
-        //private IEnumerable<TypeMetaData> m_GenericArguments;
-        private Tuple<AccessLevelMetaData, AbstractMetaData, StaticlMetaData, VirtuallMetaData> m_Modifiers;
         private TypeMetaData m_ReturnType;
-        private bool m_Extension;
         private IEnumerable<ParameterMetaData> m_Parameters;
         //constructor
-        private MethodMetaData(MethodBase method)
+        private MethodMetaData(string Name, TypeMetaData ReturnType, IEnumerable<ParameterMetaData> Parameters)
         {
-            m_Name = method.Name;
-            //m_GenericArguments = !method.IsGenericMethodDefinition ? null : TypeMetaData.EmitGenericArguments(method.GetGenericArguments());
-            m_ReturnType = EmitReturnType(method);
-            m_Parameters = EmitParameters(method.GetParameters());
-            m_Modifiers = EmitModifiers(method);
-            m_Extension = EmitExtension(method);
+            m_Name = Name;
+            m_ReturnType = ReturnType;
+            m_Parameters = Parameters;
+            
         }
-        //methods
-        private static IEnumerable<ParameterMetaData> EmitParameters(IEnumerable<ParameterInfo> parms)
-        {
-            return from parm in parms
-                   select new ParameterMetaData(parm.Name, TypeMetaData.EmitReference(parm.ParameterType));
-        }
-        private static TypeMetaData EmitReturnType(MethodBase method)
+        private static TypeMetaData GetReturnType(MethodBase method)
         {
             MethodInfo methodInfo = method as MethodInfo;
             if (methodInfo == null)
                 return null;
-            return TypeMetaData.EmitReference(methodInfo.ReturnType);
+            return new TypeMetaData(methodInfo.ReturnType);
         }
-        private static bool EmitExtension(MethodBase method)
-        {
-            return method.IsDefined(typeof(ExtensionAttribute), true);
-        }
-        private static Tuple<AccessLevelMetaData, AbstractMetaData, StaticlMetaData, VirtuallMetaData> EmitModifiers(MethodBase method)
-        {
-            AccessLevelMetaData _access = AccessLevelMetaData.IsPrivate;
-            if (method.IsPublic)
-                _access = AccessLevelMetaData.IsPublic;
-            else if (method.IsFamily)
-                _access = AccessLevelMetaData.IsProtected;
-            else if (method.IsFamilyAndAssembly)
-                _access = AccessLevelMetaData.IsProtectedInternal;
-            AbstractMetaData _abstract = AbstractMetaData.NotAbstract;
-            if (method.IsAbstract)
-                _abstract = AbstractMetaData.Abstract;
-            StaticlMetaData _static = StaticlMetaData.NotStatic;
-            if (method.IsStatic)
-                _static = StaticlMetaData.Static;
-            VirtuallMetaData _virtual = VirtuallMetaData.NotVirtual;
-            if (method.IsVirtual)
-                _virtual = VirtuallMetaData.Virtual;
-            return new Tuple<AccessLevelMetaData, AbstractMetaData, StaticlMetaData, VirtuallMetaData>(_access, _abstract, _static, _virtual);
-        }
-        #endregion
     }
 }
