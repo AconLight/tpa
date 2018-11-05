@@ -17,9 +17,9 @@ namespace Reflection.ModelTree
             type.LoadProperties();
         }
 
-        public override void load()
+        public override void Load()
         {
-            nodes.Clear();
+            isOpen = true;
             if (type != null && type.Properties != null)
             foreach (PropertyMetaData p in type.Properties)
             {

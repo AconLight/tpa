@@ -10,11 +10,13 @@ namespace Reflection.ModelTree
     public class ModelTreeHandler
     {
         public ModelNode currentNode;
+        public ModelNode rootNode;
 
         public ModelTreeHandler(AssemblyMetaData assemblyMetaData)
         {
             currentNode = new ModelNodeAssembly(null, assemblyMetaData);
-            currentNode.load();
+            rootNode = currentNode;
+            Load();
         }
 
         public void GoToParent()
@@ -27,14 +29,36 @@ namespace Reflection.ModelTree
             if (node != null)
             {
                 currentNode = node;
-                currentNode.load();
             }
+        }
 
+        public void Load()
+        {
+            currentNode.Load();
+        }
+
+        public void Close()
+        {
+            currentNode.Close();
         }
 
         public List<ModelNode> getChildren()
         {
             return currentNode.nodes;
+        }
+
+        public static List<ModelNode> TreePrint(ModelNode node)
+        {
+            List<ModelNode> nodes = new List<ModelNode>();
+            foreach (ModelNode n in node.nodes)
+            {
+                if (n.isOpen)
+                {
+                    nodes.Add(n);
+                }
+            }
+
+            return nodes;
         }
     }
 

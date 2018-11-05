@@ -43,6 +43,15 @@ namespace ConsoleApp1
                     case ConsoleKey.P:
                         tree.GoToParent();
                         break;
+                    case ConsoleKey.L:
+                        tree.Load();
+                        break;
+                    case ConsoleKey.C:
+                        tree.Close();
+                        break;
+                    case ConsoleKey.T:
+                        PrintTree(tree);
+                        break;
                     case ConsoleKey.DownArrow:
                         if (childId > 0) childId--;
                         break;
@@ -60,5 +69,30 @@ namespace ConsoleApp1
                 }
             }
         }
+
+        private static void PrintTree(ModelTreeHandler tree)
+        {
+            int tabs = 0;
+            Console.WriteLine();
+            Console.WriteLine("Tree Print:");
+            NodePrint(tabs, tree.rootNode);
+
+        }
+
+        private static void NodePrint(int tabs, ModelNode node)
+        {
+            for(int i = 0; i < tabs; i++)
+            {
+                Console.Write("   ");
+            }
+            Console.WriteLine(node.Name);
+            tabs++;
+            foreach (ModelNode n in ModelTreeHandler.TreePrint(node))
+            {
+                NodePrint(tabs, n);
+            }
+        }
+
+        
     }
 }

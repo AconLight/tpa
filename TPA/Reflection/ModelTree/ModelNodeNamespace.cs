@@ -16,9 +16,9 @@ namespace Reflection.ModelTree
             this.m_namespace = m_namespace;
         }
 
-        public override void load()
+        public override void Load()
         {
-            nodes.Clear();
+            isOpen = true;
             foreach (TypeMetaData t in m_namespace.Types)
             {
                 if (t != null) nodes.Add(new ModelNodeType(this, t));
