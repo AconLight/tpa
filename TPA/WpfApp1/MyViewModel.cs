@@ -3,6 +3,7 @@ using Reflection.Model;
 using Reflection.ModelTree;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -16,7 +17,9 @@ namespace WpfApp1
     class MyViewModel : INotifyPropertyChanged
     {
         public RelayCommand Click_Browse { get; }
+        public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         public RelayCommand Click_Load { get; }
+        public TreeViewItem root { get; set; }
         Assembly assembly { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public string pathVariable { get; set; }
@@ -25,7 +28,7 @@ namespace WpfApp1
         {
             Click_Browse = new RelayCommand(Browse);
             Click_Load = new RelayCommand(Load);
-
+            HierarchicalAreas = new ObservableCollection<TreeViewItem>();
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName_)
@@ -52,7 +55,17 @@ namespace WpfApp1
         }
         private void Load()
         {
-            assembly = Assembly.LoadFrom(pathVariable);
+            if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
+            {
+                //assembly = Assembly.LoadFrom(pathVariable);
+                root = new TreeViewItem(pathVariable);
+                
+                HierarchicalAreas.Add(root);
+
+                RaisePropertyChanged(nameof(HierarchicalAreas));
+
+
+            }
         }
     }
 }
