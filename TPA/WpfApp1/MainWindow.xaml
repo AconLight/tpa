@@ -5,22 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="300" Width="800">
     <Grid>
-        <TreeView Name="TreeView" Margin="312,19,8,23" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding  HierarchicalAreas}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
-                    <TextBlock Text="{Binding Path=Name}" Margin="0,0,4,0" />
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="TreeViewItem">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                </Style>
-            </TreeView.ItemContainerStyle>
-        </TreeView>
-        <Button x:Name="LoadDLL" Content="Show TreeView" Visibility="{Binding ChangeControlVisibility,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Command="{Binding Click_Button}" HorizontalAlignment="Left" Margin="82,150,0,0" VerticalAlignment="Top" Width="133" Height="86" />
-        <TextBox Text="{Binding Mode=OneWay,Path=PathVariable,UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="25" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="257"/>
-        <Button x:Name="Browse" Content="Browse" Command="{Binding Click_Browse}" HorizontalAlignment="Left" Margin="192,78,0,0" VerticalAlignment="Top" Width="75"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="20" />
+            <RowDefinition Height ="auto" />
+            <RowDefinition Height ="auto" />
+            <RowDefinition Height ="*" />
+            <RowDefinition Height ="20" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBox Text="{Binding Mode=OneWay,Path=pathVariable,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" IsEnabled="False" Margin=" 5 10 5 10"/>
+        <Button Content="Browse" Grid.Column="2" Grid.Row="1" Command="{Binding Click_Browse}" Width="50" Margin="5 10 5 10"/>
+        <Button Content="Load" Grid.Column="2" Grid.Row="2" Margin="5" />
+
     </Grid>
 </Window>

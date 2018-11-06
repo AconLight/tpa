@@ -15,42 +15,22 @@ namespace WpfApp1
 {
     class MyViewModel : INotifyPropertyChanged
     {
+        public RelayCommand Click_Browse { get; }
+        public RelayCommand Click_Load { get; }
+        Assembly assembly { get; set; }
+        public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
+        public string pathVariable { get; set; }
+
         public MyViewModel()
         {
-            
-            Click_Button = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
+            Click_Load = new RelayCommand(Load);
+
         }
-
-        #region DataContext
-        Assembly assembly;
-        AssemblyMetaData assemblyMetadata;
-        ModelTreeHandler tree;
-        public string PathVariable { get; set; }
-        public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
-        public ICommand Click_Browse { get; }
-        public ICommand Click_Button { get; }
-        #endregion
-
-        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName_)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
-        }
-        #endregion
-
-        #region private
-        private void LoadDLL()
-        {
-            if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
-                TreeViewLoaded();
-        }
-        private void TreeViewLoaded()
-        {
-            assembly = Assembly.LoadFrom(PathVariable);
-            assemblyMetadata = new AssemblyMetaData(assembly);
-            tree = new ModelTreeHandler(assemblyMetadata);
         }
         private void Browse()
         {
@@ -63,12 +43,16 @@ namespace WpfApp1
                 MessageBox.Show("No files selected");
             else
             {
-                PathVariable = test.FileName;
+                pathVariable = test.FileName;
                 ChangeControlVisibility = Visibility.Visible;
-                RaisePropertyChanged("ChangeControlVisibility");
-                RaisePropertyChanged("PathVariable");
+                RaisePropertyChanged(nameof(ChangeControlVisibility));
+                RaisePropertyChanged(nameof(pathVariable));
+
             }
         }
-        #endregion
+        private void Load()
+        {
+            assembly = Assembly.LoadFrom(pathVariable);
+        }
     }
 }
