@@ -1,4 +1,4 @@
-﻿using Reflection.Model;
+using Reflection.Model;
 using Reflection.ModelTree;
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,9 @@ namespace WpfApp1
         public string Name { get; set; }
         private bool m_IsExpanded;
         private bool m_WasBuilt;
+        public Assembly assembly { get; set; }
+        public AssemblyMetaData assemblyMetadata { get; set; }
+        public ModelTreeHandler tree { get; set; }
 
         public TreeViewItem(ModelNode me, String name)
         {
@@ -31,18 +34,19 @@ namespace WpfApp1
             whereAmI = me;
             
         }
-        //public TreeViewItem(String s)
-        //{
-        //    Children = new ObservableCollection<TreeViewItem>();
+        public TreeViewItem(String s)
+        {
+            Children = new ObservableCollection<TreeViewItem>();
 
-        //    assembly = Assembly.LoadFrom(s);
-        //    assemblyMetadata = new AssemblyMetaData(assembly);
-        //    tree = new ModelTreeHandler(assemblyMetadata);
-        //    this.m_WasBuilt = false;
-        //    Name = "(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name;
-        //    whereAmI = tree.currentNode;
+            assembly = Assembly.LoadFrom(s);
+            assemblyMetadata = new AssemblyMetaData(assembly);
+            tree = new ModelTreeHandler(assemblyMetadata);
+            tree.Load();
+            this.m_WasBuilt = false;
+            Name = "(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name;
+            whereAmI = tree.currentNode;
 
-        //}
+        }
         public bool IsExpanded
         {
             get { return m_IsExpanded; }
