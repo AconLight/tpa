@@ -16,7 +16,7 @@ namespace Reflection.ModelTree
         {
             currentNode = new ModelNodeAssembly(null, assemblyMetaData);
             rootNode = currentNode;
-            Load();
+            //Load();
         }
 
         public void GoToParent()

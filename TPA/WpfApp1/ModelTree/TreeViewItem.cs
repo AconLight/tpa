@@ -1,4 +1,4 @@
-﻿using Reflection.Model;
+using Reflection.Model;
 using Reflection.ModelTree;
 using System;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace WpfApp1
             Children = new ObservableCollection<TreeViewItem>();
             foreach (var child in me.nodes)
             {
-                Children.Add(new TreeViewItem(child, child.Name));
+                Children.Add(new TreeViewItem(child, "(" + child.TypeName + ") " + child.Name));
             }
             this.m_WasBuilt = false;
             whereAmI = me;
@@ -41,6 +41,7 @@ namespace WpfApp1
             assembly = Assembly.LoadFrom(s);
             assemblyMetadata = new AssemblyMetaData(assembly);
             tree = new ModelTreeHandler(assemblyMetadata);
+            tree.Load();
             this.m_WasBuilt = false;
             Name = "(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name;
             whereAmI = tree.currentNode;
@@ -63,7 +64,7 @@ namespace WpfApp1
         {
             foreach(var child in whereAmI.nodes)
             {
-                Children.Add(new TreeViewItem(child,child.Name));
+                Children.Add(new TreeViewItem(child, "(" + child.TypeName + ") " + child.Name));
                 child.Load();
             }
         }

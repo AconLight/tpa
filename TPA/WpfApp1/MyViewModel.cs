@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using Reflection.Model;
 using Reflection.ModelTree;
 using System;
@@ -29,6 +29,7 @@ namespace WpfApp1
             Click_Browse = new RelayCommand(Browse);
             Click_Load = new RelayCommand(Load);
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            pathVariable = "Choose file";
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName_)
@@ -57,14 +58,13 @@ namespace WpfApp1
         {
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
-                //assembly = Assembly.LoadFrom(pathVariable);
                 root = new TreeViewItem(pathVariable);
-                
                 HierarchicalAreas.Add(root);
-
                 RaisePropertyChanged(nameof(HierarchicalAreas));
-
-
+            }
+            else
+            {
+                MessageBox.Show("Wrong file type selected", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }
