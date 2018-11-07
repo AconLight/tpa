@@ -64,7 +64,7 @@ namespace WpfApp1
             foreach(var child in whereAmI.nodes)
             {
                 Children.Add(new TreeViewItem(child,child.Name));
-
+                child.Load();
             }
         }
         
