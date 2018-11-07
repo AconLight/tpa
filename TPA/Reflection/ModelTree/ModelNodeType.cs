@@ -12,10 +12,34 @@ namespace Reflection.ModelTree
         public TypeMetaData type;
         public ModelNodeType(ModelNode parent, TypeMetaData type) : base(parent)
         {
-            Name = type.Name;
-            TypeName = "Class";
+            
+            TypeName = "Type";
             this.type = type;
+            Name = SubName() + type.Name;
             type.Load();
+        }
+
+        private string SubName()
+        {
+            string access = "";
+            if (type.Modifiers.Item1 == AccessLevelMetaData.IsPrivate) access = "private ";
+            else if (type.Modifiers.Item1 == AccessLevelMetaData.IsProtected) access = "protected ";
+            else if (type.Modifiers.Item1 == AccessLevelMetaData.IsProtectedInternal) access = "protected internal ";
+            else if (type.Modifiers.Item1 == AccessLevelMetaData.IsPublic) access = "public ";
+
+            string mySealed = "";
+            if (type.Modifiers.Item2 == SealedMetaData.Sealed) mySealed = "sealed ";
+
+            string myAbstract = "";
+            if (type.Modifiers.Item3 == AbstractMetaData.Abstract) myAbstract = "abstract ";
+
+            string typeKind = "";
+            if (type.TypeKindP == TypeMetaData.TypeKind.ClassType) typeKind = "class ";
+            else if (type.TypeKindP == TypeMetaData.TypeKind.EnumType) typeKind = "enum ";
+            else if (type.TypeKindP == TypeMetaData.TypeKind.InterfaceType) typeKind = "interface ";
+            else if (type.TypeKindP == TypeMetaData.TypeKind.StructType) typeKind = "struct ";
+
+            return access + mySealed + myAbstract + typeKind;
         }
 
         public override void Load()
@@ -23,12 +47,33 @@ namespace Reflection.ModelTree
             isOpen = true;
             foreach (PropertyMetaData p in type.Properties)
             {
-                nodes.Add(new ModelNodeType(this, p.Type));
+                if (p != null && p.Type != null)
+                    nodes.Add(new ModelNodeType(this, p.Type));
             }
             foreach (MethodMetaData m in type.Methods)
             {
-                nodes.Add(new ModelNodeMethod(this, m));
+                if (m != null)
+                    nodes.Add(new ModelNodeMethod(this, m));
             }
+            foreach (MethodMetaData m in type.Constructors)
+            {
+                if (m != null)
+                    nodes.Add(new ModelNodeMethod(this, m));
+            }
+            foreach (TypeMetaData m in type.Interfaces)
+            {
+                if (m != null)
+                    nodes.Add(new ModelNodeType(this, m));
+            }
+            foreach (TypeMetaData m in type.NestedTypes)
+            {
+                if (m != null)
+                    nodes.Add(new ModelNodeType(this, m));
+            }
+            if (type.BaseType != null)
+                nodes.Add(new ModelNodeType(this, type.BaseType));
+            if (type.DeclaringType != null)
+                nodes.Add(new ModelNodeType(this, type.DeclaringType));
         }
     }
 }

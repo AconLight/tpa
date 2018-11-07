@@ -12,18 +12,26 @@ namespace Reflection.Model
         public string Name { get => m_typeName; set => m_typeName = value; }
         public IEnumerable<PropertyMetaData> Properties { get => m_Properties; set => m_Properties = value; }
         public IEnumerable<MethodMetaData> Methods { get => m_Methods; set => m_Methods = value; }
+        public IEnumerable<MethodMetaData> Constructors { get => m_Constructors; set => m_Constructors = value; }
+        public TypeMetaData BaseType { get => m_BaseType; set => m_BaseType = value; }
+        public TypeMetaData DeclaringType { get => m_DeclaringType; set => m_DeclaringType = value; }
+        public Tuple<AccessLevelMetaData, SealedMetaData, AbstractMetaData> Modifiers { get => m_Modifiers; set => m_Modifiers = value; }
+        public IEnumerable<TypeMetaData> NestedTypes { get => m_NestedTypes; set => m_NestedTypes = value; }
+        public IEnumerable<TypeMetaData> Interfaces { get => m_Interfaces; set => m_Interfaces = value; }
+        public TypeKind TypeKindP { get => m_TypeKind; set => m_TypeKind = value; }
+        public IEnumerable<Attribute> Attributes { get => m_Attributes; set => m_Attributes = value; }
 
         private string m_typeName;
-        private string m_NamespaceName;
+        private Type m_Type;
+
+        private TypeMetaData m_DeclaringType;
+        private IEnumerable<TypeMetaData> m_NestedTypes;
         private TypeMetaData m_BaseType;
         private Tuple<AccessLevelMetaData, SealedMetaData, AbstractMetaData> m_Modifiers;
         private TypeKind m_TypeKind;
         private IEnumerable<Attribute> m_Attributes;
-        private IEnumerable<TypeMetaData> m_ImplementedInterfaces;
-        private IEnumerable<TypeMetaData> m_NestedTypes;
+        private IEnumerable<TypeMetaData> m_Interfaces;
         private IEnumerable<PropertyMetaData> m_Properties;
-        private Type m_Type;
-        private TypeMetaData m_DeclaringType;
         private IEnumerable<MethodMetaData> m_Methods;
         private IEnumerable<MethodMetaData> m_Constructors;
 
@@ -31,92 +39,66 @@ namespace Reflection.Model
         {
             m_Type = type;
             m_typeName = type.Name;
-            m_DeclaringType = EmitDeclaringType(type.DeclaringType);
-            //m_Constructors = MethodMetaData.EmitMethods(type.GetConstructors());
-            //m_Methods = MethodMetaData.EmitMethods(type.GetMethods());
-            m_NestedTypes = EmitNestedTypes(type.GetNestedTypes());
-            m_ImplementedInterfaces = EmitImplements(type.GetInterfaces());
-            m_Modifiers = EmitModifiers(type);
-            m_BaseType = EmitExtends(type.BaseType);
-            m_TypeKind = GetTypeKind(type);
-            m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            LoadModyfiers();
+            LoadTypeKind();
         }
 
         public void Load()
         {
+            if (m_Type.BaseType != null)
+                m_BaseType = new TypeMetaData(m_Type.BaseType);
+            if (m_Type.DeclaringType != null)
+                m_DeclaringType = new TypeMetaData(m_Type.DeclaringType);
             m_Properties = PropertyMetaData.Load(m_Type.GetProperties());
             m_Methods = MethodMetaData.Load(m_Type.GetMethods());
+            m_Constructors = MethodMetaData.Load(m_Type.GetConstructors());
+            m_Attributes = m_Type.GetCustomAttributes(false).Cast<Attribute>();
+            LoadNestedTypes();
+            LoadInterfaces();
         }
 
-        private TypeMetaData(string typeName, string namespaceName)
+        private void LoadNestedTypes()
         {
-            m_typeName = typeName;
-            m_NamespaceName = namespaceName;
-        }
-
-        private IEnumerable<TypeMetaData> EmitNestedTypes(IEnumerable<Type> nestedTypes)
-        {
-            return from _type in nestedTypes
+            m_NestedTypes = from _type in m_Type.GetNestedTypes()
                    where _type.GetVisible()
                    select new TypeMetaData(_type);
         }
 
-        private IEnumerable<TypeMetaData> EmitImplements(IEnumerable<Type> interfaces)
+        private void LoadInterfaces()
         {
-            return from currentInterface in interfaces
-                   select EmitReference(currentInterface);
+            m_Interfaces = from currentInterface in m_Type.GetInterfaces()
+                   select new TypeMetaData(currentInterface);
         }
 
-        internal static TypeMetaData EmitReference(Type type)
+        private void LoadTypeKind()
         {
-            return new TypeMetaData(type.Name, type.GetNamespace());
-        }
-
-        private TypeMetaData EmitDeclaringType(Type declaringType)
-        {
-            if (declaringType == null)
-                return null;
-            return EmitReference(declaringType);
-        }
-
-        private static TypeMetaData EmitExtends(Type baseType)
-        {
-            if (baseType == null || baseType == typeof(Object) || baseType == typeof(ValueType) || baseType == typeof(Enum))
-                return null;
-            return EmitReference(baseType);
-        }
-
-        private static TypeKind GetTypeKind(Type type) //#80 TPA: Reflection - Invalid return value of GetTypeKind() 
-        {
-            return type.IsEnum ? TypeKind.EnumType :
-                   type.IsValueType ? TypeKind.StructType :
-                   type.IsInterface ? TypeKind.InterfaceType :
+            m_TypeKind = m_Type.IsEnum ? TypeKind.EnumType :
+                   m_Type.IsValueType ? TypeKind.StructType :
+                   m_Type.IsInterface ? TypeKind.InterfaceType :
                    TypeKind.ClassType;
         }
 
-        static Tuple<AccessLevelMetaData, SealedMetaData, AbstractMetaData> EmitModifiers(Type type)
+        private void LoadModyfiers()
         {
-            //set defaults 
             AccessLevelMetaData _access = AccessLevelMetaData.IsPrivate;
             AbstractMetaData _abstract = AbstractMetaData.NotAbstract;
             SealedMetaData _sealed = SealedMetaData.NotSealed;
-            // check if not default 
-            if (type.IsPublic)
+            if (m_Type.IsPublic)
                 _access = AccessLevelMetaData.IsPublic;
-            else if (type.IsNestedPublic)
+            else if (m_Type.IsNestedPublic)
                 _access = AccessLevelMetaData.IsPublic;
-            else if (type.IsNestedFamily)
+            else if (m_Type.IsNestedFamily)
                 _access = AccessLevelMetaData.IsProtected;
-            else if (type.IsNestedFamANDAssem)
+            else if (m_Type.IsNestedFamANDAssem)
                 _access = AccessLevelMetaData.IsProtectedInternal;
-            if (type.IsSealed)
+            if (m_Type.IsSealed)
                 _sealed = SealedMetaData.Sealed;
-            if (type.IsAbstract)
+            if (m_Type.IsAbstract)
                 _abstract = AbstractMetaData.Abstract;
-            return new Tuple<AccessLevelMetaData, SealedMetaData, AbstractMetaData>(_access, _sealed, _abstract);
+            m_Modifiers =  new Tuple<AccessLevelMetaData, SealedMetaData, AbstractMetaData>(_access, _sealed, _abstract);
         }
 
-        internal enum TypeKind
+        public enum TypeKind
         {
             EnumType, StructType, InterfaceType, ClassType
         }

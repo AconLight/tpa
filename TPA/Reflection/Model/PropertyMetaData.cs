@@ -9,7 +9,6 @@ namespace Reflection.Model
 {
     public class PropertyMetaData
     {
-
         public string Name { get => m_Name; set => m_Name = value; }
         public TypeMetaData Type { get => m_TypeMetaData; set => m_TypeMetaData = value; }
 
@@ -27,7 +26,5 @@ namespace Reflection.Model
             m_Name = propertyName;
             m_TypeMetaData = propertyType;
         }
-
-
     }
 }

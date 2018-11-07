@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    internal enum SealedMetaData
+    public enum SealedMetaData
     {
         Sealed, NotSealed
     }
