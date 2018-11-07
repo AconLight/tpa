@@ -19,16 +19,17 @@ namespace WpfApp1
         public RelayCommand Click_Browse { get; }
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         public RelayCommand Click_Load { get; }
-        public TreeViewItem root { get; set; }
-        Assembly assembly { get; set; }
-        public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public string pathVariable { get; set; }
+        private Assembly assembly { get; set; }
+        private AssemblyMetaData assemblyMetadata { get; set; }
+        private ModelTreeHandler tree { get; set; }
 
         public MyViewModel()
         {
             Click_Browse = new RelayCommand(Browse);
             Click_Load = new RelayCommand(Load);
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            pathVariable = "Choose .dll file to be loaded.";
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName_)
@@ -47,25 +48,27 @@ namespace WpfApp1
             else
             {
                 pathVariable = test.FileName;
-                ChangeControlVisibility = Visibility.Visible;
-                RaisePropertyChanged(nameof(ChangeControlVisibility));
                 RaisePropertyChanged(nameof(pathVariable));
-
             }
         }
         private void Load()
         {
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
-                //assembly = Assembly.LoadFrom(pathVariable);
-                root = new TreeViewItem(pathVariable);
-                
+                assembly = Assembly.LoadFrom(pathVariable);
+                assemblyMetadata = new AssemblyMetaData(assembly);
+                tree = new ModelTreeHandler(assemblyMetadata);
+                TreeViewItem root = new TreeViewItem(tree.currentNode, "(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name);   
                 HierarchicalAreas.Add(root);
-
                 RaisePropertyChanged(nameof(HierarchicalAreas));
-
-
+                return;
             }
+            else
+            {
+                MessageBox.Show("You choose wrong file type, havent choose at all." ,"Warning",MessageBoxButton.OK ,MessageBoxImage.Warning);
+            }
+
+
         }
     }
 }
