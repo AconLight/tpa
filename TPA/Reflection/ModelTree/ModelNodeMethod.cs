@@ -37,10 +37,12 @@ namespace Reflection.ModelTree
         public override void Load()
         {
             isOpen = true;
-            nodes.Add(new ModelNodeType(this, method.ReturnType));
+            if (method.ReturnType != null)
+                nodes.Add(new ModelNodeType(this, method.ReturnType));
             foreach (ParameterMetaData p in method.Parameters)
             {
-                nodes.Add(new ModelNodeType(this, p.Type));
+                if (p.Type != null)
+                    nodes.Add(new ModelNodeType(this, p.Type));
             }
         }
     }
