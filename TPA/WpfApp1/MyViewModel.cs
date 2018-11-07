@@ -29,6 +29,7 @@ namespace WpfApp1
             Click_Browse = new RelayCommand(Browse);
             Click_Load = new RelayCommand(Load);
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            pathVariable = "Choose file";
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName_)
@@ -60,8 +61,10 @@ namespace WpfApp1
                 root = new TreeViewItem(pathVariable);
                 HierarchicalAreas.Add(root);
                 RaisePropertyChanged(nameof(HierarchicalAreas));
-
-
+            }
+            else
+            {
+                MessageBox.Show("Wrong file type selected", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

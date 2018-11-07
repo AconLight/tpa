@@ -28,7 +28,7 @@ namespace WpfApp1
             Children = new ObservableCollection<TreeViewItem>();
             foreach (var child in me.nodes)
             {
-                Children.Add(new TreeViewItem(child, child.Name));
+                Children.Add(new TreeViewItem(child, "(" + child.TypeName + ") " + child.Name));
             }
             this.m_WasBuilt = false;
             whereAmI = me;
@@ -64,7 +64,7 @@ namespace WpfApp1
         {
             foreach(var child in whereAmI.nodes)
             {
-                Children.Add(new TreeViewItem(child,child.Name));
+                Children.Add(new TreeViewItem(child, "(" + child.TypeName + ") " + child.Name));
                 child.Load();
             }
         }
