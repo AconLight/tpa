@@ -19,10 +19,10 @@ namespace Reflection.ModelTree
 
         public override void Load()
         {
-            isOpen = true;
+            IsOpen = true;
             foreach (TypeMetaData t in m_namespace.Types)
             {
-                if (t != null) nodes.Add(new ModelNodeType(this, t));
+                if (t != null) Nodes.Add(new ModelNodeType(this, t));
             }
         }
     }

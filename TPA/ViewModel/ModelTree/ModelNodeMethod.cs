@@ -36,13 +36,13 @@ namespace Reflection.ModelTree
 
         public override void Load()
         {
-            isOpen = true;
+            IsOpen = true;
             if (method.ReturnType != null)
-                nodes.Add(new ModelNodeType(this, method.ReturnType));
+                Nodes.Add(new ModelNodeType(this, method.ReturnType));
             foreach (ParameterMetaData p in method.Parameters)
             {
                 if (p.Type != null)
-                    nodes.Add(new ModelNodeType(this, p.Type));
+                    Nodes.Add(new ModelNodeType(this, p.Type));
             }
         }
     }

@@ -21,7 +21,7 @@ namespace Reflection.ModelTree
 
         public void GoToParent()
         {
-            if (currentNode.parent != null) currentNode = currentNode.parent;
+            if (currentNode.Parent != null) currentNode = currentNode.Parent;
         }
 
         public void GoToChild(ModelNode node)
@@ -44,15 +44,15 @@ namespace Reflection.ModelTree
 
         public List<ModelNode> getChildren()
         {
-            return currentNode.nodes;
+            return currentNode.Nodes;
         }
 
         public static List<ModelNode> TreePrint(ModelNode node)
         {
             List<ModelNode> nodes = new List<ModelNode>();
-            foreach (ModelNode n in node.nodes)
+            foreach (ModelNode n in node.Nodes)
             {
-                if (n.isOpen)
+                if (n.IsOpen)
                 {
                     nodes.Add(n);
                 }

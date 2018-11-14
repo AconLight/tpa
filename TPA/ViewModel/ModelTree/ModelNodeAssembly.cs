@@ -19,10 +19,10 @@ namespace Reflection.ModelTree
 
         public override void Load()
         {
-            isOpen = true;
+            IsOpen = true;
             foreach (NamespaceMetaData n in assembly.Namespaces)
             {
-                nodes.Add(new ModelNodeNamespace(this, n));
+                Nodes.Add(new ModelNodeNamespace(this, n));
             }
         }
     }

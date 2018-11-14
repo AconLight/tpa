@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,15 @@ namespace Reflection.ModelTree
     {
         public string TypeName;
         public string Name;
-        public ModelNode parent;
-        public List<ModelNode> nodes;
-        public Boolean isOpen;
+        public ModelNode Parent;
+        public ObservableCollection<ModelNode> Nodes;
+        public Boolean IsOpen;
 
-        public ModelNode(ModelNode parent)
+        public ModelNode(ModelNode Parent)
         {
-            isOpen = false;
-            this.parent = parent;
-            nodes = new List<ModelNode>();
+            IsOpen = false;
+            this.Parent = Parent;
+            Nodes = new ObservableCollection<ModelNode>();
         }
 
         public virtual void Load()
@@ -28,12 +29,12 @@ namespace Reflection.ModelTree
 
         public void Close()
         {
-            isOpen = false;
-            foreach (ModelNode node in nodes)
+            IsOpen = false;
+            foreach (ModelNode node in Nodes)
             {
                 node.Close();
             }
-            nodes.Clear();
+            Nodes.Clear();
         }
     }
 }

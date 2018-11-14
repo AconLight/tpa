@@ -44,36 +44,36 @@ namespace Reflection.ModelTree
 
         public override void Load()
         {
-            isOpen = true;
+            IsOpen = true;
             foreach (PropertyMetaData p in type.Properties)
             {
                 if (p != null && p.Type != null)
-                    nodes.Add(new ModelNodeType(this, p.Type));
+                    Nodes.Add(new ModelNodeType(this, p.Type));
             }
             foreach (MethodMetaData m in type.Methods)
             {
                 if (m != null)
-                    nodes.Add(new ModelNodeMethod(this, m));
+                    Nodes.Add(new ModelNodeMethod(this, m));
             }
             foreach (MethodMetaData m in type.Constructors)
             {
                 if (m != null)
-                    nodes.Add(new ModelNodeMethod(this, m));
+                    Nodes.Add(new ModelNodeMethod(this, m));
             }
             foreach (TypeMetaData m in type.Interfaces)
             {
                 if (m != null)
-                    nodes.Add(new ModelNodeType(this, m));
+                    Nodes.Add(new ModelNodeType(this, m));
             }
             foreach (TypeMetaData m in type.NestedTypes)
             {
                 if (m != null)
-                    nodes.Add(new ModelNodeType(this, m));
+                    Nodes.Add(new ModelNodeType(this, m));
             }
             if (type.BaseType != null)
-                nodes.Add(new ModelNodeType(this, type.BaseType));
+                Nodes.Add(new ModelNodeType(this, type.BaseType));
             if (type.DeclaringType != null)
-                nodes.Add(new ModelNodeType(this, type.DeclaringType));
+                Nodes.Add(new ModelNodeType(this, type.DeclaringType));
         }
     }
 }
