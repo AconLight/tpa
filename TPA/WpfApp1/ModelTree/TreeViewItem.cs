@@ -1,74 +1,43 @@
-using Reflection.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModel.ModelTree;
 
-namespace WpfApp1
+namespace WpfApp1.ModelTree
 {
     class TreeViewItem
-    { 
-        public ObservableCollection<TreeViewItem> Children { get; set; }
-        public TreeViewItem myself { get; set; }
-        public ModelNode whereAmI { get; set; }
+    {
+        public ModelNode Node;
         public string Name { get; set; }
-        private bool m_IsExpanded;
-        private bool m_WasBuilt;
-        public Assembly assembly { get; set; }
-        public AssemblyMetaData assemblyMetadata { get; set; }
-        public ModelTreeHandler tree { get; set; }
+        public ObservableCollection<TreeViewItem> Children { get; set; }
 
-        public TreeViewItem(ModelNode me, String name)
-        {
-            Name = name;
-            Children = new ObservableCollection<TreeViewItem>();
-            //foreach (var child in me.nodes)
-            //{
-            //    Children.Add(new TreeViewItem(child, "(" + child.TypeName + ") " + child.Name));
-            //}
-            this.m_WasBuilt = false;
-            whereAmI = me;
-            
-        }
-        public TreeViewItem(String s)
-        {
-            Children = new ObservableCollection<TreeViewItem>();
+        public Boolean IsExpanded { get; set; }
 
-            assembly = Assembly.LoadFrom(s);
-            assemblyMetadata = new AssemblyMetaData(assembly);
-            tree = new ModelTreeHandler(assemblyMetadata);
-            tree.Load();
-            this.m_WasBuilt = false;
-            Name = "(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name;
-            whereAmI = tree.currentNode;
-
-        }
-        public bool IsExpanded
+        public bool IsExpanded2
         {
-            get { return m_IsExpanded; }
+            get { return Node.IsExpanded; }
             set
             {
-                m_IsExpanded = value;
-                if (m_WasBuilt)
-                    return;
-                BuildMyself();
+                Node.Load();
+                /*Children = new ObservableCollection<TreeViewItem>();
+                foreach (ModelNode m in Node.Nodes)
+                {
+                    Children.Add(new TreeViewItem(m));
+                    m.Load();
+                }*/
+            }
+        }
 
-                m_WasBuilt = true;
-            }
-        }
-        public void BuildMyself()
+
+        public  TreeViewItem(ModelNode Node)
         {
-            foreach(var child in whereAmI.nodes)
-            {
-                child.Load();
-                Children.Add(new TreeViewItem(child, "(" + child.TypeName + ") " + child.Name));
-                
-            }
+            this.Node = Node;
+            Children = new ObservableCollection<TreeViewItem>();
+            Name = Node.Name;
+            IsExpanded = Node.IsExpanded;
         }
-        
     }
 }

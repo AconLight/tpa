@@ -44,7 +44,7 @@ namespace ViewModel.ModelTree
 
         public override void Load()
         {
-            IsOpen = true;
+            IsExpanded = true;
             foreach (PropertyMetaData p in type.Properties)
             {
                 if (p != null && p.Type != null)

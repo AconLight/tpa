@@ -19,7 +19,7 @@ namespace ViewModel.ModelTree
 
         public override void Load()
         {
-            IsOpen = true;
+            IsExpanded = true;
             foreach (TypeMetaData t in m_namespace.Types)
             {
                 if (t != null) Nodes.Add(new ModelNodeType(this, t, "Type"));

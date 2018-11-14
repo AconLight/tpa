@@ -10,24 +10,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ViewModel.ModelTree;
+using WpfApp1.ModelTree;
 
 namespace WpfApp1
 {
     class MyViewModel : INotifyPropertyChanged
     {
         public RelayCommand Click_Browse { get; }
-        public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
+        public ObservableCollection<ModelNode> HierarchicalAreas { get; set; }
         public RelayCommand Click_Load { get; }
-        public TreeViewItem root { get; set; }
+        public ModelNode root { get; set; }
         Assembly assembly { get; set; }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public string pathVariable { get; set; }
+
+        private ModelTreeHandler tree;
 
         public MyViewModel()
         {
             Click_Browse = new RelayCommand(Browse);
             Click_Load = new RelayCommand(Load);
-            HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            HierarchicalAreas = new ObservableCollection<ModelNode>();
             pathVariable = "Choose file";
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,7 +61,9 @@ namespace WpfApp1
         {
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
-                root = new TreeViewItem(pathVariable);
+                tree = new ModelTreeHandler(Assembly.LoadFrom(pathVariable));
+                tree.Load();
+                root = tree.rootNode;
                 HierarchicalAreas.Add(root);
                 RaisePropertyChanged(nameof(HierarchicalAreas));
             }

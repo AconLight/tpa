@@ -10,14 +10,24 @@ namespace ViewModel.ModelTree
     public class ModelNode
     {
         public string TypeName;
-        public string Name;
         public ModelNode Parent;
-        public ObservableCollection<ModelNode> Nodes;
-        public Boolean IsOpen;
+        public string Name { get; set; }
+        public ObservableCollection<ModelNode> Nodes { get; set; }
+        public Boolean IsExpanded { get; set; }
+
+        public bool IsExpanded2
+        {
+            get { return IsExpanded; }
+            set
+            {
+                if (value) Load();
+                else Close();
+            }
+        }
 
         public ModelNode(ModelNode Parent)
         {
-            IsOpen = false;
+            IsExpanded = false;
             this.Parent = Parent;
             Nodes = new ObservableCollection<ModelNode>();
         }
@@ -29,7 +39,7 @@ namespace ViewModel.ModelTree
 
         public void Close()
         {
-            IsOpen = false;
+            IsExpanded = false;
             foreach (ModelNode node in Nodes)
             {
                 node.Close();

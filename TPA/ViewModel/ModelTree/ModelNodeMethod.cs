@@ -36,7 +36,7 @@ namespace ViewModel.ModelTree
 
         public override void Load()
         {
-            IsOpen = true;
+            IsExpanded = true;
             if (method.ReturnType != null)
                 Nodes.Add(new ModelNodeType(this, method.ReturnType, "Return Type"));
             foreach (ParameterMetaData p in method.Parameters)

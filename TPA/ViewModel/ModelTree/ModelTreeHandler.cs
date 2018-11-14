@@ -59,7 +59,7 @@ namespace ViewModel.ModelTree
             List<ModelNode> nodes = new List<ModelNode>();
             foreach (ModelNode n in node.Nodes)
             {
-                if (n.Parent == null || n.Parent.IsOpen)
+                if (n.Parent == null || n.Parent.IsExpanded)
                 {
                     nodes.Add(n);
                 }
