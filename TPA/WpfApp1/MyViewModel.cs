@@ -1,6 +1,4 @@
 using Microsoft.Win32;
-using Reflection.Model;
-using Reflection.ModelTree;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
