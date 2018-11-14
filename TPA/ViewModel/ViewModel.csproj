@@ -48,7 +48,7 @@
     <Compile Include="ModelTree\ModelNodeType.cs" />
     <Compile Include="ModelTree\ModelTreeHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="viewmodel\ViewModel.cs" />
+    <Compile Include="viewmodel\ViewModelClass.cs" />
     <Compile Include="viewmodel\ViewModelInterface.cs" />
   </ItemGroup>
   <ItemGroup>
