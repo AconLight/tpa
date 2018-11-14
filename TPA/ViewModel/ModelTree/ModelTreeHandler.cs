@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Reflection.Model;
@@ -13,9 +14,9 @@ namespace ViewModel.ModelTree
         public ModelNode currentNode;
         public ModelNode rootNode;
 
-        public ModelTreeHandler(AssemblyMetaData assemblyMetaData)
+        public ModelTreeHandler(Assembly assembly)
         {
-            currentNode = new ModelNodeAssembly(null, assemblyMetaData);
+            currentNode = new ModelNodeAssembly(null, new AssemblyMetaData(assembly));
             rootNode = currentNode;
             //Load();
         }
