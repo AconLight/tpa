@@ -1,3 +1,4 @@
+using Reflection.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModel.ModelTree;
-using ViewModelProject;
 
 namespace WpfApp1
 {
