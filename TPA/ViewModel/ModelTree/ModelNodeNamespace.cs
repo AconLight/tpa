@@ -22,7 +22,7 @@ namespace ViewModel.ModelTree
             IsOpen = true;
             foreach (TypeMetaData t in m_namespace.Types)
             {
-                if (t != null) Nodes.Add(new ModelNodeType(this, t));
+                if (t != null) Nodes.Add(new ModelNodeType(this, t, "Type"));
             }
         }
     }

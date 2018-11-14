@@ -10,10 +10,10 @@ namespace ViewModel.ModelTree
     class ModelNodeType : ModelNode
     {
         public TypeMetaData type;
-        public ModelNodeType(ModelNode parent, TypeMetaData type) : base(parent)
+        public ModelNodeType(ModelNode parent, TypeMetaData type, string TypeName) : base(parent)
         {
-            
-            TypeName = "Type";
+
+            this.TypeName = TypeName;
             this.type = type;
             Name = SubName() + type.Name;
             type.Load();
@@ -48,7 +48,7 @@ namespace ViewModel.ModelTree
             foreach (PropertyMetaData p in type.Properties)
             {
                 if (p != null && p.Type != null)
-                    Nodes.Add(new ModelNodeType(this, p.Type));
+                    Nodes.Add(new ModelNodeType(this, p.Type, "Property"));
             }
             foreach (MethodMetaData m in type.Methods)
             {
@@ -63,17 +63,17 @@ namespace ViewModel.ModelTree
             foreach (TypeMetaData m in type.Interfaces)
             {
                 if (m != null)
-                    Nodes.Add(new ModelNodeType(this, m));
+                    Nodes.Add(new ModelNodeType(this, m, "Interface"));
             }
             foreach (TypeMetaData m in type.NestedTypes)
             {
                 if (m != null)
-                    Nodes.Add(new ModelNodeType(this, m));
+                    Nodes.Add(new ModelNodeType(this, m, "Nested Type"));
             }
             if (type.BaseType != null)
-                Nodes.Add(new ModelNodeType(this, type.BaseType));
+                Nodes.Add(new ModelNodeType(this, type.BaseType, "Base Type"));
             if (type.DeclaringType != null)
-                Nodes.Add(new ModelNodeType(this, type.DeclaringType));
+                Nodes.Add(new ModelNodeType(this, type.DeclaringType, "Declaring Type"));
         }
     }
 }

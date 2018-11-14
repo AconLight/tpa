@@ -38,11 +38,11 @@ namespace ViewModel.ModelTree
         {
             IsOpen = true;
             if (method.ReturnType != null)
-                Nodes.Add(new ModelNodeType(this, method.ReturnType));
+                Nodes.Add(new ModelNodeType(this, method.ReturnType, "Return Type"));
             foreach (ParameterMetaData p in method.Parameters)
             {
                 if (p.Type != null)
-                    Nodes.Add(new ModelNodeType(this, p.Type));
+                    Nodes.Add(new ModelNodeType(this, p.Type, "Parameter Type"));
             }
         }
     }
