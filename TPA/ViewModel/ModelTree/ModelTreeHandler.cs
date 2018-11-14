@@ -41,7 +41,12 @@ namespace ViewModel.ModelTree
 
         public void Close()
         {
-            currentNode.Close();
+            if (currentNode.Parent != null)
+            {
+                currentNode.Close();
+                currentNode = currentNode.Parent;
+            }
+
         }
 
         public ObservableCollection<ModelNode> getChildren()
@@ -54,7 +59,7 @@ namespace ViewModel.ModelTree
             List<ModelNode> nodes = new List<ModelNode>();
             foreach (ModelNode n in node.Nodes)
             {
-                if (n.IsOpen)
+                if (n.Parent == null || n.Parent.IsOpen)
                 {
                     nodes.Add(n);
                 }

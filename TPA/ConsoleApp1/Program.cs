@@ -19,11 +19,14 @@ namespace ConsoleApp1
 
             ModelTreeHandler tree = viewModel.Tree;
 
+
+            tree.Load();
             int childIterator;
             int childId = 0;
             ConsoleKeyInfo c;
             while (true)
             {
+                Console.Clear();
                 /*Console.WriteLine();
                 Console.WriteLine("current node:");
                 Console.WriteLine("(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name);
@@ -35,7 +38,7 @@ namespace ConsoleApp1
                     childIterator++;
                 }
                 Console.WriteLine("chosen node children id: " + childId);
-                */
+                Console.WriteLine();*/
                 PrintTree(tree, childId);
                 c = Console.ReadKey();
                 switch (c.Key)
@@ -46,21 +49,27 @@ namespace ConsoleApp1
                     case ConsoleKey.L:
                         tree.Load();
                         break;
+                    case ConsoleKey.T:
+                        PrintTree(tree, childId);
+                        break;
                     case ConsoleKey.C:
                         tree.Close();
-                        break;
-                    case ConsoleKey.T:
-                        PrintTree(tree);
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (childId > 0) childId--;
+                        childId = 0;
                         break;
                     case ConsoleKey.UpArrow:
+                        if (childId > 0) childId--;
+                        break;
+                    case ConsoleKey.DownArrow:
                         if (childId < tree.currentNode.Nodes.Count - 1) childId++;
                         break;
                     case ConsoleKey.Spacebar:
-                        if (tree.currentNode.Nodes.Count > childId) tree.GoToChild(tree.currentNode.Nodes[childId]);
-                        childId = 0;
+                        if (tree.currentNode.Nodes.Count > childId)
+                        {
+                            tree.GoToChild(tree.currentNode.Nodes[childId]);
+                            tree.Load();
+                            childId = 0;
+                        }
+                        
                         break;
                     case ConsoleKey.Escape:
                         //
@@ -70,25 +79,32 @@ namespace ConsoleApp1
             }
         }
 
-        private static void PrintTree(ModelTreeHandler tree, ModelNode currentNode, int childId)
+        private static void PrintTree(ModelTreeHandler tree, int childId)
         {
             int tabs = 0;
             Console.WriteLine();
             Console.WriteLine("Tree Print:");
-            NodePrint(tabs, tree.rootNode, currentNode);
+            NodePrint(tabs, tree.rootNode, tree.currentNode, childId);
         }
 
-        private static void NodePrint(int tabs, ModelNode node, ModelNode currentNode)
+        private static void NodePrint(int tabs, ModelNode node, ModelNode currentNode, int childId)
         {
             for(int i = 0; i < tabs; i++)
             {
                 Console.Write("   ");
             }
-            Console.WriteLine("(" + node.TypeName + ") " + node.Name);
+            if (node.Parent == currentNode && childId == node.Parent.Nodes.IndexOf(node))
+            {
+                Console.Write("-->");
+            } else
+            {
+                Console.Write("   ");
+            }
+                Console.WriteLine("(" + node.TypeName + ") " + node.Name);
             tabs++;
             foreach (ModelNode n in ModelTreeHandler.TreePrint(node))
             {
-                NodePrint(tabs, n, currentNode);
+                NodePrint(tabs, n, currentNode, childId);
             }
         }
 
