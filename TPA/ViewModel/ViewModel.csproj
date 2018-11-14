@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</ProjectGuid>
+    <ProjectGuid>{0AB07CDD-0253-41BA-960F-9D202CFEDCCD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reflection</RootNamespace>
-    <AssemblyName>Reflection</AssemblyName>
+    <RootNamespace>ViewModel</RootNamespace>
+    <AssemblyName>ViewModel</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,20 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AbstractMetaData.cs" />
-    <Compile Include="Model\AccessLevelMetaData.cs" />
-    <Compile Include="Model\AssemblyMetaData.cs" />
-    <Compile Include="Model\ExtensionMethods.cs" />
-    <Compile Include="Model\MethodMetaData.cs" />
-    <Compile Include="Model\NamespaceMetaData.cs" />
-    <Compile Include="Model\ParameterMetaData.cs" />
-    <Compile Include="Model\PropertyMetaData.cs" />
-    <Compile Include="Model\SealedMetaData.cs" />
-    <Compile Include="Model\StaticMetaData.cs" />
-    <Compile Include="Model\TypeMetaData.cs" />
-    <Compile Include="Model\VirtualMetaData.cs" />
+    <Compile Include="ModelTree\ModelNode.cs" />
+    <Compile Include="ModelTree\ModelNodeAssembly.cs" />
+    <Compile Include="ModelTree\ModelNodeMethod.cs" />
+    <Compile Include="ModelTree\ModelNodeNamespace.cs" />
+    <Compile Include="ModelTree\ModelNodeType.cs" />
+    <Compile Include="ModelTree\ModelTreeHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="viewmodel\ViewModel.cs" />
+    <Compile Include="viewmodel\ViewModelInterface.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Reflection\Reflection.csproj">
+      <Project>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</Project>
+      <Name>Reflection</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
