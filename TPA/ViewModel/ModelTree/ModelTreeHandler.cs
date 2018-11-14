@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Reflection.Model;
 
-namespace Reflection.ModelTree
+namespace ViewModel.ModelTree
 {
     public class ModelTreeHandler
     {
@@ -42,7 +43,7 @@ namespace Reflection.ModelTree
             currentNode.Close();
         }
 
-        public List<ModelNode> getChildren()
+        public ObservableCollection<ModelNode> getChildren()
         {
             return currentNode.Nodes;
         }

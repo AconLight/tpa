@@ -1,4 +1,4 @@
-﻿using Reflection.ModelTree;
+﻿using ViewModel.ModelTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace ViewModel.viewmodel
 {
-    class ViewModel : ViewModelInterface
+    public class ViewModel
     {
-        public ModelTreeHandler tree;
-        public void CloseNode(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public ModelTreeHandler Tree;
+        public ViewModelInterface ViewModelInterface;
 
-        public void OpenNode(int id)
+        public ViewModel()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

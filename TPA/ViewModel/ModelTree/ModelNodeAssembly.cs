@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Reflection.Model;
 
-namespace Reflection.ModelTree
+namespace ViewModel.ModelTree
 {
     class ModelNodeAssembly: ModelNode
     {

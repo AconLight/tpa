@@ -1,5 +1,3 @@
-using Reflection.Model;
-using Reflection.ModelTree;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,11 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModelProject;
 
 namespace WpfApp1
 {
     class TreeViewItem
     {
+        public 
         public ObservableCollection<TreeViewItem> Children { get; set; }
         public TreeViewItem myself { get; set; }
         public ModelNode whereAmI { get; set; }

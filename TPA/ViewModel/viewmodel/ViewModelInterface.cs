@@ -12,4 +12,3 @@ namespace ViewModel.viewmodel
         void CloseNode(int id);
     }
 }
-Class1.cs
