@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ViewModel.viewmodel
 {
-    public class ViewModel
+    public class ViewModelClass
     {
         public ModelTreeHandler Tree;
         public ViewModelInterface ViewModelInterface;
