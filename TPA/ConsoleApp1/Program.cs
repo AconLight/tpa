@@ -9,19 +9,18 @@ namespace ConsoleApp1
 {
     class Program
     {
-        static readonly string assemblyFile = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"TPA.ApplicationArchitecture.dll");
+        static readonly string assemblyPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"TPA.ApplicationArchitecture.dll");
 
         public static void Main(String[] args)
         {
             Assembly assembly = Assembly.LoadFrom(assemblyFile);
-            ViewModelClass viewModel = new ViewModelClass();
-            viewModel.LoadTree(assembly);
+            ViewModelClass viewModel = new ConsoleViewModel();
+            
 
-            ModelTreeHandler tree = viewModel.Tree;
+
 
 
             tree.Load();
-            int childIterator;
             int childId = 0;
             ConsoleKeyInfo c;
             while (true)
