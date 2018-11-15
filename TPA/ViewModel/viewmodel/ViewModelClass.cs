@@ -24,11 +24,7 @@ namespace ViewModel.viewmodel
             HierarchicalAreas = new ObservableCollection<ModelNode>();
             pathVariable = "Choose file";
         }
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //private void RaisePropertyChanged(string propertyName_)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
-        //}
+
         public abstract void Browse();
         public void Load()
         {
