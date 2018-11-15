@@ -1,12 +1,20 @@
 ﻿using Microsoft.Win32;
 using System.ComponentModel;
 using System.Windows;
+using ViewModel.Commands;
 using ViewModel.viewmodel;
 
 namespace WpfApp1
 {
     class WPFViewModel : ViewModelClass, INotifyPropertyChanged
     {
+        public RelayCommand Click_Load { get; }
+        public RelayCommand Click_Browse { get; }
+        public WPFViewModel():base()
+        {
+            Click_Browse = new RelayCommand(Browse);
+            Click_Load = new RelayCommand(Load);
+        }
         public override void Browse()
         {
             OpenFileDialog test = new OpenFileDialog()

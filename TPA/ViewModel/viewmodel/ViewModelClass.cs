@@ -8,9 +8,7 @@ namespace ViewModel.viewmodel
 {
     public abstract class ViewModelClass
     {
-        public RelayCommand Click_Browse { get; }
         public ObservableCollection<ModelNode> HierarchicalAreas { get; set; }
-        public RelayCommand Click_Load { get; }
         public ModelNode root { get; set; }
         Assembly assembly { get; set; }
         public string pathVariable { get; set; }
@@ -19,16 +17,10 @@ namespace ViewModel.viewmodel
 
         public ViewModelClass()
         {
-            Click_Browse = new RelayCommand(Browse);
-            Click_Load = new RelayCommand(Load);
+            
             HierarchicalAreas = new ObservableCollection<ModelNode>();
             pathVariable = "Choose file";
         }
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //private void RaisePropertyChanged(string propertyName_)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
-        //}
         public abstract void Browse();
         public void Load()
         {
