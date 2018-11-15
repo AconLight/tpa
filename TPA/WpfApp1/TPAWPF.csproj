@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="ModelTree\TreeViewItem.cs" />
     <Compile Include="ModelTree\TreeViewItem2.cs" />
+    <Compile Include="WPFViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
