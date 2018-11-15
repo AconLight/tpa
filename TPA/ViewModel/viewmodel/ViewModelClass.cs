@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ViewModel.viewmodel
 {
-    public class ViewModelClass
+    public abstract class ViewModelClass
     {
         public RelayCommand Click_Browse { get; }
         public ObservableCollection<ModelNode> HierarchicalAreas { get; set; }
@@ -29,9 +29,7 @@ namespace ViewModel.viewmodel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
         }
-        public virtual void Browse()
-        {
-        }
+        public abstract void Browse();
         private void Load()
         {
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
