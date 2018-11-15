@@ -9,48 +9,21 @@ namespace ConsoleApp1
 {
     class Program
     {
-        static readonly string assemblyPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"TPA.ApplicationArchitecture.dll");
-
         public static void Main(String[] args)
         {
-            Assembly assembly = Assembly.LoadFrom(assemblyFile);
             ViewModelClass viewModel = new ConsoleViewModel();
-            
-
-
-
-
-            tree.Load();
+            viewModel.Browse();
+            viewModel.Load();
+            ModelTreeHandler tree = viewModel.tree;
             int childId = 0;
             ConsoleKeyInfo c;
             while (true)
             {
                 Console.Clear();
-                /*Console.WriteLine();
-                Console.WriteLine("current node:");
-                Console.WriteLine("(" + tree.currentNode.TypeName + ") " + tree.currentNode.Name);
-                Console.WriteLine("current node children:");
-                childIterator = 0;
-                foreach (ModelNode child in tree.currentNode.Nodes)
-                {
-                    Console.WriteLine(childIterator + ") " + "(" + child.TypeName + ") " + child.Name);
-                    childIterator++;
-                }
-                Console.WriteLine("chosen node children id: " + childId);
-                Console.WriteLine();*/
                 PrintTree(tree, childId);
                 c = Console.ReadKey();
                 switch (c.Key)
                 {
-                    case ConsoleKey.P:
-                        tree.GoToParent();
-                        break;
-                    case ConsoleKey.L:
-                        tree.Load();
-                        break;
-                    case ConsoleKey.T:
-                        PrintTree(tree, childId);
-                        break;
                     case ConsoleKey.C:
                         tree.Close();
                         childId = 0;
@@ -70,10 +43,6 @@ namespace ConsoleApp1
                         }
                         
                         break;
-                    case ConsoleKey.Escape:
-                        //
-                        break;
-
                 }
             }
         }
