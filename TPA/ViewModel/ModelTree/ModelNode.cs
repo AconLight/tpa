@@ -15,7 +15,7 @@ namespace ViewModel.ModelTree
         public ObservableCollection<ModelNode> Nodes { get; set; }
         public Boolean IsExpanded { get; set; }
 
-        public bool IsExpanded2
+        public bool OpenClose
         {
             get { return IsExpanded; }
             set

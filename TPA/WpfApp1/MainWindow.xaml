@@ -44,7 +44,7 @@
             </TreeView.ItemTemplate>
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded2, Mode=TwoWay}" />
+                    <Setter Property="IsExpanded" Value="{Binding OpenClose, Mode=TwoWay}" />
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
