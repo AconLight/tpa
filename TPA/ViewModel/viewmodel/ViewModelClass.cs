@@ -15,7 +15,7 @@ namespace ViewModel.viewmodel
         Assembly assembly { get; set; }
         public string pathVariable { get; set; }
 
-        private ModelTreeHandler tree;
+        public ModelTreeHandler tree;
 
         public ViewModelClass()
         {
@@ -30,7 +30,7 @@ namespace ViewModel.viewmodel
         //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
         //}
         public abstract void Browse();
-        private void Load()
+        public void Load()
         {
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {

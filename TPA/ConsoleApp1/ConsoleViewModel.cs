@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using ViewModel.viewmodel;
 
 namespace ConsoleApp1
@@ -11,8 +7,7 @@ namespace ConsoleApp1
     {
         public override void Browse()
         {
-            String p = Console.ReadLine();
-            pathVariable = p;
+            pathVariable = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"TPA.ApplicationArchitecture.dll");
         }
     }
 }
