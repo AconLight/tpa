@@ -12,12 +12,10 @@ namespace ViewModel.viewmodel
         public ModelNode root { get; set; }
         Assembly assembly { get; set; }
         public string pathVariable { get; set; }
-
         public ModelTreeHandler tree;
 
         public ViewModelClass()
         {
-            
             HierarchicalAreas = new ObservableCollection<ModelNode>();
             pathVariable = "Choose file";
         }
