@@ -13,15 +13,22 @@ namespace ViewModel.viewmodel
         Assembly assembly { get; set; }
         public string pathVariable { get; set; }
         public ModelTreeHandler tree;
+        public RelayCommand Click_Load { get; }
+        public RelayCommand Click_Browse { get; }
+        public IBrowse browse;
 
-        public ViewModelClass()
+        public ViewModelClass(IBrowse browse)
         {
             HierarchicalAreas = new ObservableCollection<ModelNode>();
+            Click_Browse = new RelayCommand(Browse);
+            Click_Load = new RelayCommand(Load);
             pathVariable = "Choose file";
+            this.browse = browse;
         }
         public abstract void Browse();
         public void Load()
         {
+            pathVariable = browse.Browse();
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
                 tree = new ModelTreeHandler(Assembly.LoadFrom(pathVariable));
@@ -30,6 +37,12 @@ namespace ViewModel.viewmodel
                 HierarchicalAreas.Add(root);
             }
         }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged(string propertyName_)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName_));
+        }
 
     }
+
 }
