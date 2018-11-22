@@ -11,7 +11,7 @@ namespace ConsoleApp1
     {
         public static void Main(String[] args)
         {
-            ViewModelClass viewModel = new ConsoleViewModel();
+            ViewModelClass viewModel = new ViewModelClass(new BrowseConsole());
             viewModel.Browse();
             viewModel.Load();
             ModelTreeHandler tree = viewModel.tree;
