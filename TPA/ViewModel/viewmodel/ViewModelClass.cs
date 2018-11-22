@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ViewModel.viewmodel
 {
-    public abstract class ViewModelClass
+    public class ViewModelClass : INotifyPropertyChanged
     {
         public ObservableCollection<ModelNode> HierarchicalAreas { get; set; }
         public ModelNode root { get; set; }
@@ -25,10 +25,15 @@ namespace ViewModel.viewmodel
             pathVariable = "Choose file";
             this.browse = browse;
         }
-        public abstract void Browse();
-        public void Load()
+        public void Browse()
         {
             pathVariable = browse.Browse();
+            RaisePropertyChanged("pathVariable");
+        }
+            
+        public void Load()
+        {
+            //pathVariable = browse.Browse();
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
                 tree = new ModelTreeHandler(Assembly.LoadFrom(pathVariable));
