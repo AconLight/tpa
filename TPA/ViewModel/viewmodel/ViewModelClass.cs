@@ -10,7 +10,7 @@ namespace ViewModel.viewmodel
     {
         public ObservableCollection<ModelNode> HierarchicalAreas { get; set; }
         public ModelNode root { get; set; }
-        Assembly assembly { get; set; }
+        public Assembly assembly { get; set; }
         public string pathVariable { get; set; }
         public ModelTreeHandler tree;
         public RelayCommand Click_Load { get; }
@@ -33,7 +33,6 @@ namespace ViewModel.viewmodel
             
         public void Load()
         {
-            //pathVariable = browse.Browse();
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
                 tree = new ModelTreeHandler(Assembly.LoadFrom(pathVariable));

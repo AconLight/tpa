@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPAWPF", "WpfApp1\TPAWPF.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{0AB07CDD-0253-41BA-960F-9D202CFEDCCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "Serialization\Serialization.csproj", "{07BDF0E2-6BA2-4EC8-8FFF-6C3478283E47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0AB07CDD-0253-41BA-960F-9D202CFEDCCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AB07CDD-0253-41BA-960F-9D202CFEDCCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AB07CDD-0253-41BA-960F-9D202CFEDCCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07BDF0E2-6BA2-4EC8-8FFF-6C3478283E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07BDF0E2-6BA2-4EC8-8FFF-6C3478283E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07BDF0E2-6BA2-4EC8-8FFF-6C3478283E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07BDF0E2-6BA2-4EC8-8FFF-6C3478283E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

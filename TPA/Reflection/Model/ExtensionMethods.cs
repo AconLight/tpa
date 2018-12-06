@@ -12,7 +12,8 @@ namespace Reflection.Model
 
         internal static bool GetVisible(this Type type)
         {
-            return type.IsPublic || type.IsNestedPublic || type.IsNestedFamily || type.IsNestedFamANDAssem;
+            return type.IsPublic;
+            //return type.IsPublic || type.IsNestedPublic || type.IsNestedFamily || type.IsNestedFamANDAssem;
         }
         internal static bool GetVisible(this MethodBase method)
         {

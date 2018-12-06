@@ -20,6 +20,40 @@ namespace ViewModel.ModelTree
             rootNode = currentNode;
             //Load();
         }
+        public ModelTreeHandler(Serialization.SerializationModelTree.ModelTreeHandler tree)
+        {
+            currentNode = new ModelNodeAssembly(null, tree.rootNode.Name);
+            tree.rootNode.loadAll();
+            foreach (Serialization.SerializationModelTree.ModelNode child in tree.rootNode.allNodes)
+            {
+                currentNode.Nodes.Add(new ModelNodeNamespace(currentNode, ((Serialization.SerializationModelTree.ModelNodeNamespace)child).m_namespace));
+            }
+            rootNode = currentNode;
+            TreeSeek(rootNode, tree.rootNode);
+        }
+
+        private void TreeSeek(ModelNode parent, Serialization.SerializationModelTree.ModelNode node)
+        {
+            foreach(Serialization.SerializationModelTree.ModelNode child in node.allNodes)
+            {
+                child.loadAll();
+                ModelNode newParent = null;
+                if (child.TypeName == "Method")
+                {
+                    parent.Nodes.Add(newParent = new ModelNodeMethod(parent, ((Serialization.SerializationModelTree.ModelNodeMethod)child).method));
+                }
+                else if (child.TypeName == "Namespace")
+                {
+                    parent.Nodes.Add(newParent = new ModelNodeNamespace(parent, ((Serialization.SerializationModelTree.ModelNodeNamespace)child).m_namespace));
+                }
+                else if (child.TypeName == "Type")
+                {
+                    parent.Nodes.Add(newParent = new ModelNodeType(parent, ((Serialization.SerializationModelTree.ModelNodeType)child).type, ((Serialization.SerializationModelTree.ModelNodeType)child).TypeName));
+                }
+                
+                TreeSeek(newParent, child);
+            }
+        }
 
         public void GoToParent()
         {

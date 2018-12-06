@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serialization;
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,32 +14,47 @@ namespace ConsoleApp1
         {
             ViewModelClass viewModel = new ViewModelClass(new BrowseConsole());
             viewModel.Browse();
-            viewModel.Load();
-            ModelTreeHandler tree = viewModel.tree;
+
+            Ser ser = new Ser(viewModel.pathVariable);
             int childId = 0;
             ConsoleKeyInfo c;
             while (true)
             {
                 Console.Clear();
-                PrintTree(tree, childId);
+                if (viewModel.tree != null)
+                PrintTree(viewModel.tree, childId);
                 c = Console.ReadKey();
                 switch (c.Key)
                 {
+                    case ConsoleKey.S:
+                        ser.serialize();
+                        break;
+                    case ConsoleKey.D:
+                           viewModel.tree = new ModelTreeHandler(ser.deserialize());
+                        break;
+                    case ConsoleKey.R:
+                            viewModel.Load();
+                        break;
                     case ConsoleKey.C:
-                        tree.Close();
-                        childId = 0;
+                        if (viewModel.tree != null)
+                        {
+                            viewModel.tree.Close();
+                            childId = 0;
+                        }
                         break;
                     case ConsoleKey.UpArrow:
                         if (childId > 0) childId--;
                         break;
                     case ConsoleKey.DownArrow:
-                        if (childId < tree.currentNode.Nodes.Count - 1) childId++;
+                        if (viewModel.tree != null)
+                            if (childId < viewModel.tree.currentNode.Nodes.Count - 1) childId++;
                         break;
                     case ConsoleKey.Spacebar:
-                        if (tree.currentNode.Nodes.Count > childId)
+                        if (viewModel.tree != null)
+                            if (viewModel.tree.currentNode.Nodes.Count > childId)
                         {
-                            tree.GoToChild(tree.currentNode.Nodes[childId]);
-                            tree.Load();
+                            viewModel.tree.GoToChild(viewModel.tree.currentNode.Nodes[childId]);
+                            viewModel.tree.Load();
                             childId = 0;
                         }
                         

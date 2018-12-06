@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Serialization\Serialization.csproj">
+      <Project>{07BDF0E2-6BA2-4EC8-8FFF-6C3478283E47}</Project>
+      <Name>Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj">
       <Project>{0AB07CDD-0253-41BA-960F-9D202CFEDCCD}</Project>
       <Name>ViewModel</Name>
