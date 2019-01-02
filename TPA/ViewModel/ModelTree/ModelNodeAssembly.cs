@@ -26,7 +26,8 @@ namespace ViewModel.ModelTree
         public override void Load()
         {
             IsExpanded = true;
-            foreach (NamespaceMetaData n in assembly.Namespaces)
+            if (Nodes.Count() == 0)
+                foreach (NamespaceMetaData n in assembly.Namespaces)
             {
                 Nodes.Add(new ModelNodeNamespace(this, n));
             }

@@ -19,6 +19,13 @@ namespace ViewModel.ModelTree
             type.Load();
         }
 
+        public ModelNodeType(ModelNode parent, string Name, string TypeName) : base(parent)
+        {
+
+            this.TypeName = TypeName;
+            this.Name = Name;
+        }
+
         private string SubName()
         {
             string access = "";
@@ -45,35 +52,38 @@ namespace ViewModel.ModelTree
         public override void Load()
         {
             IsExpanded = true;
-            foreach (PropertyMetaData p in type.Properties)
+            if (Nodes.Count() == 0)
             {
-                if (p != null && p.Type != null)
-                    Nodes.Add(new ModelNodeType(this, p.Type, "Property"));
+                foreach (PropertyMetaData p in type.Properties)
+                {
+                    if (p != null && p.Type != null)
+                        Nodes.Add(new ModelNodeType(this, p.Type, "Property"));
+                }
+                foreach (MethodMetaData m in type.Methods)
+                {
+                    if (m != null)
+                        Nodes.Add(new ModelNodeMethod(this, m));
+                }
+                foreach (MethodMetaData m in type.Constructors)
+                {
+                    if (m != null)
+                        Nodes.Add(new ModelNodeMethod(this, m));
+                }
+                foreach (TypeMetaData m in type.Interfaces)
+                {
+                    if (m != null)
+                        Nodes.Add(new ModelNodeType(this, m, "Interface"));
+                }
+                foreach (TypeMetaData m in type.NestedTypes)
+                {
+                    if (m != null)
+                        Nodes.Add(new ModelNodeType(this, m, "Nested Type"));
+                }
+                if (type.BaseType != null)
+                    Nodes.Add(new ModelNodeType(this, type.BaseType, "Base Type"));
+                if (type.DeclaringType != null)
+                    Nodes.Add(new ModelNodeType(this, type.DeclaringType, "Declaring Type"));
             }
-            foreach (MethodMetaData m in type.Methods)
-            {
-                if (m != null)
-                    Nodes.Add(new ModelNodeMethod(this, m));
-            }
-            foreach (MethodMetaData m in type.Constructors)
-            {
-                if (m != null)
-                    Nodes.Add(new ModelNodeMethod(this, m));
-            }
-            foreach (TypeMetaData m in type.Interfaces)
-            {
-                if (m != null)
-                    Nodes.Add(new ModelNodeType(this, m, "Interface"));
-            }
-            foreach (TypeMetaData m in type.NestedTypes)
-            {
-                if (m != null)
-                    Nodes.Add(new ModelNodeType(this, m, "Nested Type"));
-            }
-            if (type.BaseType != null)
-                Nodes.Add(new ModelNodeType(this, type.BaseType, "Base Type"));
-            if (type.DeclaringType != null)
-                Nodes.Add(new ModelNodeType(this, type.DeclaringType, "Declaring Type"));
         }
     }
 }

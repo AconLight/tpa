@@ -108,8 +108,14 @@ namespace Serialization.SerializationModelTree
         public override void loadAll()
         {
             allNodes = new ObservableCollection<ModelNode>();
-            allNodes.Concat(TypeNodes);
-            allNodes.Concat(MethodNodes);
+            foreach (ModelNode node in TypeNodes)
+            {
+                allNodes.Add(node);
+            }
+            foreach (ModelNode node in MethodNodes)
+            {
+                allNodes.Add(node);
+            }
         }
     }
 }

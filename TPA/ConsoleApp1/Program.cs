@@ -20,7 +20,7 @@ namespace ConsoleApp1
             ConsoleKeyInfo c;
             while (true)
             {
-                Console.Clear();
+                //Console.Clear();
                 if (viewModel.tree != null)
                 PrintTree(viewModel.tree, childId);
                 c = Console.ReadKey();

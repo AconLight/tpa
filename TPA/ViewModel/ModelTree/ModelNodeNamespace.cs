@@ -17,9 +17,16 @@ namespace ViewModel.ModelTree
             this.m_namespace = m_namespace;
         }
 
+        public ModelNodeNamespace(ModelNode parent, String Name) : base(parent)
+        {
+            this.Name = Name;
+            TypeName = "Namespace";
+        }
+
         public override void Load()
         {
             IsExpanded = true;
+            if(Nodes.Count() == 0)
             foreach (TypeMetaData t in m_namespace.Types)
             {
                 if (t != null) Nodes.Add(new ModelNodeType(this, t, "Type"));

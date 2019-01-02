@@ -24,34 +24,38 @@ namespace ViewModel.ModelTree
         {
             currentNode = new ModelNodeAssembly(null, tree.rootNode.Name);
             tree.rootNode.loadAll();
-            foreach (Serialization.SerializationModelTree.ModelNode child in tree.rootNode.allNodes)
-            {
-                currentNode.Nodes.Add(new ModelNodeNamespace(currentNode, ((Serialization.SerializationModelTree.ModelNodeNamespace)child).m_namespace));
-            }
+            Console.WriteLine(tree.rootNode.Nodes.Count());
             rootNode = currentNode;
             TreeSeek(rootNode, tree.rootNode);
+            Console.WriteLine(rootNode.Nodes.Count());
+            Load();
+
         }
 
-        private void TreeSeek(ModelNode parent, Serialization.SerializationModelTree.ModelNode node)
+        private void TreeSeek(ModelNode myNode, Serialization.SerializationModelTree.ModelNode node)
         {
-            foreach(Serialization.SerializationModelTree.ModelNode child in node.allNodes)
+            ModelNode newNode = null;
+            node.loadAll();
+            foreach (Serialization.SerializationModelTree.ModelNode child in node.allNodes)
             {
-                child.loadAll();
-                ModelNode newParent = null;
                 if (child.TypeName == "Method")
                 {
-                    parent.Nodes.Add(newParent = new ModelNodeMethod(parent, ((Serialization.SerializationModelTree.ModelNodeMethod)child).method));
+                    myNode.Nodes.Add(newNode = new ModelNodeMethod(myNode, ((Serialization.SerializationModelTree.ModelNodeMethod)child).Name));
                 }
                 else if (child.TypeName == "Namespace")
                 {
-                    parent.Nodes.Add(newParent = new ModelNodeNamespace(parent, ((Serialization.SerializationModelTree.ModelNodeNamespace)child).m_namespace));
+                    myNode.Nodes.Add(newNode = new ModelNodeNamespace(myNode, ((Serialization.SerializationModelTree.ModelNodeNamespace)child).Name));
                 }
                 else if (child.TypeName == "Type")
                 {
-                    parent.Nodes.Add(newParent = new ModelNodeType(parent, ((Serialization.SerializationModelTree.ModelNodeType)child).type, ((Serialization.SerializationModelTree.ModelNodeType)child).TypeName));
+                    myNode.Nodes.Add(newNode = new ModelNodeType(myNode, ((Serialization.SerializationModelTree.ModelNodeType)child).Name, ((Serialization.SerializationModelTree.ModelNodeType)child).TypeName));
                 }
-                
-                TreeSeek(newParent, child);
+                else
+                {
+                    return;
+                }
+
+                TreeSeek(newNode, child);
             }
         }
 

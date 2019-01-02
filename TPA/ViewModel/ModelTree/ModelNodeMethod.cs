@@ -17,6 +17,12 @@ namespace ViewModel.ModelTree
             TypeName = "Method";
         }
 
+        public ModelNodeMethod(ModelNode parent, String Name) : base(parent)
+        {
+            this.Name = Name;
+            TypeName = "Method";
+        }
+
         private string SubName()
         {
             string access = "";
@@ -37,12 +43,15 @@ namespace ViewModel.ModelTree
         public override void Load()
         {
             IsExpanded = true;
-            if (method.ReturnType != null)
-                Nodes.Add(new ModelNodeType(this, method.ReturnType, "Return Type"));
-            foreach (ParameterMetaData p in method.Parameters)
+            if (Nodes.Count() == 0)
             {
-                if (p.Type != null)
-                    Nodes.Add(new ModelNodeType(this, p.Type, "Parameter Type"));
+                if (method.ReturnType != null)
+                    Nodes.Add(new ModelNodeType(this, method.ReturnType, "Return Type"));
+                foreach (ParameterMetaData p in method.Parameters)
+                {
+                    if (p.Type != null)
+                        Nodes.Add(new ModelNodeType(this, p.Type, "Parameter Type"));
+                }
             }
         }
     }

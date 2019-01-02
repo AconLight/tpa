@@ -38,7 +38,10 @@ namespace Serialization.SerializationModelTree
         public override void loadAll()
         {
             allNodes = new ObservableCollection<ModelNode>();
-            allNodes.Concat(Nodes);
+            foreach (ModelNode node in Nodes)
+            {
+                allNodes.Add(node);
+            }
         }
     }
 }
