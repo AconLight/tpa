@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TPATests
+namespace WPFTests
 {
     [TestClass]
     public class UnitTest1
