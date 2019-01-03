@@ -1,4 +1,5 @@
-﻿using Serialization;
+﻿using Composition;
+using Serialization;
 using System;
 using System.IO;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace ConsoleApp1
         {
             ViewModelClass viewModel = new ViewModelClass(new BrowseConsole());
             viewModel.Browse();
+            
 
-            Ser ser = new Ser(viewModel.pathVariable);
+            //Ser ser = new Ser(viewModel.pathVariable);
+            MEF serialization = new MEF();
+
             int childId = 0;
             ConsoleKeyInfo c;
             while (true)
@@ -27,10 +31,10 @@ namespace ConsoleApp1
                 switch (c.Key)
                 {
                     case ConsoleKey.S:
-                        ser.serialize(viewModel.tree.rootNode.assembly);
+                        serialization.dataBridgeInterface.write(viewModel.tree.rootNode.assembly);
                         break;
                     case ConsoleKey.D:
-                           viewModel.tree = new ModelTreeHandler(ser.deserialize());
+                           viewModel.tree = new ModelTreeHandler(serialization.dataBridgeInterface.read());
                         break;
                     case ConsoleKey.R:
                             viewModel.Load();
