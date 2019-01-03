@@ -16,12 +16,12 @@ namespace LogicTests
         public void Initialise()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
-            string root = "Tests";
+            string root = "tpa";
             while (!(path.Substring(path.Length - root.Length) == root))
             {
                 path = path.Remove(path.Length - 1);
             }
-            string filename = "\\..\\TPA.ApplicationArchitecture.dll";
+            string filename = "\\TPA\\TPA.ApplicationArchitecture.dll";
             string fullFilePath = path + filename;
             assemblyMetaData = new AssemblyMetaData(Assembly.LoadFrom(fullFilePath));
         }
