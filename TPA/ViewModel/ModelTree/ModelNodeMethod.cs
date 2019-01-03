@@ -43,7 +43,7 @@ namespace ViewModel.ModelTree
         public override void Load()
         {
             IsExpanded = true;
-            if (Nodes.Count() == 0)
+            if (Nodes.Count() == 0 && method != null)
             {
                 if (method.ReturnType != null)
                     Nodes.Add(new ModelNodeType(this, method.ReturnType, "Return Type"));

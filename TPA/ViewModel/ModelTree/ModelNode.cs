@@ -44,7 +44,7 @@ namespace ViewModel.ModelTree
             {
                 node.Close();
             }
-            Nodes.Clear();
+            //Nodes.Clear();
         }
     }
 }

@@ -46,7 +46,10 @@ namespace ViewModel.ModelTree
                 {
                     myNode.Nodes.Add(newNode = new ModelNodeNamespace(myNode, ((Serialization.SerializationModelTree.ModelNodeNamespace)child).Name));
                 }
-                else if (child.TypeName == "Type")
+                else if (child.TypeName == "Type" || child.TypeName == "Property" 
+                    || child.TypeName == "Interface" || child.TypeName == "Nested Type" 
+                    || child.TypeName == "Base Type" || child.TypeName == "Declaring Type"
+                    || child.TypeName == "Return Type" || child.TypeName == "Parameter Type")
                 {
                     myNode.Nodes.Add(newNode = new ModelNodeType(myNode, ((Serialization.SerializationModelTree.ModelNodeType)child).Name, ((Serialization.SerializationModelTree.ModelNodeType)child).TypeName));
                 }

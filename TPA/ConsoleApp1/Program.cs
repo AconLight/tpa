@@ -51,7 +51,7 @@ namespace ConsoleApp1
                         break;
                     case ConsoleKey.Spacebar:
                         if (viewModel.tree != null)
-                            if (viewModel.tree.currentNode.Nodes.Count > childId)
+                        if (viewModel.tree.currentNode.Nodes.Count > childId)
                         {
                             viewModel.tree.GoToChild(viewModel.tree.currentNode.Nodes[childId]);
                             viewModel.tree.Load();
@@ -65,6 +65,7 @@ namespace ConsoleApp1
 
         private static void PrintTree(ModelTreeHandler tree, int childId)
         {
+            Console.Clear();
             int tabs = 0;
             Console.WriteLine();
             Console.WriteLine("Tree Print:");
