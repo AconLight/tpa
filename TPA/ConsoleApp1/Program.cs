@@ -17,7 +17,7 @@ namespace ConsoleApp1
             viewModel.Browse();
             
 
-            Ser ser = new Ser(viewModel.pathVariable);
+            //Ser ser = new Ser(viewModel.pathVariable);
             MEF serialization = new MEF();
 
             int childId = 0;
