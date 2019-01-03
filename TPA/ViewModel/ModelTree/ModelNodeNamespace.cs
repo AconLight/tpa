@@ -1,6 +1,7 @@
 ﻿using Reflection.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,15 @@ namespace ViewModel.ModelTree
             foreach (TypeMetaData t in m_namespace.Types)
             {
                 if (t != null) Nodes.Add(new ModelNodeType(this, t, "Type"));
+            }
+        }
+
+        public override void loadAll()
+        {
+            Nodes = new ObservableCollection<ModelNode>();
+            foreach (ModelNode node in Nodes)
+            {
+                Nodes.Add(node);
             }
         }
     }

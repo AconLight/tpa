@@ -31,10 +31,11 @@ namespace ConsoleApp1
                 switch (c.Key)
                 {
                     case ConsoleKey.S:
-                        serialization.dataBridgeInterface.write(viewModel.tree.rootNode.assembly);
+                        serialization.dataBridgeInterface.write(ModelTreeHandler.createModelTree(viewModel.tree).rootNode);
                         break;
                     case ConsoleKey.D:
-                           viewModel.tree = new ModelTreeHandler(serialization.dataBridgeInterface.read());
+                        Reflection.ModelTree.ModelTreeHandler rtree = new Reflection.ModelTree.ModelTreeHandler(serialization.dataBridgeInterface.read());
+                        viewModel.tree = new ModelTreeHandler(rtree);
                         break;
                     case ConsoleKey.R:
                             viewModel.Load();

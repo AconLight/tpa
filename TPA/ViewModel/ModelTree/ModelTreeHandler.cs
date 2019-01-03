@@ -26,7 +26,7 @@ namespace ViewModel.ModelTree
             currentNode = rootNode;
             //Load();
         }
-        public ModelTreeHandler(Serialization.SerializationModelTree.ModelTreeHandler tree)
+        public ModelTreeHandler(Reflection.ModelTree.ModelTreeHandler tree)
         {
             rootNode = new ModelNodeAssembly(null, tree.rootNode.Name);
             tree.rootNode.loadAll();
@@ -38,26 +38,26 @@ namespace ViewModel.ModelTree
 
         }
 
-        private void TreeSeek(ModelNode myNode, Serialization.SerializationModelTree.ModelNode node)
+        private void TreeSeek(ModelNode myNode, Reflection.ModelTree.ModelNode node)
         {
             ModelNode newNode = null;
             node.loadAll();
-            foreach (Serialization.SerializationModelTree.ModelNode child in node.allNodes)
+            foreach (Reflection.ModelTree.ModelNode child in node.allNodes)
             {
                 if (child.TypeName == "Method")
                 {
-                    myNode.Nodes.Add(newNode = new ModelNodeMethod(myNode, ((Serialization.SerializationModelTree.ModelNodeMethod)child).Name));
+                    myNode.Nodes.Add(newNode = new ModelNodeMethod(myNode, ((Reflection.ModelTree.ModelNodeMethod)child).Name));
                 }
                 else if (child.TypeName == "Namespace")
                 {
-                    myNode.Nodes.Add(newNode = new ModelNodeNamespace(myNode, ((Serialization.SerializationModelTree.ModelNodeNamespace)child).Name));
+                    myNode.Nodes.Add(newNode = new ModelNodeNamespace(myNode, ((Reflection.ModelTree.ModelNodeNamespace)child).Name));
                 }
                 else if (child.TypeName == "Type" || child.TypeName == "Property" 
                     || child.TypeName == "Interface" || child.TypeName == "Nested Type" 
                     || child.TypeName == "Base Type" || child.TypeName == "Declaring Type"
                     || child.TypeName == "Return Type" || child.TypeName == "Parameter Type")
                 {
-                    myNode.Nodes.Add(newNode = new ModelNodeType(myNode, ((Serialization.SerializationModelTree.ModelNodeType)child).Name, ((Serialization.SerializationModelTree.ModelNodeType)child).TypeName));
+                    myNode.Nodes.Add(newNode = new ModelNodeType(myNode, ((Reflection.ModelTree.ModelNodeType)child).Name, ((Reflection.ModelTree.ModelNodeType)child).TypeName));
                 }
                 else
                 {
@@ -113,6 +113,48 @@ namespace ViewModel.ModelTree
             }
 
             return nodes;
+        }
+
+        public static Reflection.ModelTree.ModelTreeHandler createModelTree(ModelTreeHandler tree)
+        {
+            Reflection.ModelTree.ModelTreeHandler modelTree = new Reflection.ModelTree.ModelTreeHandler();
+
+            modelTree.rootNode = new Reflection.ModelTree.ModelNodeAssembly(null, tree.rootNode.Name);
+            tree.rootNode.loadAll();
+            modelTree.currentNode = modelTree.rootNode;
+            TreeSeek(modelTree.rootNode, tree.rootNode);
+            modelTree.Load();
+            return modelTree;
+        }
+
+        private static void TreeSeek(Reflection.ModelTree.ModelNode myNode, ModelNode node)
+        {
+            Reflection.ModelTree.ModelNode newNode = null;
+            node.loadAll();
+            foreach (ModelNode child in node.Nodes)
+            {
+                if (child.TypeName == "Method")
+                {
+                    myNode.allNodes.Add(newNode = new Reflection.ModelTree.ModelNodeMethod(myNode, ((ModelNodeMethod)child).Name));
+                }
+                else if (child.TypeName == "Namespace")
+                {
+                    myNode.allNodes.Add(newNode = new Reflection.ModelTree.ModelNodeNamespace(myNode, ((ModelNodeNamespace)child).Name));
+                }
+                else if (child.TypeName == "Type" || child.TypeName == "Property"
+                    || child.TypeName == "Interface" || child.TypeName == "Nested Type"
+                    || child.TypeName == "Base Type" || child.TypeName == "Declaring Type"
+                    || child.TypeName == "Return Type" || child.TypeName == "Parameter Type")
+                {
+                    myNode.allNodes.Add(newNode = new Reflection.ModelTree.ModelNodeType(myNode, ((ModelNodeType)child).Name, ((ModelNodeType)child).TypeName));
+                }
+                else
+                {
+                    return;
+                }
+
+                TreeSeek(newNode, child);
+            }
         }
     }
 

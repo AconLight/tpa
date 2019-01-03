@@ -29,6 +29,7 @@ namespace Serialization.SerializationModelTree
         }
         public ModelTreeHandler()
         {
+            loadedNodes = new List<ModelNode>();
         }
         public void Load()
         {

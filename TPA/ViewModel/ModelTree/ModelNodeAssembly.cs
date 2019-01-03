@@ -26,10 +26,20 @@ namespace ViewModel.ModelTree
         public override void Load()
         {
             IsExpanded = true;
-            if (Nodes.Count() == 0)
+            if (assembly != null)
+                if (Nodes.Count() == 0)
                 foreach (NamespaceMetaData n in assembly.Namespaces)
             {
                 Nodes.Add(new ModelNodeNamespace(this, n));
+            }
+        }
+
+        public override void loadAll()
+        {
+            Nodes = new ObservableCollection<ModelNode>();
+            foreach (ModelNode node in Nodes)
+            {
+                Nodes.Add(node);
             }
         }
     }

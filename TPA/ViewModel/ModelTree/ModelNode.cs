@@ -46,5 +46,9 @@ namespace ViewModel.ModelTree
             }
             //Nodes.Clear();
         }
+        public virtual void loadAll()
+        {
+            // do nothing
+        }
     }
 }

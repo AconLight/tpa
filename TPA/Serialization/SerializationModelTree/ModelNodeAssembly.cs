@@ -25,12 +25,14 @@ namespace Serialization.SerializationModelTree
         }
         public ModelNodeAssembly(ModelNode parent, String Name) : base(parent)
         {
+            Nodes = new ObservableCollection<ModelNodeNamespace>();
             this.Name = Name;
             TypeName = "Assembly";
         }
 
         public override void Load(List<ModelNode> loadedNodes)
         {
+            if (assembly != null)
             foreach (NamespaceMetaData n in assembly.Namespaces)
             {
                 Nodes.Add(new ModelNodeNamespace(this, n));
@@ -41,6 +43,7 @@ namespace Serialization.SerializationModelTree
         public override void loadAll()
         {
             allNodes = new ObservableCollection<ModelNode>();
+            if (Nodes != null)
             foreach(ModelNode node in Nodes)
             {
                 allNodes.Add(node);

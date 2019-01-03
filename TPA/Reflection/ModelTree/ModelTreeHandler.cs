@@ -41,6 +41,7 @@ namespace Reflection.ModelTree
         }
         public ModelTreeHandler()
         {
+            loadedNodes = new List<ModelNode>();
         }
         public void Load()
         {
