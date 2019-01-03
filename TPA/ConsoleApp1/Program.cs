@@ -27,7 +27,7 @@ namespace ConsoleApp1
                 switch (c.Key)
                 {
                     case ConsoleKey.S:
-                        ser.serialize();
+                        ser.serialize(viewModel.tree.rootNode.assembly);
                         break;
                     case ConsoleKey.D:
                            viewModel.tree = new ModelTreeHandler(ser.deserialize());

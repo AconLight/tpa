@@ -8,7 +8,7 @@ using Reflection.Model;
 
 namespace ViewModel.ModelTree
 {
-    class ModelNodeAssembly: ModelNode
+    public class ModelNodeAssembly: ModelNode
     {
         public AssemblyMetaData assembly;
         public ModelNodeAssembly(ModelNode parent, AssemblyMetaData assembly): base(parent)

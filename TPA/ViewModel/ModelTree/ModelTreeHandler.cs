@@ -12,20 +12,26 @@ namespace ViewModel.ModelTree
     public class ModelTreeHandler
     {
         public ModelNode currentNode;
-        public ModelNode rootNode;
+        public ModelNodeAssembly rootNode;
 
         public ModelTreeHandler(Assembly assembly)
         {
-            currentNode = new ModelNodeAssembly(null, new AssemblyMetaData(assembly));
-            rootNode = currentNode;
+            rootNode = new ModelNodeAssembly(null, new AssemblyMetaData(assembly));
+            currentNode = rootNode;
+            //Load();
+        }
+        public ModelTreeHandler(AssemblyMetaData assemblyMetaData)
+        {
+            rootNode = new ModelNodeAssembly(null, assemblyMetaData);
+            currentNode = rootNode;
             //Load();
         }
         public ModelTreeHandler(Serialization.SerializationModelTree.ModelTreeHandler tree)
         {
-            currentNode = new ModelNodeAssembly(null, tree.rootNode.Name);
+            rootNode = new ModelNodeAssembly(null, tree.rootNode.Name);
             tree.rootNode.loadAll();
             Console.WriteLine(tree.rootNode.Nodes.Count());
-            rootNode = currentNode;
+            currentNode = rootNode;
             TreeSeek(rootNode, tree.rootNode);
             Console.WriteLine(rootNode.Nodes.Count());
             Load();

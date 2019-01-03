@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Reflection\Reflection.csproj">
-      <Project>{886e7752-a051-4ec8-b4a7-2ff11ae5c67e}</Project>
+      <Project>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</Project>
       <Name>Reflection</Name>
     </ProjectReference>
   </ItemGroup>
