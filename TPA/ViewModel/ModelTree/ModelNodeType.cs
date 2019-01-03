@@ -52,7 +52,7 @@ namespace ViewModel.ModelTree
         public override void Load()
         {
             IsExpanded = true;
-            if (Nodes.Count() == 0)
+            if (Nodes.Count() == 0 && type != null)
             {
                 foreach (PropertyMetaData p in type.Properties)
                 {
