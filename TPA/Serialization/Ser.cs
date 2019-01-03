@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Xml;
-using System.Xml.Linq;
 using System.IO;
 using System.Runtime.Serialization;
 using Serialization.SerializationModelTree;
 using System.Reflection;
+using Reflection.Model;
+using Reflection;
 
 namespace Serialization
 {
-    public class Ser
+    public class Ser: DataBridgeInterface
     {
         String pathToFile = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"ser.xml");
         private Assembly assembly;
@@ -28,9 +28,9 @@ namespace Serialization
             this.assembly = assembly;
         }
 
-        public void serialize()
+        public void serialize(AssemblyMetaData assemblyMetaData)
         {
-            ModelTreeHandler tree = new ModelTreeHandler(assembly);
+            ModelTreeHandler tree = new ModelTreeHandler(assemblyMetaData);
             DataContractSerializer s = new DataContractSerializer(typeof(ModelTreeHandler));
             using (FileStream fs = File.Open(pathToFile, FileMode.Create))
             {
@@ -38,13 +38,23 @@ namespace Serialization
             }
         }
 
-        public ModelTreeHandler deserialize()
+        public AssemblyMetaData deserialize()
         {
             DataContractSerializer s = new DataContractSerializer(typeof(ModelTreeHandler));
             using (FileStream fs = File.Open(pathToFile, FileMode.Open))
             {
-                return (ModelTreeHandler)s.ReadObject(fs);
+                return ((ModelTreeHandler)s.ReadObject(fs)).rootNode.assembly;
             }
+        }
+
+        public void write(AssemblyMetaData assemblyMetaData)
+        {
+            serialize(assemblyMetaData);
+        }
+
+        public AssemblyMetaData read()
+        {
+            return deserialize();
         }
     }
 

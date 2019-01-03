@@ -20,6 +20,13 @@ namespace Serialization.SerializationModelTree
             currentNode = rootNode;
             Load();
         }
+        public ModelTreeHandler(AssemblyMetaData assemblyMetaData)
+        {
+            loadedNodes = new List<ModelNode>();
+            rootNode = new ModelNodeAssembly(null, assemblyMetaData);
+            currentNode = rootNode;
+            Load();
+        }
         public void Load()
         {
             currentNode.tryLoad(loadedNodes);

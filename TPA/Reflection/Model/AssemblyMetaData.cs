@@ -20,6 +20,13 @@ namespace Reflection.Model
                            select new NamespaceMetaData(_group.Key, _group);
         }
 
+        public AssemblyMetaData(DataBridgeInterface dbi)
+        {
+            AssemblyMetaData prototype = dbi.read();
+            Name = prototype.Name;
+            Namespaces = prototype.Namespaces;
+        }
+
         private string m_Name;
         private IEnumerable<NamespaceMetaData> m_Namespaces;
 
