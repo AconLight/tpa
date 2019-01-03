@@ -5,9 +5,11 @@ using Serialization.SerializationModelTree;
 using System.Reflection;
 using Reflection.Model;
 using Reflection;
+using System.ComponentModel.Composition;
 
 namespace Serialization
 {
+    [Export(typeof(DataBridgeInterface))]
     public class Ser: DataBridgeInterface
     {
         String pathToFile = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"ser.xml");
