@@ -7,13 +7,11 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Serialization.SerializationModelTree
+namespace Reflection.ModelTree
 {
-    [DataContract(IsReference = true)]
     public class ModelNodeMethod : ModelNode
     {
         public MethodMetaData method;
-        [DataMember]
         public ObservableCollection<ModelNodeType> Nodes { get; set; }
         public ModelNodeMethod(ModelNode parent, MethodMetaData method) : base(parent)
         {

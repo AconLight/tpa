@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reflection.ModelTree;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,13 +19,6 @@ namespace Reflection.Model
                            group _type by _type.GetNamespace() into _group
                            orderby _group.Key
                            select new NamespaceMetaData(_group.Key, _group);
-        }
-
-        public AssemblyMetaData(DataBridgeInterface dbi)
-        {
-            AssemblyMetaData prototype = dbi.read();
-            Name = prototype.Name;
-            Namespaces = prototype.Namespaces;
         }
 
         private string m_Name;

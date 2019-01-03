@@ -1,10 +1,11 @@
 ﻿using Reflection.Model;
+using Reflection.ModelTree;
 
 namespace Reflection
 {
     public interface DataBridgeInterface
     {
-        void write(AssemblyMetaData assemblyMetaData);
-        AssemblyMetaData read();
+        void write(ModelNodeAssembly assemblyMetaData);
+        ModelNodeAssembly read();
     }
 }

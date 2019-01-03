@@ -6,16 +6,13 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Serialization.SerializationModelTree
+namespace Reflection.ModelTree
 {
-    [DataContract(IsReference = true)]
     public class ModelNode
     {
         public ObservableCollection<ModelNode> allNodes { get; set; }
-        [DataMember]
         public string TypeName;
         public ModelNode Parent;
-        [DataMember]
         public string Name { get; set; }
 
 

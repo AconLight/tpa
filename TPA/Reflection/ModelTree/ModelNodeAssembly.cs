@@ -7,15 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Reflection.Model;
 
-namespace Serialization.SerializationModelTree
+namespace Reflection.ModelTree
 {
-    [DataContract(IsReference = true)]
     public class ModelNodeAssembly: ModelNode
     {
-        [DataMember]
         public ObservableCollection<ModelNodeNamespace> Nodes { get; set; }
 
         public AssemblyMetaData assembly;
+
         public ModelNodeAssembly(ModelNode parent, AssemblyMetaData assembly): base(parent)
         {
             Nodes = new ObservableCollection<ModelNodeNamespace>();

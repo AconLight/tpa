@@ -7,13 +7,13 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Serialization.SerializationModelTree
+namespace Reflection.ModelTree
 {
-    [DataContract(IsReference = true)]
+
     public class ModelNodeNamespace : ModelNode
     {
         public NamespaceMetaData m_namespace;
-        [DataMember]
+
         public ObservableCollection<ModelNodeType> Nodes { get; set; }
         public ModelNodeNamespace(ModelNode parent, NamespaceMetaData m_namespace) : base(parent)
         {
