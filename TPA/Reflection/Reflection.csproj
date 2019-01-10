@@ -40,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTree\ModelNode.cs" />
-    <Compile Include="ModelTree\ModelNodeAssembly.cs" />
-    <Compile Include="ModelTree\ModelNodeMethod.cs" />
-    <Compile Include="ModelTree\ModelNodeNamespace.cs" />
-    <Compile Include="ModelTree\ModelNodeType.cs" />
-    <Compile Include="ModelTree\ModelTreeHandler.cs" />
+    <Compile Include="ModelTree\LogicModelNode.cs" />
+    <Compile Include="ModelTree\LogicModelNodeAssembly.cs" />
+    <Compile Include="ModelTree\LogicModelNodeMethod.cs" />
+    <Compile Include="ModelTree\LogicModelNodeNamespace.cs" />
+    <Compile Include="ModelTree\LogicModelNodeType.cs" />
+    <Compile Include="ModelTree\LogicModelTreeHandler.cs" />
     <Compile Include="Model\AbstractMetaData.cs" />
     <Compile Include="Model\AccessLevelMetaData.cs" />
     <Compile Include="Model\AssemblyMetaData.cs" />

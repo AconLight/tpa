@@ -43,12 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ser.cs" />
-    <Compile Include="SerializationModelTree\ModelNode.cs" />
-    <Compile Include="SerializationModelTree\ModelNodeAssembly.cs" />
-    <Compile Include="SerializationModelTree\ModelNodeMethod.cs" />
-    <Compile Include="SerializationModelTree\ModelNodeNamespace.cs" />
-    <Compile Include="SerializationModelTree\ModelNodeType.cs" />
-    <Compile Include="SerializationModelTree\ModelTreeHandler.cs" />
+    <Compile Include="SerializationModelTree\SerModelNode.cs" />
+    <Compile Include="SerializationModelTree\SerModelNodeAssembly.cs" />
+    <Compile Include="SerializationModelTree\SerModelNodeMethod.cs" />
+    <Compile Include="SerializationModelTree\SerModelNodeNamespace.cs" />
+    <Compile Include="SerializationModelTree\SerModelNodeType.cs" />
+    <Compile Include="SerializationModelTree\SerModelTreeHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

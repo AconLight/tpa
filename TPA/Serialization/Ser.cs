@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Reflection;
 using Reflection;
 using System.ComponentModel.Composition;
+using Reflection.ModelTree;
 
 namespace Serialization
 {
@@ -29,33 +30,33 @@ namespace Serialization
             this.assembly = assembly;
         }
 
-        public void serialize(Reflection.ModelTree.ModelNodeAssembly modelNodeAssembly)
+        public void serialize(LogicModelTreeHandler logicTree)
         {
-            Reflection.ModelTree.ModelTreeHandler rtree = new Reflection.ModelTree.ModelTreeHandler(modelNodeAssembly);
-            SerializationModelTree.ModelTreeHandler tree = SerializationModelTree.ModelTreeHandler.createModelTreeToSer(rtree);
-            DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.ModelTreeHandler));
+            LogicModelTreeHandler rtree = logicTree;
+            SerializationModelTree.SerModelTreeHandler tree = SerializationModelTree.SerModelTreeHandler.createSerModelTreeToSer(rtree);
+            DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
             using (FileStream fs = File.Open(pathToFile, FileMode.Create))
             {
                 s.WriteObject(fs, tree);
             }
         }
 
-        public Reflection.ModelTree.ModelNodeAssembly deserialize()
+        public LogicModelTreeHandler deserialize()
         {
-            DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.ModelTreeHandler));
+            DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
             using (FileStream fs = File.Open(pathToFile, FileMode.Open))
             {
-                SerializationModelTree.ModelTreeHandler tree = ((SerializationModelTree.ModelTreeHandler)s.ReadObject(fs));
-                return SerializationModelTree.ModelTreeHandler.createModelTree(tree).rootNode;
+                SerializationModelTree.SerModelTreeHandler tree = ((SerializationModelTree.SerModelTreeHandler)s.ReadObject(fs));
+                return SerializationModelTree.SerModelTreeHandler.createLogicModelTree(tree);
             }
         }
 
-        public void write(Reflection.ModelTree.ModelNodeAssembly assemblyMetaData)
+        public void write(LogicModelTreeHandler tree)
         {
-            serialize(assemblyMetaData);
+            serialize(tree);
         }
 
-        Reflection.ModelTree.ModelNodeAssembly DataBridgeInterface.read()
+        public LogicModelTreeHandler read()
         {
             return deserialize();
         }

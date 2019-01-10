@@ -31,11 +31,11 @@ namespace ConsoleApp1
                 switch (c.Key)
                 {
                     case ConsoleKey.S:
-                        serialization.dataBridgeInterface.write(ModelTreeHandler.createModelTree(viewModel.tree).rootNode);
+                        serialization.dataBridgeInterface.write(ViewModelTreeHandler.createModelTree(viewModel.tree));
                         break;
                     case ConsoleKey.D:
-                        Reflection.ModelTree.ModelTreeHandler rtree = new Reflection.ModelTree.ModelTreeHandler(serialization.dataBridgeInterface.read());
-                        viewModel.tree = new ModelTreeHandler(rtree);
+                        Reflection.ModelTree.LogicModelTreeHandler rtree = serialization.dataBridgeInterface.read();
+                        viewModel.tree = new ViewModelTreeHandler(rtree);
                         break;
                     case ConsoleKey.R:
                             viewModel.Load();
@@ -68,16 +68,16 @@ namespace ConsoleApp1
             }
         }
 
-        private static void PrintTree(ModelTreeHandler tree, int childId)
+        private static void PrintTree(ViewModelTreeHandler tree, int childId)
         {
-            Console.Clear();
+            //Console.Clear();
             int tabs = 0;
             Console.WriteLine();
             Console.WriteLine("Tree Print:");
             NodePrint(tabs, tree.rootNode, tree.currentNode, childId);
         }
 
-        private static void NodePrint(int tabs, ModelNode node, ModelNode currentNode, int childId)
+        private static void NodePrint(int tabs, ViewModelNode node, ViewModelNode currentNode, int childId)
         {
             for(int i = 0; i < tabs; i++)
             {
@@ -92,7 +92,7 @@ namespace ConsoleApp1
             }
                 Console.WriteLine("(" + node.TypeName + ") " + node.Name);
             tabs++;
-            foreach (ModelNode n in ModelTreeHandler.TreePrint(node))
+            foreach (ViewModelNode n in ViewModelTreeHandler.TreePrint(node))
             {
                 NodePrint(tabs, n, currentNode, childId);
             }

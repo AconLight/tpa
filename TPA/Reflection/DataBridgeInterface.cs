@@ -5,7 +5,7 @@ namespace Reflection
 {
     public interface DataBridgeInterface
     {
-        void write(ModelNodeAssembly assemblyMetaData);
-        ModelNodeAssembly read();
+        void write(LogicModelTreeHandler tree);
+        LogicModelTreeHandler read();
     }
 }
