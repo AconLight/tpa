@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using Reflection;
+using System.IO;
+using System.Reflection;
 
 namespace Composition
 {
@@ -14,13 +12,27 @@ namespace Composition
         private CompositionContainer compositionContainer;
         [Import(typeof(DataBridgeInterface))]
         public DataBridgeInterface dataBridgeInterface;
-        [Import(typeof(ITracer))]
-        public ITracer tracer;
+        //[Import(typeof(ITracer))]
+        //public ITracer tracer;
 
         public MEF()
         {
-            var catalog = new DirectoryCatalog(".", "*");
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
+            string root = "tpa";
+            while (!(path.Substring(path.Length - root.Length) == root))
+            {
+                path = path.Remove(path.Length - 1);
+            }
+            string path1 =path + "\\TPA\\Serialization\\bin\\Debug";
+            string path2 = path + "\\TPA\\Composition\\bin\\Debug";
+            var catalog = new AggregateCatalog();
+            //Adds all the parts found in the same assembly as the Program class
+            //catalog.Catalogs.Add(new AssemblyCatalog(typeof(MEF).Assembly));
+            var directorycatalog = new DirectoryCatalog(path1, "*.dll");
+            catalog.Catalogs.Add(directorycatalog);
+            directorycatalog = new DirectoryCatalog(path2, "Composition.dll");
             compositionContainer = new CompositionContainer(catalog);
+
             try
             {
                 this.compositionContainer.ComposeParts(this);
@@ -29,6 +41,7 @@ namespace Composition
             {
                 Console.WriteLine(compositionException.ToString());
             }
+            //tracer.Info(path);
         }
     }
 }
