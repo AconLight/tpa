@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="model\DBModelAssociation.cs" />
+    <Compile Include="DBHandler.cs" />
     <Compile Include="model\DBModelNode.cs" />
     <Compile Include="model\ModelContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +56,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reflection\Reflection.csproj">
+      <Project>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</Project>
+      <Name>Reflection</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
