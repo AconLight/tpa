@@ -19,7 +19,7 @@ namespace ConsoleApp1
 
             //Ser ser = new Ser(viewModel.pathVariable);
             MEF serialization = new MEF();
-            //serialization.tracer.TraceData(System.Diagnostics.TraceEventType.Information, 0, viewModel);
+            serialization.tracer.Info("test");
             int childId = 0;
             ConsoleKeyInfo c;
             while (true)
