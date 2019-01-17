@@ -12,8 +12,8 @@ namespace Composition
         private CompositionContainer compositionContainer;
         [Import(typeof(DataBridgeInterface))]
         public DataBridgeInterface dataBridgeInterface;
-        //[Import(typeof(ITracer))]
-        //public ITracer tracer;
+        [Import(typeof(ITracer))]
+        public ITracer tracer;
 
         public MEF()
         {
@@ -23,7 +23,7 @@ namespace Composition
             {
                 path = path.Remove(path.Length - 1);
             }
-            string path1 =path + "\\TPA\\Serialization\\bin\\Debug";
+            string path1 =path + "\\TPA\\Database\\bin\\Debug";
             string path2 = path + "\\TPA\\Composition\\bin\\Debug";
             var catalog = new AggregateCatalog();
             //Adds all the parts found in the same assembly as the Program class
@@ -31,6 +31,7 @@ namespace Composition
             var directorycatalog = new DirectoryCatalog(path1, "*.dll");
             catalog.Catalogs.Add(directorycatalog);
             directorycatalog = new DirectoryCatalog(path2, "Composition.dll");
+            catalog.Catalogs.Add(directorycatalog);
             compositionContainer = new CompositionContainer(catalog);
 
             try
