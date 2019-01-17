@@ -18,8 +18,7 @@ namespace ConsoleApp1
             
 
             //Ser ser = new Ser(viewModel.pathVariable);
-            MEF serialization = new MEF();
-            serialization.tracer.Info("test");
+            
             int childId = 0;
             ConsoleKeyInfo c;
             while (true)
@@ -31,11 +30,10 @@ namespace ConsoleApp1
                 switch (c.Key)
                 {
                     case ConsoleKey.S:
-                        serialization.dataBridgeInterface.write(ViewModelTreeHandler.createModelTree(viewModel.tree));
+                        viewModel.serialize();
                         break;
                     case ConsoleKey.D:
-                        Reflection.ModelTree.LogicModelTreeHandler rtree = serialization.dataBridgeInterface.read();
-                        viewModel.tree = new ViewModelTreeHandler(rtree);
+                        viewModel.deserialize();
                         break;
                     case ConsoleKey.R:
                             viewModel.Load();
