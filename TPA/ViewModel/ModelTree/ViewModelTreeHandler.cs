@@ -48,18 +48,18 @@ namespace ViewModel.ModelTree
             //node.loadAll();
             foreach (Reflection.ModelTree.LogicModelNode child in node.allNodes)
             {
-                if (child.TypeName == "Method")
+                if (child.TypeName.Contains("Method"))
                 {
                     myNode.Nodes.Add(newNode = new ViewModelNodeMethod(myNode, ((Reflection.ModelTree.LogicModelNodeMethod)child).Name));
                 }
-                else if (child.TypeName == "Namespace")
+                else if (child.TypeName.Contains("Namespace"))
                 {
                     myNode.Nodes.Add(newNode = new ViewModelNodeNamespace(myNode, ((Reflection.ModelTree.LogicModelNodeNamespace)child).Name));
                 }
-                else if (child.TypeName == "Type" || child.TypeName == "Property" 
-                    || child.TypeName == "Interface" || child.TypeName == "Nested Type" 
-                    || child.TypeName == "Base Type" || child.TypeName == "Declaring Type"
-                    || child.TypeName == "Return Type" || child.TypeName == "Parameter Type")
+                else if (child.TypeName.Contains("Type") || child.TypeName.Contains("Property")
+                    || child.TypeName.Contains("Interface") || child.TypeName.Contains("Nested Type")
+                    || child.TypeName.Contains("Base Type") || child.TypeName.Contains("Declaring Type")
+                    || child.TypeName.Contains("Return Type") || child.TypeName.Contains("Parameter Type"))
                 {
                     myNode.Nodes.Add(newNode = new ViewModelNodeType(myNode, ((Reflection.ModelTree.LogicModelNodeType)child).Name, ((Reflection.ModelTree.LogicModelNodeType)child).TypeName));
                 }
@@ -162,18 +162,18 @@ namespace ViewModel.ModelTree
             //Console.WriteLine(node.Name + ", childs: " + node.Nodes.Count());
             foreach (ViewModelNode child in node.Nodes)
             {
-                if (child.TypeName == "Method")
+                if (child.TypeName.Contains("Method"))
                 {
                     myNode.allNodes.Add(newNode = new Reflection.ModelTree.LogicModelNodeMethod(myNode, ((ViewModelNodeMethod)child).Name));
                 }
-                else if (child.TypeName == "Namespace")
+                else if (child.TypeName.Contains("Namespace"))
                 {
                     myNode.allNodes.Add(newNode = new Reflection.ModelTree.LogicModelNodeNamespace(myNode, ((ViewModelNodeNamespace)child).Name));
                 }
-                else if (child.TypeName == "Type" || child.TypeName == "Property"
-                    || child.TypeName == "Interface" || child.TypeName == "Nested Type"
-                    || child.TypeName == "Base Type" || child.TypeName == "Declaring Type"
-                    || child.TypeName == "Return Type" || child.TypeName == "Parameter Type")
+                else if (child.TypeName.Contains("Type") || child.TypeName.Contains("Property")
+                    || child.TypeName.Contains("Interface") || child.TypeName.Contains("Nested Type")
+                    || child.TypeName.Contains("Base Type") || child.TypeName.Contains("Declaring Type")
+                    || child.TypeName.Contains("Return Type") || child.TypeName.Contains("Parameter Type"))
                 {
                     myNode.allNodes.Add(newNode = new Reflection.ModelTree.LogicModelNodeType(myNode, ((ViewModelNodeType)child).Name, ((ViewModelNodeType)child).TypeName));
                 }
