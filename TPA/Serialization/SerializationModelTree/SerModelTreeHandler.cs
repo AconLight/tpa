@@ -146,14 +146,14 @@ namespace Serialization.SerializationModelTree
                             break;
                         }
                     }
-                    myNode.loadNodes();
                     loadedNodes.Add(myNode);
                     continue;
                 }
-                myNode.loadNodes();
+                
                 loadedNodes.Add(myNode);
                 TreeSeekToSer(newNode, child, loadedNodes);
             }
+            myNode.loadNodes();
         }
 
     }
