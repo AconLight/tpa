@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Database
 {
-    [Export(typeof(DataBridgeInterface))]
+    [Export("DataBaseSer",typeof(DataBridgeInterface))]
     class DBHandler : DataBridgeInterface
     {
         public LogicModelTreeHandler read()

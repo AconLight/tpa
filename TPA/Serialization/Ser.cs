@@ -8,7 +8,7 @@ using Reflection.ModelTree;
 
 namespace Serialization
 {
-    [Export(typeof(DataBridgeInterface))]
+    [Export("XMLser",typeof(DataBridgeInterface))]
     public class Ser: DataBridgeInterface
     {
         String pathToFile = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"ser.xml");
