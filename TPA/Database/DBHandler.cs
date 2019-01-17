@@ -15,17 +15,20 @@ namespace Database
     {
         public LogicModelTreeHandler read()
         {
+            Console.WriteLine("start");
             using (var db = new ModelContext())
             {
                 List<DBModelNode> dbNodes = new List<DBModelNode>();
+                
                 var nodes = from b in db.nodes
                             orderby b.Name
                             select b;
-
+                Console.WriteLine("fetched data");
                 foreach (var item in nodes)
                 {
                     dbNodes.Add(item);
                 }
+                Console.WriteLine("items added");
 
                 return createLogicModel(dbNodes);
             }
