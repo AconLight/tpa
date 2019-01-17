@@ -8,7 +8,9 @@ namespace Database.model
 {
     class DBModelNode
     {
-
-        public String TypeName
+        public int id;
+        public String TypeName;
+        public String Name;
+        public int parentId;
     }
 }

@@ -8,5 +8,7 @@ namespace Database.model
 {
     class DBModelAssociation
     {
+        public int nodeId;
+        public int childId;
     }
 }
