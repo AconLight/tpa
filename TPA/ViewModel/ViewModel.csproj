@@ -52,6 +52,10 @@
     <Compile Include="viewmodel\ViewModelClass.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Composition\Composition.csproj">
+      <Project>{941D2643-7BDE-4148-8030-2831564FE9C1}</Project>
+      <Name>Composition</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Reflection\Reflection.csproj">
       <Project>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</Project>
       <Name>Reflection</Name>
