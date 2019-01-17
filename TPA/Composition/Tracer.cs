@@ -12,37 +12,40 @@ namespace Composition
     [Export(typeof(ITracer))]
     public class Tracer : ITracer
     {
-        private string _path = "test";
-        public string path
+        private string path = Directory.GetCurrentDirectory() + "\\test.txt";
+
+        public void Trace(string msg)
         {
-            get
-            {
-                FileInfo fileInfo = new FileInfo(this._path);
-                if (!fileInfo.Exists)
-                {
-                    throw new FileNotFoundException();
-                }
-                return this.path;
-            }
-            set
-            {
-                string pathTemp = Directory.GetCurrentDirectory() + "\\" + value + ".txt";
-                FileInfo fileInfo = new FileInfo(pathTemp);
-                if (!fileInfo.Exists)
-                {
-                    File.Create(pathTemp);
-                }
-                this.path = pathTemp;
-            }
-        } = "test";
-        public void TraceData(TraceEventType eventType, int id, object data)
-        {
-            using (FileStream fs = new FileStream(path, FileMode.Append))
-            using (StreamWriter writer = new StreamWriter(fs))
-            {
-                writer.Write("[" + DateTime.Now + "]  ");
-                writer.Write(eventType.ToString() + ": " + data.ToString());
-            }
+            System.Diagnostics.Trace.WriteLine(" [ " + DateTime.Now + " ] " + msg);
         }
+
+        public void Info(string msg)
+        {
+            Debug.WriteLine(" [ " + DateTime.Now + " ] " + msg);
+        }
+        //public string path
+        //{
+        //    get
+        //    {
+        //        this.path = _path;
+        //        FileInfo fileInfo = new FileInfo(this._path);
+        //        if (!fileInfo.Exists)
+        //        {
+        //            throw new FileNotFoundException();
+        //        }
+        //        return this.path;
+        //    }
+        //    set
+        //    {
+        //        string pathTemp = Directory.GetCurrentDirectory() + "\\" + value + ".txt";
+        //        FileInfo fileInfo = new FileInfo(pathTemp);
+        //        if (!fileInfo.Exists)
+        //        {
+        //            File.Create(pathTemp);
+        //        }
+        //        this.path = pathTemp;
+        //        _path = pathTemp;
+        //    }
+        //}
     }
 }

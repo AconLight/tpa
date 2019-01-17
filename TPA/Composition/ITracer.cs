@@ -9,6 +9,7 @@ namespace Composition
 {
     public interface ITracer
     {
-        void TraceData(TraceEventType eventType,int id,object data);
+        void Trace(string msg);
+        void Info(string msg);
     }
 }
