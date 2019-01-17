@@ -70,8 +70,11 @@ namespace ViewModel.viewmodel
         }
         public void deserialize()
         {
+            Console.WriteLine("zaczynamy odczyt");
             LogicModelTreeHandler rtree = composition.dataBridgeInterface.read();
+            Console.WriteLine("logic model zrobiony");
             tree = new ViewModelTreeHandler(rtree);
+            Console.WriteLine("viewmodel załadowany");
         }
 
     }
