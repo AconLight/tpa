@@ -56,8 +56,12 @@
       <Project>{941D2643-7BDE-4148-8030-2831564FE9C1}</Project>
       <Name>Composition</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{370CF2BF-46E9-467D-B7F4-71D3CCF17F63}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Reflection\Reflection.csproj">
-      <Project>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</Project>
+      <Project>{886e7752-a051-4ec8-b4a7-2ff11ae5c67e}</Project>
       <Name>Reflection</Name>
     </ProjectReference>
     <ProjectReference Include="..\Serialization\Serialization.csproj">

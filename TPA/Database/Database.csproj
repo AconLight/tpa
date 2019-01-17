@@ -68,6 +68,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{370CF2BF-46E9-467D-B7F4-71D3CCF17F63}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Reflection\Reflection.csproj">
       <Project>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</Project>
       <Name>Reflection</Name>

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Reflection.Model;
-using Reflection.ModelTree;
+using Data.ModelTree;
 
 namespace Serialization.SerializationModelTree
 {
@@ -15,20 +14,6 @@ namespace Serialization.SerializationModelTree
         [DataMember]
         public SerModelNodeAssembly rootNode;
 
-        public SerModelTreeHandler(Assembly assembly)
-        {
-            loadedNodes = new List<SerModelNode>();
-            rootNode = new SerModelNodeAssembly(null, new AssemblyMetaData(assembly));
-            currentNode = rootNode;
-            Load();
-        }
-        public SerModelTreeHandler(AssemblyMetaData assemblyMetaData)
-        {
-            loadedNodes = new List<SerModelNode>();
-            rootNode = new SerModelNodeAssembly(null, assemblyMetaData);
-            currentNode = rootNode;
-            Load();
-        }
         public SerModelTreeHandler()
         {
             loadedNodes = new List<SerModelNode>();

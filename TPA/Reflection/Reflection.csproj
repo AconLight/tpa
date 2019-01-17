@@ -40,16 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTree\LogicModelNode.cs" />
-    <Compile Include="ModelTree\LogicModelNodeAssembly.cs" />
-    <Compile Include="ModelTree\LogicModelNodeMethod.cs" />
-    <Compile Include="ModelTree\LogicModelNodeNamespace.cs" />
-    <Compile Include="ModelTree\LogicModelNodeType.cs" />
-    <Compile Include="ModelTree\LogicModelTreeHandler.cs" />
     <Compile Include="Model\AbstractMetaData.cs" />
     <Compile Include="Model\AccessLevelMetaData.cs" />
     <Compile Include="Model\AssemblyMetaData.cs" />
-    <Compile Include="DataBridgeInterface.cs" />
     <Compile Include="Model\ExtensionMethods.cs" />
     <Compile Include="Model\MethodMetaData.cs" />
     <Compile Include="Model\NamespaceMetaData.cs" />
