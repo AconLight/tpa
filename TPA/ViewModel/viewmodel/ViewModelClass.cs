@@ -12,7 +12,7 @@ namespace ViewModel.viewmodel
     public class ViewModelClass : INotifyPropertyChanged
     {
         public ObservableCollection<ViewModelNode> HierarchicalAreas { get; set; }
-        public MEF composition = new MEF();
+        public MEF composition;
         public ViewModelNode root { get; set; }
         public Assembly assembly { get; set; }
         public string pathVariable { get; set; }
@@ -26,6 +26,7 @@ namespace ViewModel.viewmodel
 
         public ViewModelClass(IBrowse browse)
         {
+            composition = new MEF();
             HierarchicalAreas = new ObservableCollection<ViewModelNode>();
             Click_Browse = new RelayCommand(Browse);
             Click_Load = new RelayCommand(Load);
