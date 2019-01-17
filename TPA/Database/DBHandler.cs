@@ -33,20 +33,22 @@ namespace Database
 
         public void write(LogicModelTreeHandler tree)
         {
+            Console.WriteLine("siema write");
             using (var db = new ModelContext())
             {
-                List<DBModelNode> nodes = createDBModel(tree);
-                foreach (DBModelNode node in nodes)
-                {
-                    db.nodes.Add(node);
-                }
+                DBModelNode root = createDBModel(tree);
+                Console.WriteLine("created db model");
+                db.nodes.Add(root);
+                Console.WriteLine("added root");
                 db.SaveChanges();
+                Console.WriteLine("saved to db");
             }
         }
 
         private static DBModelNode cDBModelNode(string TypeName, string Name, DBModelNode Parent)
         {
             DBModelNode n = new DBModelNode();
+            n.isLooped = false;
             n.TypeName = TypeName;
             n.Name = Name;
             n.Parent = Parent;
@@ -75,28 +77,39 @@ namespace Database
         }
 
 
-        public static List<DBModelNode> createDBModel(LogicModelTreeHandler tree)
+        public static DBModelNode createDBModel(LogicModelTreeHandler tree)
         {
 
             DBModelNode dbRoot = cDBModelNode(tree.rootNode.TypeName, tree.rootNode.Name, null);
             List<DBModelNode> loadedNodes = new List<DBModelNode>();
-
             TreeSeekToDB(dbRoot, tree.rootNode, loadedNodes);
 
-            return loadedNodes;
+            return dbRoot;
         }
-
+        private static int myId = 0;
         private static void TreeSeekToDB(DBModelNode myNode, LogicModelNode node, List<DBModelNode> loadedNodes)
         {
-            if (node.isLooped) return;
-
             DBModelNode newNode = null;
+            loadedNodes.Add(myNode);
             foreach (LogicModelNode child in node.allNodes)
             {
                 myNode.children.Add(newNode = cDBModelNode(child.TypeName, child.Name, myNode));
-                loadedNodes.Add(myNode);
+                newNode.Parent = myNode;
                 TreeSeekToDB(newNode, child, loadedNodes);
+
+                foreach (DBModelNode vn in loadedNodes)
+                {
+                    if (vn.TypeName == newNode.TypeName && vn.Name == newNode.Name)
+                    {
+                        newNode.isLooped = true;
+                        break;
+                    }
+                }
+                if (!newNode.isLooped)
+                    TreeSeekToDB(newNode, child, loadedNodes);
             }
+
+
         }
 
         public static LogicModelTreeHandler createLogicModel(List<DBModelNode> nodes)

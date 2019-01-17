@@ -63,8 +63,11 @@ namespace ViewModel.viewmodel
         }
        public void serialize()
        {
-            composition.dataBridgeInterface.write(ViewModelTreeHandler.createModelTree(tree));
-       }
+            var asd = ViewModelTreeHandler.createModelTree(tree);
+            Console.WriteLine("zaczynamy zapisywańsko");
+            composition.dataBridgeInterface.write(asd);
+            Console.WriteLine("skończyliśmy zapisywańsko");
+        }
         public void deserialize()
         {
             LogicModelTreeHandler rtree = composition.dataBridgeInterface.read();
