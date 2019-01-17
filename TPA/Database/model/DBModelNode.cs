@@ -8,9 +8,10 @@ namespace Database.model
 {
     class DBModelNode
     {
-        public int id;
-        public String TypeName;
-        public String Name;
-        public int parentId;
+        public String TypeName { get; set; }
+        public String Name { get; set; }
+        public DBModelNode Parent { get; set; }
+
+        public virtual List<DBModelNode> children { get; set; }
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Database.model
 {
-    class DBModelAssociation
+    class ModelContext : DbContext
     {
-        public int nodeId;
-        public int childId;
+        public DbSet<DBModelNode> nodes { get; set; }
     }
 }

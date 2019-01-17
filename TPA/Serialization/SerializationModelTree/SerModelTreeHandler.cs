@@ -110,18 +110,18 @@ namespace Serialization.SerializationModelTree
             //node.loadAll();
             foreach (LogicModelNode child in node.allNodes)
             {
-                if (child.TypeName == "Method")
+                if (child.TypeName.Contains("Method"))
                 {
                     myNode.allNodes.Add(newNode = new SerModelNodeMethod(myNode, ((LogicModelNodeMethod)child).Name));
                 }
-                else if (child.TypeName == "Namespace")
+                else if (child.TypeName.Contains("Namespace"))
                 {
                     myNode.allNodes.Add(newNode = new SerModelNodeNamespace(myNode, ((LogicModelNodeNamespace)child).Name));
                 }
-                else if (child.TypeName == "Type" || child.TypeName == "Property"
-                    || child.TypeName == "Interface" || child.TypeName == "Nested Type"
-                    || child.TypeName == "Base Type" || child.TypeName == "Declaring Type"
-                    || child.TypeName == "Return Type" || child.TypeName == "Parameter Type")
+                else if (child.TypeName.Contains("Type") || child.TypeName.Contains("Property")
+                    || child.TypeName.Contains("Interface") || child.TypeName.Contains("Nested Type")
+                    || child.TypeName.Contains("Base Type") || child.TypeName.Contains("Declaring Type")
+                    || child.TypeName.Contains("Return Type") || child.TypeName.Contains("Parameter Type"))
                 {
                     myNode.allNodes.Add(newNode = new SerModelNodeType(myNode, ((LogicModelNodeType)child).Name, ((LogicModelNodeType)child).TypeName));
                 }
