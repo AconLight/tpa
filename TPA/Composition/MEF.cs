@@ -11,14 +11,15 @@ namespace Composition
 {
     public class MEF
     {
-        private CompositionContainer compositionContainer { get; }
+        private CompositionContainer compositionContainer;
         [Import(typeof(DataBridgeInterface))]
         public DataBridgeInterface dataBridgeInterface;
+        [Import(typeof(ITracer))]
+        public ITracer tracer;
 
         public MEF()
         {
             var catalog = new DirectoryCatalog(".", "*");
-
             compositionContainer = new CompositionContainer(catalog);
             try
             {
