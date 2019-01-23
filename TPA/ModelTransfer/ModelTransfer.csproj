@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</ProjectGuid>
+    <ProjectGuid>{FB06E613-E703-4804-AF9D-AF1F92E99DF0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reflection</RootNamespace>
-    <AssemblyName>Reflection</AssemblyName>
+    <RootNamespace>ModelTransfer</RootNamespace>
+    <AssemblyName>ModelTransfer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,26 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBridgeInterface.cs" />
-    <Compile Include="Model\AbstractMetaData.cs" />
-    <Compile Include="Model\AccessLevelMetaData.cs" />
-    <Compile Include="Model\AssemblyMetaData.cs" />
-    <Compile Include="Model\ExtensionMethods.cs" />
-    <Compile Include="Model\MethodMetaData.cs" />
-    <Compile Include="Model\NamespaceMetaData.cs" />
-    <Compile Include="Model\ParameterMetaData.cs" />
-    <Compile Include="Model\PropertyMetaData.cs" />
-    <Compile Include="Model\SealedMetaData.cs" />
-    <Compile Include="Model\StaticMetaData.cs" />
-    <Compile Include="Model\TypeMetaData.cs" />
-    <Compile Include="Model\VirtualMetaData.cs" />
+    <Compile Include="ModelNode.cs" />
+    <Compile Include="ModelNodePrototype.cs" />
+    <Compile Include="ModelTreeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ModelTransfer\ModelTransfer.csproj">
-      <Project>{FB06E613-E703-4804-AF9D-AF1F92E99DF0}</Project>
-      <Name>ModelTransfer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

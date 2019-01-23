@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelTransfer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    public class AssemblyMetaData
+    public class AssemblyMetaData: ModelNodePrototype
     {
 
         public AssemblyMetaData(Assembly assembly)
@@ -22,9 +23,32 @@ namespace Reflection.Model
 
         private string m_Name;
         private IEnumerable<NamespaceMetaData> m_Namespaces;
-
-        public string Name { get => m_Name; set => m_Name = value; }
         public IEnumerable<NamespaceMetaData> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
 
+
+        public override void OnCreate()
+        {
+            Name = m_Name;
+            TypeName = "Assembly";
+        }
+        public override void OnLoad()
+        {
+            Nodes = new List<ModelNodePrototype>();
+            foreach(ModelNodePrototype prot in m_Namespaces)
+            {
+                Nodes.Add(prot);
+            }
+        }
+
+        public void Save()
+        {
+            // MEF DBI.save(this);
+        }
+
+        public void Load()
+        {
+            // ModelNodePrototype root = MEF DBI.load();
+            // update prototype properties using root
+        }
     }
 }

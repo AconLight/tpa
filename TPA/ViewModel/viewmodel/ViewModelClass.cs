@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System;
 using Composition;
 using Data.ModelTree;
+using ModelTransfer;
+using Reflection.Model;
 
 namespace ViewModel.viewmodel
 {
@@ -46,13 +48,7 @@ namespace ViewModel.viewmodel
             
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
-                logicTree = new LogicModelTreeHandler(Assembly.LoadFrom(pathVariable));
-                logicTree.Load();
-                Console.WriteLine("logic tree: " + logicTree.rootNode.allNodes.Count);
-                Console.WriteLine("load viewmodel");
-                tree = new ViewModelTreeHandler(logicTree);
-                Console.WriteLine("load viewmodel finished");
-                root = tree.rootNode;
+                root = ModelTreeGenerator.Generate(new AssemblyMetaData(Assembly.LoadFrom(pathVariable)) as ModelNodePrototype) as ViewModelNode;
                 HierarchicalAreas.Add(root);
             }
         }
@@ -63,18 +59,11 @@ namespace ViewModel.viewmodel
         }
        public void serialize()
        {
-            var asd = ViewModelTreeHandler.createModelTree(tree);
-            Console.WriteLine("zaczynamy zapisywańsko");
-            composition.dataBridgeInterface.write(asd);
-            Console.WriteLine("skończyliśmy zapisywańsko");
+
         }
         public void deserialize()
         {
-            Console.WriteLine("zaczynamy odczyt");
-            LogicModelTreeHandler rtree = composition.dataBridgeInterface.read();
-            Console.WriteLine("logic model zrobiony");
-            tree = new ViewModelTreeHandler(rtree);
-            Console.WriteLine("viewmodel załadowany");
+
         }
 
     }

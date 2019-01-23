@@ -2,9 +2,10 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.ComponentModel.Composition;
-using Data;
-using Data.ModelTree;
 using System.Reflection;
+using Reflection;
+using ModelTransfer;
+using Reflection.Model;
 
 namespace Serialization
 {
@@ -29,18 +30,18 @@ namespace Serialization
             this.assembly = assembly;
         }
 
-        public void serialize(LogicModelTreeHandler logicTree)
+        public void serialize(AssemblyMetaData root)
         {
-            LogicModelTreeHandler rtree = logicTree;
+            /*LogicModelTreeHandler rtree = logicTree;
             SerializationModelTree.SerModelTreeHandler tree = SerializationModelTree.SerModelTreeHandler.createSerModelTreeToSer(rtree);
             DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
             using (FileStream fs = File.Open(pathToFile, FileMode.Create))
             {
                 s.WriteObject(fs, tree);
-            }
+            }*/
         }
 
-        public LogicModelTreeHandler deserialize()
+        public AssemblyMetaData deserialize()
         {
             DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
             using (FileStream fs = File.Open(pathToFile, FileMode.Open))
@@ -50,14 +51,14 @@ namespace Serialization
             }
         }
 
-        public void write(LogicModelTreeHandler tree)
+        public void save(ModelNodePrototype assembly)
         {
-            serialize(tree);
+            throw new NotImplementedException();
         }
 
-        public LogicModelTreeHandler read()
+        public ModelNodePrototype load()
         {
-            return deserialize();
+            throw new NotImplementedException();
         }
     }
 

@@ -41,13 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBridgeInterface.cs" />
-    <Compile Include="ModelTree\LogicModelNode.cs" />
-    <Compile Include="ModelTree\LogicModelNodeAssembly.cs" />
-    <Compile Include="ModelTree\LogicModelNodeMethod.cs" />
-    <Compile Include="ModelTree\LogicModelNodeNamespace.cs" />
-    <Compile Include="ModelTree\LogicModelNodeType.cs" />
-    <Compile Include="ModelTree\LogicModelTreeHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

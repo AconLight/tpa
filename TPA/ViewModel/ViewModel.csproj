@@ -43,11 +43,6 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="IBrowse.cs" />
     <Compile Include="ModelTree\ViewModelNode.cs" />
-    <Compile Include="ModelTree\ViewModelNodeAssembly.cs" />
-    <Compile Include="ModelTree\ViewModelNodeMethod.cs" />
-    <Compile Include="ModelTree\ViewModelNodeNamespace.cs" />
-    <Compile Include="ModelTree\ViewModelNodeType.cs" />
-    <Compile Include="ModelTree\ViewModelTreeHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="viewmodel\ViewModelClass.cs" />
   </ItemGroup>
@@ -59,6 +54,10 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{370CF2BF-46E9-467D-B7F4-71D3CCF17F63}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelTransfer\ModelTransfer.csproj">
+      <Project>{fb06e613-e703-4804-af9d-af1f92e99df0}</Project>
+      <Name>ModelTransfer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Reflection\Reflection.csproj">
       <Project>{886e7752-a051-4ec8-b4a7-2ff11ae5c67e}</Project>

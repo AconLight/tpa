@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelTransfer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    public class PropertyMetaData
+    public class PropertyMetaData: ModelNodePrototype
     {
-        public string Name { get => m_Name; set => m_Name = value; }
         public TypeMetaData Type { get => m_TypeMetaData; set => m_TypeMetaData = value; }
 
         internal static IEnumerable<PropertyMetaData> Load(IEnumerable<PropertyInfo> props)
@@ -25,6 +25,18 @@ namespace Reflection.Model
         {
             m_Name = propertyName;
             m_TypeMetaData = propertyType;
+        }
+
+        public override void OnCreate()
+        {
+            Name = m_Name;
+            TypeName = "Property";
+        }
+        public override void OnLoad()
+        {
+            Nodes = new List<ModelNodePrototype>();
+            Nodes.Add(Type);
+            Type.Parent = this;
         }
     }
 }

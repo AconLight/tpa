@@ -4,17 +4,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModelTransfer;
 
 namespace ViewModel.ModelTree
 {
-    public class ViewModelNode
+    public class ViewModelNode: ModelNode
     {
-        public bool isLooped = false;
-        public ObservableCollection<ViewModelNode> allNodes { get; set; }
         public string TypeName;
-        public ViewModelNode Parent;
         public string Name { get; set; }
-        public ObservableCollection<ViewModelNode> Nodes { get; set; }
+        public ObservableCollection<ViewModelNode> MyNodes { get; set; }
         public Boolean IsExpanded { get; set; }
 
         public bool OpenClose
@@ -22,36 +20,33 @@ namespace ViewModel.ModelTree
             get { return IsExpanded; }
             set
             {
-                if (value) Load();
-                else Close();
+                if (value)
+                {
+                    Load();
+                }
+                else { IsExpanded = false; }
             }
         }
 
-        public ViewModelNode(ViewModelNode Parent)
+        public ViewModelNode(ModelNode Parent, ModelNodePrototype Protoype): base(Parent, Protoype)
         {
-            IsExpanded = false;
-            this.Parent = Parent;
-            Nodes = new ObservableCollection<ViewModelNode>();
-            allNodes = new ObservableCollection<ViewModelNode>();
+            OnCreate();
         }
 
-        public virtual void Load()
+        protected override void OnCreate()
         {
-            // do nothing
+            Name = Protoype.Name;
+            TypeName = Protoype.TypeName;
         }
 
-        public void Close()
+        protected override void OnLoad()
         {
-            IsExpanded = false;
-            foreach (ViewModelNode node in Nodes)
+            MyNodes.Clear();
+            foreach (ModelNode n in Nodes)
             {
-                node.Close();
+                ViewModelNode vn = new ViewModelNode(this, n.Protoype);
+                MyNodes.Add(vn);
             }
-            //Nodes.Clear();
-        }
-        public virtual void loadAll()
-        {
-            // do nothing
         }
     }
 }

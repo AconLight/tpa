@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using ModelTransfer;
 
 namespace Reflection.Model
 {
-    public class MethodMetaData
+    public class MethodMetaData : ModelNodePrototype
     {
 
-        public string Name { get => m_Name; set => m_Name = value; }
         public IEnumerable<ParameterMetaData> Parameters { get => m_Parameters; set => m_Parameters = value; }
         public TypeMetaData ReturnType { get => m_ReturnType; set => m_ReturnType = value; }
         public Tuple<AccessLevelMetaData, SealedMetaData, VirtuallMetaData> Modifiers { get => m_Modifiers; set => m_Modifiers = value; }
@@ -62,6 +62,28 @@ namespace Reflection.Model
             if (m_method.IsAbstract)
                 _virtual = VirtuallMetaData.Virtual;
             m_Modifiers = new Tuple<AccessLevelMetaData, SealedMetaData, VirtuallMetaData>(_access, _sealed, _virtual);
+        }
+
+        public override void OnCreate()
+        {
+            Name = m_Name;
+            TypeName = "Method";
+            TypeName += Modifiers.Item1.ToString();
+            TypeName = " ";
+            TypeName += Modifiers.Item2.ToString();
+            TypeName = " ";
+            TypeName += Modifiers.Item3.ToString();
+        }
+        public override void OnLoad()
+        {
+            Nodes = new List<ModelNodePrototype>();
+            foreach (ModelNodePrototype prot in Parameters)
+            {
+                Nodes.Add(prot);
+                prot.Parent = this;
+            }
+            Nodes.Add(ReturnType);
+            ReturnType.Parent = this;
         }
     }
 }

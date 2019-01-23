@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelTransfer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    public class ParameterMetaData
+    public class ParameterMetaData: ModelNodePrototype
     {
-        public string Name { get => m_Name; set => m_Name = value; }
         public TypeMetaData Type { get => m_TypeMetadata; set => m_TypeMetadata = value; }
         public ParameterMetaData(string name, TypeMetaData typeMetadata)
         {
@@ -19,5 +19,17 @@ namespace Reflection.Model
         //private vars
         private string m_Name;
         private TypeMetaData m_TypeMetadata;
+
+        public override void OnCreate()
+        {
+            Name = m_Name;
+            TypeName = "Parameter";
+        }
+        public override void OnLoad()
+        {
+            Nodes = new List<ModelNodePrototype>();
+            Nodes.Add(Type);
+            Type.Parent = this;
+        }
     }
 }

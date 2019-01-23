@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelTransfer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Reflection.Model
 {
-    public class TypeMetaData
+    public class TypeMetaData : ModelNodePrototype
     {
 
-        public string Name { get => m_typeName; set => m_typeName = value; }
         public IEnumerable<PropertyMetaData> Properties { get => m_Properties; set => m_Properties = value; }
         public IEnumerable<MethodMetaData> Methods { get => m_Methods; set => m_Methods = value; }
         public IEnumerable<MethodMetaData> Constructors { get => m_Constructors; set => m_Constructors = value; }
@@ -101,6 +101,46 @@ namespace Reflection.Model
         public enum TypeKind
         {
             EnumType, StructType, InterfaceType, ClassType
+        }
+
+        public override void OnCreate()
+        {
+            Name = m_typeName;
+            TypeName = "";
+            TypeName += Modifiers.Item1.ToString();
+            TypeName = " ";
+            TypeName += Modifiers.Item2.ToString();
+            TypeName = " ";
+            TypeName += Modifiers.Item3.ToString();
+        }
+        public override void OnLoad()
+        {
+            Nodes = new List<ModelNodePrototype>();
+            foreach (ModelNodePrototype prot in Properties)
+            {
+                Nodes.Add(prot);
+                prot.Parent = this;
+            }
+            foreach (ModelNodePrototype prot in Methods)
+            {
+                Nodes.Add(prot);
+                prot.Parent = this;
+            }
+            foreach (ModelNodePrototype prot in Constructors)
+            {
+                Nodes.Add(prot);
+                prot.Parent = this;
+            }
+            foreach (ModelNodePrototype prot in Interfaces)
+            {
+                Nodes.Add(prot);
+                prot.Parent = this;
+            }
+            foreach (ModelNodePrototype prot in NestedTypes)
+            {
+                Nodes.Add(prot);
+                prot.Parent = this;
+            }
         }
     }
 }
