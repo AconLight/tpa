@@ -5,9 +5,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System;
 using Composition;
-using Data.ModelTree;
 using ModelTransfer;
 using Reflection.Model;
+using System.Diagnostics;
 
 namespace ViewModel.viewmodel
 {
@@ -16,10 +16,9 @@ namespace ViewModel.viewmodel
         public ObservableCollection<ViewModelNode> HierarchicalAreas { get; set; }
         public MEF composition;
         public ViewModelNode root { get; set; }
+        public ModelNode modelRoot { get; set; }
         public Assembly assembly { get; set; }
         public string pathVariable { get; set; }
-        public ViewModelTreeHandler tree;
-        public LogicModelTreeHandler logicTree;
         public RelayCommand Click_Load { get; }
         public RelayCommand Click_Browse { get; }
         public RelayCommand Click_Serialize { get; }
@@ -49,8 +48,13 @@ namespace ViewModel.viewmodel
             
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
-                root = ModelTreeGenerator.Generate(new AssemblyMetaData(Assembly.LoadFrom(pathVariable)) as ModelNodePrototype) as ViewModelNode;
+                modelRoot = ModelTreeGenerator.Generate(new AssemblyMetaData(Assembly.LoadFrom(pathVariable)) as ModelNodePrototype);
+                root = new ViewModelNode(modelRoot);
+                root.OnCreate();
+                root.Load();
                 HierarchicalAreas.Add(root);
+                Debug.WriteLine("siema");
+                Debug.WriteLine(root.MyNodes.Count);
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -60,7 +64,7 @@ namespace ViewModel.viewmodel
         }
        public void serialize()
        {
-
+            composition.dataBridgeInterface.save(modelRoot.Protoype as AssemblyMetaData);
         }
         public void deserialize()
         {

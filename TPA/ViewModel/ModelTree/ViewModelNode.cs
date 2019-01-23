@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,9 @@ namespace ViewModel.ModelTree
 {
     public class ViewModelNode: ModelNode
     {
-        public string TypeName;
+        public string TypeName { get; set; }
         public string Name { get; set; }
+        public string Mods { get; set; }
         public ObservableCollection<ViewModelNode> MyNodes { get; set; }
         public Boolean IsExpanded { get; set; }
 
@@ -22,24 +24,34 @@ namespace ViewModel.ModelTree
             {
                 if (value)
                 {
+                    IsExpanded = true;
                     Load();
                 }
                 else { IsExpanded = false; }
             }
         }
 
-        public ViewModelNode(ModelNode Parent, ModelNodePrototype Protoype): base(Parent, Protoype)
+        public ViewModelNode(ModelNode node) : base(node.Parent, node.Protoype)
         {
+            MyNodes = new ObservableCollection<ViewModelNode>();
             OnCreate();
         }
 
-        protected override void OnCreate()
+        private ViewModelNode(ModelNode Parent, ModelNodePrototype Protoype): base(Parent, Protoype)
         {
-            Name = Protoype.Name;
-            TypeName = Protoype.TypeName;
+            MyNodes = new ObservableCollection<ViewModelNode>();
+            OnCreate();
         }
 
-        protected override void OnLoad()
+        public override void OnCreate()
+        {
+
+            Name = Protoype.Mods + " " + Protoype.TypeName + " " + Protoype.Name;
+            TypeName = Protoype.TypeName;
+            Mods = Protoype.Mods;
+        }
+
+        public override void OnLoad()
         {
             MyNodes.Clear();
             foreach (ModelNode n in Nodes)

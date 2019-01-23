@@ -6,6 +6,8 @@ using System.Reflection;
 using Reflection;
 using ModelTransfer;
 using Reflection.Model;
+using Serialization.SerializationModelTree;
+using System.Diagnostics;
 
 namespace Serialization
 {
@@ -32,28 +34,32 @@ namespace Serialization
 
         public void serialize(AssemblyMetaData root)
         {
-            /*LogicModelTreeHandler rtree = logicTree;
-            SerializationModelTree.SerModelTreeHandler tree = SerializationModelTree.SerModelTreeHandler.createSerModelTreeToSer(rtree);
-            DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
+
+            SerModelNode serRoot = new SerModelNode(ModelTreeGenerator.Generate(root));
+            serRoot.LoadAll();
+            DataContractSerializer s = new DataContractSerializer(typeof(SerModelNode));
             using (FileStream fs = File.Open(pathToFile, FileMode.Create))
             {
-                s.WriteObject(fs, tree);
-            }*/
+                s.WriteObject(fs, serRoot);
+            }
         }
 
         public AssemblyMetaData deserialize()
         {
-            DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
+            /*DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
             using (FileStream fs = File.Open(pathToFile, FileMode.Open))
             {
                 SerializationModelTree.SerModelTreeHandler tree = ((SerializationModelTree.SerModelTreeHandler)s.ReadObject(fs));
                 return SerializationModelTree.SerModelTreeHandler.createLogicModelTree(tree);
-            }
+            }*/
+            return null;
         }
 
-        public void save(ModelNodePrototype assembly)
+        public void save(AssemblyMetaData assembly)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("ser start");
+            serialize(assembly);
+            Debug.WriteLine("ser end");
         }
 
         public ModelNodePrototype load()

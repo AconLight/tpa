@@ -50,7 +50,7 @@ namespace Database
             }*/
         }
 
-        public void save(ModelNodePrototype assembly)
+        public void save(AssemblyMetaData assembly)
         {
             throw new NotImplementedException();
         }

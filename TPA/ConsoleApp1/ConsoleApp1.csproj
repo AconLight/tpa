@@ -55,6 +55,10 @@
       <Project>{941d2643-7bde-4148-8030-2831564fe9c1}</Project>
       <Name>Composition</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModelTransfer\ModelTransfer.csproj">
+      <Project>{FB06E613-E703-4804-AF9D-AF1F92E99DF0}</Project>
+      <Name>ModelTransfer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Reflection\Reflection.csproj">
       <Project>{886E7752-A051-4EC8-B4A7-2FF11AE5C67E}</Project>
       <Name>Reflection</Name>

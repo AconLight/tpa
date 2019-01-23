@@ -42,7 +42,7 @@
         </Grid>
         <TreeView Name="TreeView" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding  HierarchicalAreas}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path = Nodes}">
+                <HierarchicalDataTemplate ItemsSource="{Binding Path = MyNodes}">
                     <TextBlock Text="{Binding Path = Name}" Margin="0,0,4,0" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>

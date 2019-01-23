@@ -1,9 +1,4 @@
-﻿using Composition;
-using Serialization;
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System;
 using ViewModel.ModelTree;
 using ViewModel.viewmodel;
 
@@ -23,9 +18,7 @@ namespace ConsoleApp1
             ConsoleKeyInfo c;
             while (true)
             {
-                //Console.Clear();
-                if (viewModel.tree != null)
-                PrintTree(viewModel.tree, childId);
+
                 c = Console.ReadKey();
                 switch (c.Key)
                 {
@@ -39,40 +32,25 @@ namespace ConsoleApp1
                             viewModel.Load();
                         break;
                     case ConsoleKey.C:
-                        if (viewModel.tree != null)
-                        {
-                            viewModel.tree.Close();
-                            childId = 0;
-                        }
-                        break;
+
                     case ConsoleKey.UpArrow:
-                        if (childId > 0) childId--;
-                        break;
+
                     case ConsoleKey.DownArrow:
-                        if (viewModel.tree != null)
-                            if (childId < viewModel.tree.currentNode.Nodes.Count - 1) childId++;
-                        break;
+
                     case ConsoleKey.Spacebar:
-                        if (viewModel.tree != null)
-                        if (viewModel.tree.currentNode.Nodes.Count > childId)
-                        {
-                            viewModel.tree.GoToChild(viewModel.tree.currentNode.Nodes[childId]);
-                            viewModel.tree.Load();
-                            childId = 0;
-                        }
-                        
+ 
                         break;
                 }
             }
         }
 
-        private static void PrintTree(ViewModelTreeHandler tree, int childId)
+        private static void PrintTree(int tree, int childId)
         {
             //Console.Clear();
             int tabs = 0;
             Console.WriteLine();
             Console.WriteLine("Tree Print:");
-            NodePrint(tabs, tree.rootNode, tree.currentNode, childId);
+            //NodePrint(tabs, tree.rootNode, tree.currentNode, childId);
         }
 
         private static void NodePrint(int tabs, ViewModelNode node, ViewModelNode currentNode, int childId)
@@ -90,10 +68,10 @@ namespace ConsoleApp1
             }
                 Console.WriteLine("(" + node.TypeName + ") " + node.Name);
             tabs++;
-            foreach (ViewModelNode n in ViewModelTreeHandler.TreePrint(node))
-            {
-                NodePrint(tabs, n, currentNode, childId);
-            }
+            //foreach (ViewModelNode n in ViewModelTreeHandler.TreePrint(node))
+            //{
+               // NodePrint(tabs, n, currentNode, childId);
+            //}
         }
 
         

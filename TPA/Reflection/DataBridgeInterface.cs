@@ -6,7 +6,7 @@ namespace Reflection
 {
     public interface DataBridgeInterface
     {
-        void save(ModelNodePrototype assembly);
+        void save(AssemblyMetaData assembly);
         ModelNodePrototype load();
     }
 }

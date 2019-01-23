@@ -30,6 +30,7 @@ namespace Reflection.Model
         {
             Name = m_Name;
             TypeName = "Assembly";
+            Mods = "";
         }
         public override void OnLoad()
         {

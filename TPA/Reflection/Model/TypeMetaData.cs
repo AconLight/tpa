@@ -1,6 +1,7 @@
 ﻿using ModelTransfer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,15 +107,16 @@ namespace Reflection.Model
         public override void OnCreate()
         {
             Name = m_typeName;
-            TypeName = "";
-            TypeName += Modifiers.Item1.ToString();
-            TypeName = " ";
-            TypeName += Modifiers.Item2.ToString();
-            TypeName = " ";
-            TypeName += Modifiers.Item3.ToString();
+            TypeName = "Class";
+            Mods = Modifiers.Item1.ToString();
+            Mods += " ";
+            Mods += Modifiers.Item2.ToString();
+            Mods += " ";
+            Mods += Modifiers.Item3.ToString();
         }
         public override void OnLoad()
         {
+            Load();
             Nodes = new List<ModelNodePrototype>();
             foreach (ModelNodePrototype prot in Properties)
             {

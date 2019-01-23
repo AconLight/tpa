@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelTransfer;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,55 +10,82 @@ using System.Threading.Tasks;
 namespace Serialization.SerializationModelTree
 {
     [DataContract(IsReference = true)]
-    public class SerModelNode
+    public class SerModelNode: ModelNode
     {
         [DataMember]
-        public bool isLooped = false;
-        public ObservableCollection<SerModelNode> allNodes { get; set; }
-        [DataMember]
         public string TypeName;
-        public SerModelNode Parent;
         [DataMember]
         public string Name { get; set; }
+        [DataMember]
+        public string Mods { get; set; }
+        public ObservableCollection<SerModelNode> MyNodes { get; set; }
+        public Boolean IsExpanded { get; set; }
 
-
-
-        public SerModelNode(SerModelNode Parent)
+        public bool OpenClose
         {
-            this.Parent = Parent;
-            allNodes = new ObservableCollection<SerModelNode>();
+            get { return IsExpanded; }
+            set
+            {
+                if (value)
+                {
+                    IsExpanded = true;
+                    Load();
+                }
+                else { IsExpanded = false; }
+            }
         }
 
-        public void tryLoad(List<SerModelNode> loadedNodes)
+        public SerModelNode(ModelNode node) : base(node.Parent, node.Protoype)
         {
-            foreach(SerModelNode node in loadedNodes)
+            MyNodes = new ObservableCollection<SerModelNode>();
+            OnCreate();
+        }
+
+        private SerModelNode(ModelNode Parent, ModelNodePrototype Protoype) : base(Parent, Protoype)
+        {
+            MyNodes = new ObservableCollection<SerModelNode>();
+            OnCreate();
+        }
+
+        public override void OnCreate()
+        {
+
+            Name = Protoype.Name;
+            TypeName = Protoype.TypeName;
+        }
+
+        public override void OnLoad()
+        {
+            MyNodes.Clear();
+            foreach (ModelNode n in Nodes)
             {
-                if (node.TypeName == TypeName && node.Name == Name)
+                SerModelNode sn = new SerModelNode(this, n.Protoype);
+                MyNodes.Add(sn);
+            }
+        }
+
+        public void LoadAll()
+        {
+            List<SerModelNode> loaded = new List<SerModelNode>();
+            Load();
+            loaded.Add(this);
+        }
+
+        public void LoadAll(List<SerModelNode> loaded)
+        {
+            foreach(SerModelNode s in loaded)
+            {
+                if(TypeName == s.TypeName && Name == s.Name)
                 {
                     return;
                 }
             }
-            loadedNodes.Add(this);
-            Load(loadedNodes);
-        }
-
-        public virtual void Load(List<SerModelNode> loadedNodes)
-        {
-            // do nothing
-        }
-        public virtual void loadAll()
-        {
-            // do nothing
-        }
-
-        public virtual void retriveNode()
-        {
-            // do nothing
-        }
-
-        public virtual void loadNodes()
-        {
-            // do nothing
+            Load();
+            loaded.Add(this);
+            foreach (SerModelNode s in MyNodes)
+            {
+                s.LoadAll(loaded);
+            }
         }
     }
 }

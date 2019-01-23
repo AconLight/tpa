@@ -31,6 +31,7 @@ namespace Reflection.Model
         {
             Name = m_Name;
             TypeName = "Property";
+            Mods = "";
         }
         public override void OnLoad()
         {

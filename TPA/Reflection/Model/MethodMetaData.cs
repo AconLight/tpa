@@ -67,12 +67,12 @@ namespace Reflection.Model
         public override void OnCreate()
         {
             Name = m_Name;
-            TypeName = "Method";
-            TypeName += Modifiers.Item1.ToString();
-            TypeName = " ";
-            TypeName += Modifiers.Item2.ToString();
-            TypeName = " ";
-            TypeName += Modifiers.Item3.ToString();
+            TypeName += "Method";
+            Mods = Modifiers.Item1.ToString();
+            Mods += " ";
+            Mods += Modifiers.Item2.ToString();
+            Mods += " ";
+            Mods += Modifiers.Item3.ToString();
         }
         public override void OnLoad()
         {
@@ -82,8 +82,11 @@ namespace Reflection.Model
                 Nodes.Add(prot);
                 prot.Parent = this;
             }
-            Nodes.Add(ReturnType);
-            ReturnType.Parent = this;
+            if (ReturnType != null)
+            {
+                Nodes.Add(ReturnType);
+                ReturnType.Parent = this;
+            }
         }
     }
 }

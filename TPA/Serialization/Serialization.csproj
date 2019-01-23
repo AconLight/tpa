@@ -44,11 +44,6 @@
   <ItemGroup>
     <Compile Include="Ser.cs" />
     <Compile Include="SerializationModelTree\SerModelNode.cs" />
-    <Compile Include="SerializationModelTree\SerModelNodeAssembly.cs" />
-    <Compile Include="SerializationModelTree\SerModelNodeMethod.cs" />
-    <Compile Include="SerializationModelTree\SerModelNodeNamespace.cs" />
-    <Compile Include="SerializationModelTree\SerModelNodeType.cs" />
-    <Compile Include="SerializationModelTree\SerModelTreeHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

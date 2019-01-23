@@ -4,6 +4,7 @@ namespace ModelTransfer
 {
     public class ModelNodePrototype
     {
+        public string Mods { get; set; }
         public string TypeName { get; set; }
         public string Name { get; set; }
         public ModelNodePrototype Parent { get; set; }

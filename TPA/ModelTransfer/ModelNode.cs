@@ -17,29 +17,30 @@ namespace ModelTransfer
             this.Protoype = Protoype;
             Nodes = new List<ModelNode>();
         }
-        public void Create()
-        {
-            this.OnCreate();
-        }
 
-        protected virtual void OnCreate()
+        public virtual void OnCreate()
         {
             //rewrite creation data
         }
-        public void Load()
-        {
-            Protoype.OnLoad();
-            Nodes.Clear();
-            foreach(ModelNodePrototype prot in Protoype.Nodes)
-            {
-                Nodes.Add(new ModelNode(this, prot));
-            }
-            this.OnLoad();
-        }
 
-        protected virtual void OnLoad()
+        public virtual void OnLoad()
         {
             //rewrite loading data
+        }
+
+        public void Load()
+        {
+            LoadNodesFromProt();
+            OnLoad();
+        }
+
+        public void LoadNodesFromProt()
+        {
+            Nodes.Clear();
+            foreach (ModelNodePrototype p in Protoype.Nodes)
+            {
+                Nodes.Add(new ModelNode(this, p));
+            }
         }
 
 
