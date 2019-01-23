@@ -25,21 +25,12 @@ namespace Composition
             {
                 path = path.Remove(path.Length - 1);
             }
-            string path1 =path + "\\TPA\\Database\\bin\\Debug";
-            string path2 = path + "\\TPA\\Composition\\bin\\Debug";
-            string path3 = path + "\\TPA\\Serialization\\bin\\Debug";
+            string path1 =path + "\\TPA\\Plugins";
             var catalog = new AggregateCatalog();
             //Adds all the parts found in the same assembly as the Program class
             //catalog.Catalogs.Add(new AssemblyCatalog(typeof(MEF).Assembly));
             var directorycatalog = new DirectoryCatalog(path1, "Database.dll");
             catalog.Catalogs.Add(directorycatalog);
-            Debug.WriteLine(path1);
-            directorycatalog = new DirectoryCatalog(path2, "Composition.dll");
-            catalog.Catalogs.Add(directorycatalog);
-            Debug.WriteLine(path2);
-            directorycatalog = new DirectoryCatalog(path3, "Serialization.dll");
-            catalog.Catalogs.Add(directorycatalog);
-            Debug.WriteLine(path3);
             compositionContainer = new CompositionContainer(catalog);
 
             try
