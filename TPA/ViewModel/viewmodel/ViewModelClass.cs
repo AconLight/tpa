@@ -28,13 +28,14 @@ namespace ViewModel.viewmodel
 
         public ViewModelClass(IBrowse browse)
         {
-            composition = new MEF();
+            
             HierarchicalAreas = new ObservableCollection<ViewModelNode>();
             Click_Browse = new RelayCommand(Browse);
             Click_Load = new RelayCommand(Load);
             Click_Serialize = new RelayCommand(serialize);
             Click_Deserialize = new RelayCommand(deserialize);
             pathVariable = "Choose file";
+            composition = new MEF();
             this.browse = browse;
         }
         public void Browse()
@@ -64,6 +65,10 @@ namespace ViewModel.viewmodel
         public void deserialize()
         {
 
+        }
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            MEF.getContainer().Dispose();
         }
 
     }
