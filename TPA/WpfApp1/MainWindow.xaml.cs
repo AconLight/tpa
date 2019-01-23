@@ -11,7 +11,10 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            var viewModelClass = new ViewModelClass(new BrowseElement());
             DataContext = new ViewModelClass(new BrowseElement());
+            Closing += viewModelClass.OnWindowClosing;
+
         }
     }
 }

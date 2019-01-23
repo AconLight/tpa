@@ -11,7 +11,7 @@ namespace Composition
 {
     public class MEF
     {
-        private CompositionContainer compositionContainer;
+        static private CompositionContainer compositionContainer;
         [Import(typeof(DataBridgeInterface))]
         public DataBridgeInterface dataBridgeInterface;
         [Import(typeof(ITracer))]
@@ -27,15 +27,13 @@ namespace Composition
             }
             string path1 =path + "\\TPA\\Plugins";
             var catalog = new AggregateCatalog();
-            //Adds all the parts found in the same assembly as the Program class
-            //catalog.Catalogs.Add(new AssemblyCatalog(typeof(MEF).Assembly));
             var directorycatalog = new DirectoryCatalog(path1, "Database.dll");
             catalog.Catalogs.Add(directorycatalog);
             compositionContainer = new CompositionContainer(catalog);
 
             try
             {
-                this.compositionContainer.ComposeParts(this);
+                compositionContainer.ComposeParts(this);
             }
             catch (CompositionException compositionException)
             {
@@ -45,6 +43,10 @@ namespace Composition
             //tracer.Info(ConfigurationManager.AppSettings["DataSerOpt"]);
             dataBridgeInterface = compositionContainer.GetExportedValue<DataBridgeInterface>(ConfigurationManager.AppSettings["DataSerOpt"]);
             //tracer.Info(path);
+        }
+        public static CompositionContainer getContainer()
+        {
+            return compositionContainer;
         }
     }
 }

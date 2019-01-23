@@ -77,6 +77,10 @@ namespace ViewModel.viewmodel
             tree = new ViewModelTreeHandler(rtree);
             Console.WriteLine("viewmodel załadowany");
         }
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            MEF.getContainer().Dispose();
+        }
 
     }
 
