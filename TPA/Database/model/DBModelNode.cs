@@ -45,9 +45,31 @@ namespace Database.model
             }
         }
 
-        public void retrievePrototype()
+        public void retrievePrototype(ModelNodePrototype prot, List<ModelNodePrototype> loaded)
         {
-
+            prot.Nodes = new List<ModelNodePrototype>();
+            foreach (DBModelNode p in children)
+            {
+                bool flaga = false;
+                foreach (ModelNodePrototype l in loaded)
+                {
+                    if (l.Name == p.Name && l.TypeName == p.TypeName)
+                    {
+                        prot.Nodes.Add(l);
+                        flaga = true;
+                        break;
+                    }
+                }
+                if (flaga) continue;
+                ModelNodePrototype mp = new ModelNodePrototype();
+                mp.Name = p.Name;
+                mp.TypeName = p.TypeName;
+                mp.Mods = p.Mods;
+                mp.Parent = prot;
+                prot.Nodes.Add(mp);
+                loaded.Add(mp);
+                p.retrievePrototype(mp, loaded);
+            }
         }
     }
 }
