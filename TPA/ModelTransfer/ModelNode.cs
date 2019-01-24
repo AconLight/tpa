@@ -8,6 +8,9 @@ namespace ModelTransfer
 {
     public class ModelNode
     {
+        public string MyTypeName { get; set; }
+        public string MyType { get; set; }
+        public string MyMods { get; set; }
         public ModelNodePrototype Protoype;
         public List<ModelNode> Nodes;
         public ModelNode Parent;
@@ -41,6 +44,11 @@ namespace ModelTransfer
             {
                 Nodes.Add(new ModelNode(this, p));
             }
+        }
+
+        public void retrievePrototype()
+        {
+
         }
 
 

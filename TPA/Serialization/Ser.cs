@@ -35,23 +35,24 @@ namespace Serialization
         public void serialize(AssemblyMetaData root)
         {
 
-            SerModelNode serRoot = new SerModelNode(ModelTreeGenerator.Generate(root));
-            serRoot.LoadAll();
-            DataContractSerializer s = new DataContractSerializer(typeof(SerModelNode));
+            SerModelNode serRoot = new SerModelNode(new ModelNode(null, root));
+            SerContainer sc = new SerContainer(serRoot.LoadAll());
+            DataContractSerializer s = new DataContractSerializer(typeof(SerContainer));
             using (FileStream fs = File.Open(pathToFile, FileMode.Create))
             {
-                s.WriteObject(fs, serRoot);
+                s.WriteObject(fs, sc);
             }
         }
 
         public AssemblyMetaData deserialize()
         {
-            /*DataContractSerializer s = new DataContractSerializer(typeof(SerializationModelTree.SerModelTreeHandler));
+            DataContractSerializer s = new DataContractSerializer(typeof(SerContainer));
             using (FileStream fs = File.Open(pathToFile, FileMode.Open))
             {
-                SerializationModelTree.SerModelTreeHandler tree = ((SerializationModelTree.SerModelTreeHandler)s.ReadObject(fs));
-                return SerializationModelTree.SerModelTreeHandler.createLogicModelTree(tree);
-            }*/
+                SerContainer sc = (SerContainer)s.ReadObject(fs);
+                sc.restorePrototypes();
+                return new AssemblyMetaData(sc.root.Protoype);
+            }
             return null;
         }
 
@@ -64,7 +65,7 @@ namespace Serialization
 
         public ModelNodePrototype load()
         {
-            throw new NotImplementedException();
+            return deserialize();
         }
     }
 

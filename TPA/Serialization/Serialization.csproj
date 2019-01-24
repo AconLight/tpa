@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ser.cs" />
+    <Compile Include="SerializationModelTree\SerContainer.cs" />
     <Compile Include="SerializationModelTree\SerModelNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
