@@ -16,43 +16,7 @@ namespace Database
     [Export("DataBaseSer",typeof(DataBridgeInterface))]
     class DBHandler : DataBridgeInterface
     {
-        public AssemblyMetaData read()
-        {
-            /*Console.WriteLine("start");
-            using (var db = new ModelContext())
-            {
-                List<DBModelNode> dbNodes = new List<DBModelNode>();
-                
-                var nodes = from b in db.nodes
-                            orderby b.Name
-                            select b;
-                Console.WriteLine("fetched data");
-                foreach (var item in nodes)
-                {
-                    dbNodes.Add(item);
-                }
-                Console.WriteLine("items added");
-
-                return createLogicModel(dbNodes);
-            }*/
-            return null;
-        }
-
-        public void write(AssemblyMetaData root)
-        {
-            /*Console.WriteLine("siema write");
-            using (var db = new ModelContext())
-            {
-                DBModelNode root = createDBModel(tree);
-                Console.WriteLine("created db model");
-                db.nodes.Add(root);
-                Console.WriteLine("added root");
-                db.SaveChanges();
-                Console.WriteLine("saved to db");
-            }*/
-        }
-
-        public void save(AssemblyMetaData assembly)
+        public void save(ModelNodePrototype assembly)
         {
             using (var db = new ModelContext(ConfigurationManager.AppSettings["DefaultConnection"]))
             {
@@ -71,6 +35,7 @@ namespace Database
                 Console.WriteLine("saved to db");
             }
         }
+        static DBModelNode temp = null;
 
         public ModelNodePrototype load()
         {
@@ -83,14 +48,68 @@ namespace Database
                             select b;
                 Console.WriteLine("fetched data");
                 DBModelNode root = null;
+                List<DBModelNode> looped = new List<DBModelNode>();
+                List<DBModelNode> looped2 = new List<DBModelNode>();
                 foreach (DBModelNode item in nodes)
+                {
+                    if (item.isLooped)
+                    {
+                        DBModelNode n = new DBModelNode();
+                        n.Name = item.Name;
+                        n.TypeName = item.TypeName;
+                        looped.Add(item);
+                    }
+                        
+                }
+
+                foreach (DBModelNode item2 in nodes)
+                {
+                    foreach (DBModelNode item in looped)
+                    {
+
+                        if (!item2.isLooped && item.Name == item2.Name && item.TypeName == item2.TypeName)
+                        {
+                            looped2.Add(item2);
+                        }
+                    }
+                }
+
+                foreach (DBModelNode item in looped)
+                {
+                    foreach (DBModelNode item2 in looped2)
+                    {
+                        if (item.Name == item2.Name && item.TypeName == item2.TypeName)
+                        {
+                            item.children = new List<DBModelNode>();
+                            foreach (DBModelNode item3 in item2.children)
+                            {
+                                item.children.Add(item3);
+                            }
+                        }
+
+                    }
+                }
+
+                    foreach (DBModelNode item in nodes)
                 {
                     if(item.TypeName == "Assembly")
                     {
                         root = item;
-                        break;
+                    }
+                    if (item.isLooped)
+                    {
+                        foreach (DBModelNode item2 in looped)
+                        {
+                            if (!item2.isLooped && item.Name == item2.Name && item.TypeName == item2.TypeName)
+                            {
+                                item.Parent = item2.Parent;
+                                item.children = item2.children;
+                                break;
+                            }
+                        }
                     }
                 }
+
                 Console.WriteLine("items added");
 
                 ModelNodePrototype prot = new ModelNodePrototype();

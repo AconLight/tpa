@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBridgeInterface.cs" />
     <Compile Include="ModelNode.cs" />
     <Compile Include="ModelNodePrototype.cs" />
     <Compile Include="ModelTreeGenerator.cs" />

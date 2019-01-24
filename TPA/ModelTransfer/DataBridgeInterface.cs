@@ -1,12 +1,11 @@
 ﻿
 using ModelTransfer;
-using Reflection.Model;
 
-namespace Reflection
+namespace ModelTransfer
 {
     public interface DataBridgeInterface
     {
-        void save(AssemblyMetaData assembly);
+        void save(ModelNodePrototype assembly);
         ModelNodePrototype load();
     }
 }
