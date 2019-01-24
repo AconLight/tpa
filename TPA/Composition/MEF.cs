@@ -25,7 +25,7 @@ namespace Composition
             }
             string path1 =path + "\\TPA\\Plugins";
             var catalog = new AggregateCatalog();
-            var directorycatalog = new DirectoryCatalog(path1, "Database.dll");
+            var directorycatalog = new DirectoryCatalog(path1, "*.dll");
             catalog.Catalogs.Add(directorycatalog);
             compositionContainer = new CompositionContainer(catalog);
 

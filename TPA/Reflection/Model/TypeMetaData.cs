@@ -53,7 +53,7 @@ namespace Reflection.Model
             m_Properties = PropertyMetaData.Load(m_Type.GetProperties());
             m_Methods = MethodMetaData.Load(m_Type.GetMethods());
             m_Constructors = MethodMetaData.Load(m_Type.GetConstructors());
-            m_Attributes = m_Type.GetCustomAttributes(false).Cast<Attribute>();
+            m_Attributes = m_Type.GetCustomAttributesData().Cast<Attribute>();
             LoadNestedTypes();
             LoadInterfaces();
         }
