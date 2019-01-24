@@ -17,13 +17,17 @@ namespace Composition
 
         public MEF()
         {
+            
+        }
+        public void ComposeApp()
+        {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
             string root = "tpa";
             while (!(path.Substring(path.Length - root.Length) == root))
             {
                 path = path.Remove(path.Length - 1);
             }
-            string path1 =path + "\\TPA\\Plugins";
+            string path1 = path + "\\TPA\\Plugins";
             var catalog = new AggregateCatalog();
             var directorycatalog = new DirectoryCatalog(path1, "*.dll");
             catalog.Catalogs.Add(directorycatalog);

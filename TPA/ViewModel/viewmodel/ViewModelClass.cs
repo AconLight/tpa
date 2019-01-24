@@ -36,6 +36,7 @@ namespace ViewModel.viewmodel
             pathVariable = "Choose file";
             composition = new MEF();
             this.browse = browse;
+            composition.ComposeApp();
         }
         public void Browse()
         {
