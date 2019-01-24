@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Reflection.Model
 {
     public class AssemblyMetaData: ModelNodePrototype
     {
-
         public AssemblyMetaData(Assembly assembly)
         {
             m_Name = assembly.ManifestModule.Name;
@@ -52,7 +50,7 @@ namespace Reflection.Model
 
         public void Save()
         {
-            // MEF DBI.save(this);
+            MEF.GetContainer().dataBridgeInterface.save(this as AssemblyMetaData);
         }
 
         public void Load()

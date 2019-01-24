@@ -17,6 +17,7 @@ namespace ViewModel.viewmodel
         public MEF composition;
         public ViewModelNode root { get; set; }
         public ModelNode modelRoot { get; set; }
+        public AssemblyMetaData assemblyMetaData { get; set; }
         public Assembly assembly { get; set; }
         public string pathVariable { get; set; }
         public RelayCommand Click_Load { get; }
@@ -49,7 +50,8 @@ namespace ViewModel.viewmodel
             
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
-                modelRoot = ModelTreeGenerator.Generate(new AssemblyMetaData(Assembly.ReflectionOnlyLoadFrom(pathVariable)) as ModelNodePrototype);
+                assemblyMetaData = new AssemblyMetaData(Assembly.ReflectionOnlyLoadFrom(pathVariable));
+                modelRoot = ModelTreeGenerator.Generate(assemblyMetaData as ModelNodePrototype);
                 root = new ViewModelNode(modelRoot);
                 root.OnCreate();
                 root.Load();
@@ -65,7 +67,8 @@ namespace ViewModel.viewmodel
         }
        public void serialize()
        {
-            composition.dataBridgeInterface.save(modelRoot.Protoype as AssemblyMetaData);
+            assemblyMetaData.Save();
+            
         }
         public void deserialize()
         {
