@@ -4,6 +4,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Configuration;
 using Reflection;
+using ModelTransfer;
 
 namespace Composition
 {

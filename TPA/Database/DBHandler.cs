@@ -16,7 +16,7 @@ namespace Database
     [Export("DataBaseSer",typeof(DataBridgeInterface))]
     class DBHandler : DataBridgeInterface
     {
-        public void save(AssemblyMetaData assembly)
+        public void save(ModelNodePrototype assembly)
         {
             using (var db = new ModelContext(ConfigurationManager.AppSettings["DefaultConnection"]))
             {

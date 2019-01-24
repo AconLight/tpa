@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBridgeInterface.cs" />
     <Compile Include="Model\AbstractMetaData.cs" />
     <Compile Include="Model\AccessLevelMetaData.cs" />
     <Compile Include="Model\AssemblyMetaData.cs" />

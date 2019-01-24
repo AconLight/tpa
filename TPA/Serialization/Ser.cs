@@ -32,7 +32,7 @@ namespace Serialization
             this.assembly = assembly;
         }
 
-        public void serialize(AssemblyMetaData root)
+        public void serialize(ModelNodePrototype root)
         {
 
             SerModelNode serRoot = new SerModelNode(new ModelNode(null, root));
@@ -56,7 +56,7 @@ namespace Serialization
             return null;
         }
 
-        public void save(AssemblyMetaData assembly)
+        public void save(ModelNodePrototype assembly)
         {
             Debug.WriteLine("ser start");
             serialize(assembly);
