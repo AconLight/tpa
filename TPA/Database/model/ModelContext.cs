@@ -4,9 +4,10 @@ namespace Database.model
 {
     class ModelContext : DbContext
     {
-
-        public ModelContext() : base("siemadb5")
+        public ModelContext(string connectionString) : base(connectionString)
         {
+            //Configuration.LazyLoadingEnabled = true;
+            //Configuration.ProxyCreationEnabled = false;
         }
         public DbSet<DBModelNode> nodes { get; set; }
 

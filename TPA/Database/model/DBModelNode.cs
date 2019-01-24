@@ -2,21 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Database.model
 {
+    [Table("DBModelNode")]
     public class DBModelNode
     {
         [Key] public int DBModelNodeID { get; set; }
-        public bool isLooped = false;
+        public bool isLooped { get; set; }
         public String TypeName { get; set; }
         public String Name { get; set; }
         public String Mods { get; set; }
         public DBModelNode Parent { get; set; }
-
         public virtual List<DBModelNode> children { get; set; }
 
         public void create(ModelNodePrototype prot, List<DBModelNode> loaded)
@@ -41,6 +42,7 @@ namespace Database.model
                 }
                 if (flaga) continue;
                 DBModelNode dbn = new DBModelNode();
+                dbn.isLooped = false;
                 dbn.Name = p.Name;
                 dbn.TypeName = p.TypeName;
                 dbn.Mods = p.Mods;
@@ -56,9 +58,25 @@ namespace Database.model
             prot.Nodes = new List<ModelNodePrototype>();
             foreach (DBModelNode p in children)
             {
+                if (p.Name == "ServiceA" && p.TypeName == "Class")
+                {
+
+                }
+                if (p.Name == "ServiceB" && p.TypeName == "Class")
+                {
+
+                }
                 bool flaga = false;
                 foreach (ModelNodePrototype l in loaded)
                 {
+                    if (l.Name == "ServiceA" && l.TypeName == "Class")
+                    {
+
+                    }
+                    if (l.Name == "ServiceB" && l.TypeName == "Class")
+                    {
+
+                    }
                     if (l.Name == p.Name && l.TypeName == p.TypeName)
                     {
                         prot.Nodes.Add(l);
