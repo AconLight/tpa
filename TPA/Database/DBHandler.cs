@@ -85,9 +85,25 @@ namespace Database
                     if(item.TypeName == "Assembly")
                     {
                         root = item;
-                        break;
+                    }
+                    if (item.isLooped && false)
+                    {
+                        foreach (DBModelNode item2 in nodes)
+                        {
+                            if (!item2.isLooped && item.Name == item2.Name && item.TypeName == item2.TypeName)
+                            {
+                                item.Parent = item2.Parent;
+                                item.children = new List<DBModelNode>();
+                                foreach (DBModelNode child in item2.children)
+                                {
+                                    item.children.Add(child);
+                                }
+                                break;
+                            }
+                        }
                     }
                 }
+
                 Console.WriteLine("items added");
 
                 ModelNodePrototype prot = new ModelNodePrototype();

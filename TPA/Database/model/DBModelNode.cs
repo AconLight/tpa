@@ -11,6 +11,7 @@ namespace Database.model
     public class DBModelNode
     {
         [Key] public int DBModelNodeID { get; set; }
+        public bool isLooped = false;
         public String TypeName { get; set; }
         public String Name { get; set; }
         public String Mods { get; set; }
@@ -28,7 +29,12 @@ namespace Database.model
                 {
                     if (l.Name == p.Name && l.TypeName == p.TypeName)
                     {
-                        children.Add(l);
+                        DBModelNode looped = new DBModelNode();
+                        looped.Name = l.Name;
+                        looped.TypeName = l.TypeName;
+                        looped.Mods = l.Mods;
+                        looped.isLooped = true;
+                        children.Add(looped);
                         flaga = true;
                         break;
                     }

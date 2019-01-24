@@ -5,7 +5,7 @@ namespace Database.model
     class ModelContext : DbContext
     {
 
-        public ModelContext() : base("siemadb")
+        public ModelContext() : base("siemadb5")
         {
         }
         public DbSet<DBModelNode> nodes { get; set; }
