@@ -71,7 +71,34 @@ namespace Database
 
         public ModelNodePrototype load()
         {
-            throw new NotImplementedException();
+            using (var db = new ModelContext())
+            {
+                List<DBModelNode> dbNodes = new List<DBModelNode>();
+                
+                var nodes = from b in db.nodes
+                            orderby b.Name
+                            select b;
+                Console.WriteLine("fetched data");
+                DBModelNode root = null;
+                foreach (DBModelNode item in nodes)
+                {
+                    if(item.TypeName == "Assembly")
+                    {
+                        root = item;
+                        break;
+                    }
+                }
+                Console.WriteLine("items added");
+
+                ModelNodePrototype prot = new ModelNodePrototype();
+                prot.Name = root.Name;
+                prot.TypeName = root.TypeName;
+                prot.Mods = root.Mods;
+                List<ModelNodePrototype> loaded = new List<ModelNodePrototype>();
+                loaded.Add(prot);
+                root.retrievePrototype(prot, loaded);
+                return prot;
+            }
         }
     }
 }
