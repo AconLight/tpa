@@ -52,10 +52,6 @@
       <Project>{941D2643-7BDE-4148-8030-2831564FE9C1}</Project>
       <Name>Composition</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{370CF2BF-46E9-467D-B7F4-71D3CCF17F63}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ModelTransfer\ModelTransfer.csproj">
       <Project>{fb06e613-e703-4804-af9d-af1f92e99df0}</Project>
       <Name>ModelTransfer</Name>

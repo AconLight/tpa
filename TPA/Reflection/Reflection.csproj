@@ -31,6 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,6 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Composition\Composition.csproj">
+      <Project>{941d2643-7bde-4148-8030-2831564fe9c1}</Project>
+      <Name>Composition</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModelTransfer\ModelTransfer.csproj">
       <Project>{FB06E613-E703-4804-AF9D-AF1F92E99DF0}</Project>
       <Name>ModelTransfer</Name>
