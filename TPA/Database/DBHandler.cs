@@ -74,7 +74,7 @@ namespace Database
 
         public ModelNodePrototype load()
         {
-            using (var db = new ModelContext())
+            using (var db = new ModelContext(ConfigurationManager.AppSettings["DefaultConnection"]))
             {
                 List<DBModelNode> dbNodes = new List<DBModelNode>();
                 
