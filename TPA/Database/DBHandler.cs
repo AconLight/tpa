@@ -52,7 +52,21 @@ namespace Database
 
         public void save(AssemblyMetaData assembly)
         {
-            throw new NotImplementedException();
+            using (var db = new ModelContext())
+            {
+                DBModelNode root = new DBModelNode();
+                root.Name = assembly.Name;
+                root.TypeName = assembly.TypeName;
+                root.Mods = assembly.Mods;
+                List<DBModelNode> loaded = new List<DBModelNode>();
+                loaded.Add(root);
+                root.create(assembly, loaded);
+                Console.WriteLine("created db model");
+                db.nodes.Add(root);
+                Console.WriteLine("added root");
+                db.SaveChanges();
+                Console.WriteLine("saved to db");
+            }
         }
 
         public ModelNodePrototype load()
