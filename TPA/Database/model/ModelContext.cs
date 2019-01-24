@@ -5,8 +5,10 @@ namespace Database.model
     class ModelContext : DbContext
     {
 
-        public ModelContext() : base("siemadb")
+        public ModelContext(string connectionString) : base(connectionString)
         {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
         public DbSet<DBModelNode> nodes { get; set; }
 

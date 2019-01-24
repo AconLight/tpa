@@ -5,9 +5,11 @@ using Reflection.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Database
 {
@@ -52,8 +54,9 @@ namespace Database
 
         public void save(AssemblyMetaData assembly)
         {
-            using (var db = new ModelContext())
+            using (var db = new ModelContext(ConfigurationManager.AppSettings["DefaultConnection"]))
             {
+                //Debug.WriteLine(ConfigurationManager.ConnectionStrings["Database.Properties.Settings.ConnectionString"].ConnectionString);
                 DBModelNode root = new DBModelNode();
                 root.Name = assembly.Name;
                 root.TypeName = assembly.TypeName;
