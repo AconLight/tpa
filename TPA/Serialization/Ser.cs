@@ -11,8 +11,8 @@ using System.Diagnostics;
 
 namespace Serialization
 {
-    [Export("XMLser",typeof(DataBridgeInterface))]
-    public class Ser: DataBridgeInterface
+    [Export("XMLSer",typeof(DataBridgeInterface))]
+    public class Ser : DataBridgeInterface
     {
         String pathToFile = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"ser.xml");
         private Assembly assembly;

@@ -36,6 +36,7 @@ namespace ViewModel.viewmodel
             pathVariable = "Choose file";
             composition = new MEF();
             this.browse = browse;
+            composition.ComposeApp();
         }
         public void Browse()
         {
@@ -48,7 +49,7 @@ namespace ViewModel.viewmodel
             
             if (pathVariable.Substring(pathVariable.Length - 4) == ".dll")
             {
-                modelRoot = ModelTreeGenerator.Generate(new AssemblyMetaData(Assembly.LoadFrom(pathVariable)) as ModelNodePrototype);
+                modelRoot = ModelTreeGenerator.Generate(new AssemblyMetaData(Assembly.ReflectionOnlyLoadFrom(pathVariable)) as ModelNodePrototype);
                 root = new ViewModelNode(modelRoot);
                 root.OnCreate();
                 root.Load();
