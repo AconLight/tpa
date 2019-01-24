@@ -69,10 +69,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{370CF2BF-46E9-467D-B7F4-71D3CCF17F63}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ModelTransfer\ModelTransfer.csproj">
       <Project>{FB06E613-E703-4804-AF9D-AF1F92E99DF0}</Project>
       <Name>ModelTransfer</Name>

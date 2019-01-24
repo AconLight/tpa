@@ -1,6 +1,8 @@
-﻿using ModelTransfer;
+﻿using Composition;
+using ModelTransfer;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 
@@ -50,13 +52,17 @@ namespace Reflection.Model
 
         public void Save()
         {
-            MEF.GetContainer().dataBridgeInterface.save(this as AssemblyMetaData);
+            MEF.getContainer().GetExportedValue<DataBridgeInterface>(ConfigurationManager.AppSettings["DataSerOpt"]).save(this);
         }
 
         public void Load()
         {
-            // ModelNodePrototype root = MEF DBI.load();
-            // update prototype properties using root
+            ModelNodePrototype root = MEF.getContainer().GetExportedValue<DataBridgeInterface>(ConfigurationManager.AppSettings["DataSerOpt"]).load();
+            Name = root.Name;
+            TypeName = root.TypeName;
+            Mods = root.Mods;
+            Parent = root.Parent;
+            Nodes = root.Nodes;
         }
     }
 }

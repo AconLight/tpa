@@ -3,7 +3,6 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Configuration;
-using Reflection;
 using ModelTransfer;
 
 namespace Composition
@@ -44,7 +43,7 @@ namespace Composition
             }
 
             //tracer.Info(ConfigurationManager.AppSettings["DataSerOpt"]);
-            dataBridgeInterface = compositionContainer.GetExportedValue<DataBridgeInterface>(ConfigurationManager.AppSettings["DataSerOpt"]);
+            //dataBridgeInterface = compositionContainer.GetExportedValue<DataBridgeInterface>(ConfigurationManager.AppSettings["DataSerOpt"]);
             //tracer.Info(path);
         }
         public static CompositionContainer getContainer()
