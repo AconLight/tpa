@@ -45,7 +45,6 @@ namespace ViewModel.ModelTree
 
         public override void OnCreate()
         {
-
             Name = Protoype.Mods + " " + Protoype.TypeName + " " + Protoype.Name;
             TypeName = Protoype.TypeName;
             Mods = Protoype.Mods;

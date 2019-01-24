@@ -68,7 +68,14 @@ namespace ViewModel.viewmodel
         }
         public void deserialize()
         {
-
+            modelRoot = new ModelNode(null, composition.dataBridgeInterface.load());
+            root = new ViewModelNode(modelRoot);
+            root.OnCreate();
+            root.Load();
+            HierarchicalAreas.Clear();
+            HierarchicalAreas.Add(root);
+            Debug.WriteLine("deserialisdasdas");
+            Debug.WriteLine(root.MyNodes[0].Name);
         }
         public void OnWindowClosing(object sender, CancelEventArgs e)
         {

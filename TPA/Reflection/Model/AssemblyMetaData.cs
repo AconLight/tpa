@@ -21,6 +21,15 @@ namespace Reflection.Model
                            select new NamespaceMetaData(_group.Key, _group);
         }
 
+        public AssemblyMetaData(ModelNodePrototype prot)
+        {
+            Name = prot.Name;
+            TypeName = "Assembly";
+            Mods = "";
+            Nodes = prot.Nodes;
+        }
+
+
         private string m_Name;
         private IEnumerable<NamespaceMetaData> m_Namespaces;
         public IEnumerable<NamespaceMetaData> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
