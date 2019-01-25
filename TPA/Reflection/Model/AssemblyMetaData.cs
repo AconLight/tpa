@@ -55,7 +55,7 @@ namespace Reflection.Model
             MEF.getContainer().GetExportedValue<DataBridgeInterface>(ConfigurationManager.AppSettings["DataSerOpt"]).save(this);
         }
 
-        public void Load()
+        public ModelNodePrototype Load()
         {
             ModelNodePrototype root = MEF.getContainer().GetExportedValue<DataBridgeInterface>(ConfigurationManager.AppSettings["DataSerOpt"]).load();
             Name = root.Name;
@@ -63,6 +63,7 @@ namespace Reflection.Model
             Mods = root.Mods;
             Parent = root.Parent;
             Nodes = root.Nodes;
+            return this;
         }
     }
 }

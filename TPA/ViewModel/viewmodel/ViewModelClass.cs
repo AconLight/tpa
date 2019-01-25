@@ -72,7 +72,7 @@ namespace ViewModel.viewmodel
         }
         public void deserialize()
         {
-            modelRoot = new ModelNode(null, composition.dataBridgeInterface.load());
+            modelRoot = new ModelNode(null, assemblyMetaData.Load());
             root = new ViewModelNode(modelRoot);
             root.OnCreate();
             root.Load();
