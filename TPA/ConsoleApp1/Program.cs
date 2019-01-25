@@ -8,7 +8,7 @@ namespace ConsoleApp1
     {
         public static void Main(String[] args)
         {
-            ViewModelClass viewModel = new ViewModelClass(new BrowseConsole());
+            /*ViewModelClass viewModel = new ViewModelClass(new BrowseConsole());
             viewModel.Browse();
             
 
@@ -71,7 +71,7 @@ namespace ConsoleApp1
             //foreach (ViewModelNode n in ViewModelTreeHandler.TreePrint(node))
             //{
                // NodePrint(tabs, n, currentNode, childId);
-            //}
+            //}*/
         }
 
         
