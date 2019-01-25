@@ -8,6 +8,7 @@ using Composition;
 using ModelTransfer;
 using Reflection.Model;
 using System.Diagnostics;
+using System.Threading;
 
 namespace ViewModel.viewmodel
 {
@@ -67,19 +68,25 @@ namespace ViewModel.viewmodel
         }
        public void serialize()
        {
-            assemblyMetaData.Save();
-            
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                assemblyMetaData.Save();
+            }).Start();
         }
         public void deserialize()
         {
-            modelRoot = new ModelNode(null, assemblyMetaData.Load());
-            root = new ViewModelNode(modelRoot);
-            root.OnCreate();
-            root.Load();
-            HierarchicalAreas.Clear();
-            HierarchicalAreas.Add(root);
-            Debug.WriteLine("deserialisdasdas");
-            Debug.WriteLine(root.MyNodes[0].Name);
+            new Thread(() =>
+            {
+                modelRoot = new ModelNode(null, assemblyMetaData.Load());
+                root = new ViewModelNode(modelRoot);
+                root.OnCreate();
+                root.Load();
+                HierarchicalAreas.Clear();
+                HierarchicalAreas.Add(root);
+                Debug.WriteLine("deserialisdasdas");
+                Debug.WriteLine(root.MyNodes[0].Name);
+            }).Start();
         }
         public void OnWindowClosing(object sender, CancelEventArgs e)
         {
