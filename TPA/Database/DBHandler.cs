@@ -1,14 +1,9 @@
 ﻿using Database.model;
 using ModelTransfer;
-using Reflection;
-using Reflection.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 
 namespace Database
