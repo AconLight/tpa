@@ -11,6 +11,10 @@ namespace Reflection.Model
 {
     public class AssemblyMetaData: ModelNodePrototype
     {
+        public AssemblyMetaData()
+        {
+
+        }
         public AssemblyMetaData(Assembly assembly)
         {
             m_Name = assembly.ManifestModule.Name;

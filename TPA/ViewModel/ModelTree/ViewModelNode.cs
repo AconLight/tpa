@@ -30,6 +30,10 @@ namespace ViewModel.ModelTree
                 else { IsExpanded = false; }
             }
         }
+        public ViewModelNode(): base(null, null)
+        {
+
+        }
 
         public ViewModelNode(ModelNode node) : base(node.Parent, node.Protoype)
         {
