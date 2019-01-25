@@ -78,6 +78,7 @@ namespace ViewModel.viewmodel
         {
             new Thread(() =>
             {
+                Thread.CurrentThread.IsBackground = true;
                 modelRoot = new ModelNode(null, assemblyMetaData.Load());
                 root = new ViewModelNode(modelRoot);
                 root.OnCreate();
